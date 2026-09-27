@@ -39,11 +39,45 @@
       ▼▼ 30'-0" WIDE SOUTH ROAD (SECONDARY CORNER ACCESS) ▼▼
     </text>
   </g>
-<rect x="480.0" y="200.8" width="1127.8" height="1219.2" fill="#F8FAFC" stroke="#0F172A" stroke-width="2.0" rx="0" opacity="1.0" />
-<rect x="480.0" y="800.0" width="1127.8" height="620.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="0" opacity="0.7" />
-<text x="1040.0" y="1080.0" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#92400E" text-anchor="middle"  >SHELTERED OPEN FUNCTION PAVILION</text>
-<text x="1040.0" y="1150.0" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#78350F" text-anchor="middle"  >37'-0" x 20'-4" [11.28m x 6.20m] | 750 SQ.FT</text>
-<text x="1040.0" y="1210.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="normal" fill="#B45309" text-anchor="middle"  >(Traditional Family Events, Open Verandah, Cultural Gatherings)</text>
+<!-- Entire Plot Boundary 54'x66' -->
+<rect x="236.2" y="-317.4" width="1645.9" height="2011.7" fill="#F8FAFC" stroke="#0F172A" stroke-width="2.5" rx="0" opacity="1.0" />
+<rect x="251.2" y="-302.4" width="1615.9" height="503.2" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.5" rx="0" opacity="0.7" />
+<text x="1059.1" y="-88.3" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#166534" text-anchor="middle"  >NORTH FRONT GARDEN & LAWN (17'-0" CLEAR SETBACK)</text>
+<text x="1059.1" y="-28.3" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#15803D" text-anchor="middle"  >[OPEN, LIGHT & UNENCUMBERED — VAASTU ALIGNED]</text>
+<rect x="1607.8" y="200.8" width="259.3" height="1478.5" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.5" rx="0" opacity="0.7" />
+<text x="1737.8" y="820.0" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#166534" text-anchor="middle" transform="rotate(-90 1737.8 820.0)" >EAST MORNING GARDEN (9'-0" SETBACK)</text>
+<rect x="480.0" y="1420.0" width="1127.8" height="259.3" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.0" rx="0" opacity="0.5" />
+<text x="1043.9" y="1557.2" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#166534" text-anchor="middle"  >SOUTH SETBACK: 9'-0" [2.74m]</text>
+<rect x="251.2" y="185.8" width="228.8" height="1493.5" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.0" rx="0" opacity="1.0" />
+<text x="358.1" y="1120.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" transform="rotate(-90 358.1 1120.0)" >WEST DRIVEWAY: 8'-0" SETBACK</text>
+<g id='compound_wall'>
+<rect x="236.2" y="-317.4" width="1645.9" height="15.0" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="1867.1" y="-317.4" width="15.0" height="2011.7" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="236.2" y="1679.3" width="993.8" height="15.0" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<line x1="1230.0" y1="1679.3" x2="1580.0" y2="1679.3" stroke="#059669" stroke-width="2.5"  />
+<path d="M 1580.0 1679.3 A 350.0 350.0 0 0 0 1230.0 1329.3" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="1405.0" y="1744.3" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#2563EB" text-anchor="middle"  >SECONDARY CORNER GATE (30' SOUTH ROAD)</text>
+<rect x="1580.0" y="1679.3" width="302.1" height="15.0" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="236.2" y="570.0" width="15.0" height="1124.3" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<line x1="251.2" y1="570.0" x2="251.2" y2="450.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 251.2 450.0 A 120.0 120.0 0 0 0 371.2 570.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="186.2" y="510.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#059669" text-anchor="middle" transform="rotate(-90 186.2 510.0)" >PEDESTRIAN GATE</text>
+<rect x="236.2" y="220.0" width="15.0" height="230.0" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<line x1="251.2" y1="220.0" x2="251.2" y2="-230.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 251.2 -230.0 A 450.0 450.0 0 0 0 701.2 220.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+<text x="186.2" y="0.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#2563EB" text-anchor="middle" transform="rotate(-90 186.2 0.0)" >MAIN VEHICLE SLIDING GATE (15'-0")</text>
+<rect x="236.2" y="-317.4" width="15.0" height="87.4" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+</g>
+<g id='plinth_structure'>
+<rect x="480.0" y="200.8" width="1127.8" height="1219.2" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.5" rx="0" opacity="1.0" />
+<rect x="480.0" y="1405.0" width="1127.8" height="15.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="1592.8" y="200.8" width="15.0" height="1219.2" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="480.0" y="200.8" width="1127.8" height="15.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="480.0" y="200.8" width="15.0" height="1219.2" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+<rect x="480.0" y="800.0" width="1127.8" height="620.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="0" opacity="0.8" />
+<text x="1040.0" y="1070.0" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#92400E" text-anchor="middle"  >SHELTERED OPEN FUNCTION PAVILION</text>
+<text x="1040.0" y="1140.0" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#78350F" text-anchor="middle"  >37'-0" x 20'-4" [11.28m x 6.20m] | 750 SQ.FT</text>
+<text x="1040.0" y="1200.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="normal" fill="#B45309" text-anchor="middle"  >(Family Festivals, Ritual Gathering, Open Plinth Verandah)</text>
 <rect x="860.0" y="230.8" width="280.0" height="550.0" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5" rx="6" opacity="1.0" />
 <rect x="890.0" y="270.8" width="220.0" height="480.0" fill="#BAE6FD" stroke="#0369A1" stroke-width="1.5" rx="12" opacity="1.0" />
 <text x="1000.0" y="510.8" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#075985" text-anchor="middle"  >
@@ -55,6 +89,21 @@
   <tspan x="1305.0" dy="-0.3em">2-WHEELER PARKING</tspan>
   <tspan x="1305.0" dy="1.25em">(4 MOTORCYCLES)</tspan>
 </text>
+</g>
+<g id='plot_and_plinth_dimensions'>
+<line x1="236.2" y1="1874.3" x2="1882.1" y2="1874.3" stroke="#0F172A" stroke-width="2.0"  />
+<line x1="236.2" y1="1904.3" x2="236.2" y2="1844.3" stroke="#0F172A" stroke-width="2.5"  />
+<line x1="1882.1" y1="1904.3" x2="1882.1" y2="1844.3" stroke="#0F172A" stroke-width="2.5"  />
+<text x="1059.1" y="1924.3" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#0F172A" text-anchor="middle"  >54'-0" [16.46m] TOTAL PLOT WIDTH (EAST-WEST)</text>
+<line x1="56.2" y1="1694.3" x2="56.2" y2="-317.4" stroke="#0F172A" stroke-width="2.0"  />
+<line x1="26.2" y1="1694.3" x2="86.2" y2="1694.3" stroke="#0F172A" stroke-width="2.5"  />
+<line x1="26.2" y1="-317.4" x2="86.2" y2="-317.4" stroke="#0F172A" stroke-width="2.5"  />
+<text x="-3.8" y="688.5" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#0F172A" text-anchor="middle" transform="rotate(-90 -3.8 688.5)" >66'-0" [20.12m] TOTAL PLOT DEPTH (NORTH-SOUTH)</text>
+<line x1="480.0" y1="1520.0" x2="1607.8" y2="1520.0" stroke="#059669" stroke-width="1.5"  />
+<text x="1043.9" y="1555.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#059669" text-anchor="middle"  >37'-0" [11.28m] BUILT-UP PLINTH WIDTH</text>
+<line x1="380.0" y1="1420.0" x2="380.0" y2="200.8" stroke="#059669" stroke-width="1.5"  />
+<text x="345.0" y="810.4" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#059669" text-anchor="middle" transform="rotate(-90 345.0 810.4)" >40'-0" [12.19m] BUILT-UP PLINTH DEPTH</text>
+</g>
 <g id='external_vertical_core'>
 <rect x="230.0" y="200.0" width="250.0" height="620.0" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
 <rect x="240.0" y="470.0" width="210.0" height="330.0" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2" rx="0" opacity="1.0" />
@@ -159,7 +208,7 @@
   <rect x="1733.8" y="1166.0" width="548.0" height="668.0" fill="none" stroke="#64748B" stroke-width="1"/>
   
   <text x="2007.8" y="1195.0" font-family="Inter, sans-serif" font-size="18" font-weight="800" fill="#0F172A" text-anchor="middle">PROPERTY 2 RESIDENCE</text>
-  <text x="2007.8" y="1225.0" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0D9488" text-anchor="middle">GROUND STILT, PARKING & PAVILION</text>
+  <text x="2007.8" y="1225.0" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0D9488" text-anchor="middle">GROUND FLOOR — ENTIRE PLOT & BUILT-UP PLINTH</text>
   
   <line x1="1742.8" y1="1245.0" x2="2272.8" y2="1245.0" stroke="#CBD5E1" stroke-width="1"/>
   

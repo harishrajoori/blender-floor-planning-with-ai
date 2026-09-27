@@ -254,33 +254,114 @@ def add_title_block_svg(sheet_title):
     return out
 
 # =============================================================================
-# EXPORT 1: GROUND STILT & PARKING BLUEPRINT
+# EXPORT 1: GROUND STILT & PARKING BLUEPRINT (ENTIRE PLOT 54'x66' + PLINTH 37'x40')
 # =============================================================================
 def export_ground_stilt_svg():
-    svg = build_base_sheet("Ground Stilt, Parking & Pavilion Blueprint", "L0")
-    # Base slab
-    svg += rect_m(0, 0, PLINTH_W, PLINTH_D, fill="#F8FAFC", stroke="#0F172A", sw=2.0)
+    svg = build_base_sheet("Ground Floor — Entire Plot (54'x66') & Built-Up Plinth (37'x40')", "L0")
     
-    # Sheltered Function Pavilion
-    svg += rect_m(0, 0, PLINTH_W, 6.2, fill="#FEF3C7", stroke="#D97706", sw=1.5, opacity=0.7)
-    svg += text_m(5.6, 3.4, "SHELTERED OPEN FUNCTION PAVILION", size=18, weight="800", fill="#92400E")
-    svg += text_m(5.6, 2.7, "37'-0\" x 20'-4\" [11.28m x 6.20m] | 750 SQ.FT", size=14, weight="600", fill="#78350F")
-    svg += text_m(5.6, 2.1, "(Traditional Family Events, Open Verandah, Cultural Gatherings)", size=12, fill="#B45309")
+    # 1. ENTIRE PLOT BASE SLAB (54' x 66' = 16.46m x 20.12m)
+    # Plot bounds: X in [-2.44, 14.02], Y in [-2.74, 17.37]
+    px0 = -2.4384
+    px1 = PLINTH_W + 2.7432
+    py0 = -2.7432
+    py1 = PLINTH_D + 5.1816
+    pw = px1 - px0
+    pd = py1 - py0
+    
+    svg += f"<!-- Entire Plot Boundary 54'x66' -->\n"
+    svg += rect_m(px0, py0, pw, pd, fill="#F8FAFC", stroke="#0F172A", sw=2.5)
+
+    # 2. LANDSCAPED GARDENS & SETBACKS (North 17', East 9', South 9', West 8')
+    # North Front Garden (17' Setback across full plot): Y from PLINTH_D to py1
+    svg += rect_m(px0 + 0.15, PLINTH_D, pw - 0.30, 5.1816 - 0.15, fill="#DCFCE7", stroke="#86EFAC", sw=1.5, opacity=0.7)
+    svg += text_m(px0 + pw/2.0, (PLINTH_D + py1)/2.0 + 0.3, "NORTH FRONT GARDEN & LAWN (17'-0\" CLEAR SETBACK)", size=15, weight="800", fill="#166534")
+    svg += text_m(px0 + pw/2.0, (PLINTH_D + py1)/2.0 - 0.3, "[OPEN, LIGHT & UNENCUMBERED — VAASTU ALIGNED]", size=12, weight="600", fill="#15803D")
+
+    # East Morning Garden (9' Setback): X from PLINTH_W to px1, Y from py0 to PLINTH_D
+    svg += rect_m(PLINTH_W, py0 + 0.15, 2.7432 - 0.15, PLINTH_D - py0 - 0.15, fill="#DCFCE7", stroke="#86EFAC", sw=1.5, opacity=0.7)
+    svg += text_m(PLINTH_W + 1.3, 6.0, "EAST MORNING GARDEN (9'-0\" SETBACK)", size=13, weight="700", fill="#166534", rot=-90)
+
+    # South Garden Setback (9' Setback): Y from py0 to 0, X from 0 to PLINTH_W
+    svg += rect_m(0, py0 + 0.15, PLINTH_W, 2.7432 - 0.15, fill="#DCFCE7", stroke="#86EFAC", sw=1.0, opacity=0.5)
+    svg += text_m(PLINTH_W/2.0, py0 / 2.0, "SOUTH SETBACK: 9'-0\" [2.74m]", size=12, weight="600", fill="#166534")
+
+    # West Paved Driveway (8' Setback): X from px0 to 0, Y from py0 to PLINTH_D
+    svg += rect_m(px0 + 0.15, py0 + 0.15, 2.4384 - 0.15, PLINTH_D - py0, fill="#E2E8F0", stroke="#CBD5E1", sw=1.0)
+    svg += text_m(px0 / 2.0, 3.0, "WEST DRIVEWAY: 8'-0\" SETBACK", size=11, weight="600", fill="#475569", rot=-90)
+
+    # 3. 6" COMPOUND WALL WITH GATES
+    cw = 0.15
+    svg += "<g id='compound_wall'>\n"
+    # North Compound Wall
+    svg += rect_m(px0, py1 - cw, pw, cw, fill="#1E293B", stroke="#0F172A")
+    # East Compound Wall
+    svg += rect_m(px1 - cw, py0, cw, pd, fill="#1E293B", stroke="#0F172A")
+    # South Compound Wall with Corner Secondary Gate (3.5m wide):
+    svg += rect_m(px0, py0, 7.5 - px0, cw, fill="#1E293B", stroke="#0F172A")
+    svg += door_svg("Gate_South", 7.5, py0 + cw, 3.5, side='E')
+    svg += text_m(9.25, py0 - 0.5, "SECONDARY CORNER GATE (30' SOUTH ROAD)", size=11, weight="700", fill="#2563EB")
+    svg += rect_m(11.0, py0, px1 - 11.0, cw, fill="#1E293B", stroke="#0F172A")
+    # West Compound Wall with Main Vehicle Gate & Pedestrian Gate:
+    svg += rect_m(px0, py0, cw, 8.5 - py0, fill="#1E293B", stroke="#0F172A")
+    svg += door_svg("Gate_Pedestrian", px0 + cw, 8.5, 1.2, side='N')
+    svg += text_m(px0 - 0.5, 9.1, "PEDESTRIAN GATE", size=10, weight="700", fill="#059669", rot=-90)
+    svg += rect_m(px0, 9.7, cw, 2.3, fill="#1E293B", stroke="#0F172A")
+    svg += door_svg("Gate_Vehicle_Main", px0 + cw, 12.0, 4.5, side='N')
+    svg += text_m(px0 - 0.5, 14.2, "MAIN VEHICLE SLIDING GATE (15'-0\")", size=12, weight="700", fill="#2563EB", rot=-90)
+    svg += rect_m(px0, 16.5, cw, py1 - 16.5, fill="#1E293B", stroke="#0F172A")
+    svg += "</g>\n"
+
+    # 4. BUILT-UP PLINTH (37'-0" x 40'-0" = 1,480 sq ft)
+    svg += "<g id='plinth_structure'>\n"
+    svg += rect_m(0, 0, PLINTH_W, PLINTH_D, fill="#FFFFFF", stroke="#0F172A", sw=2.5)
+    # Plinth Border Curb
+    svg += rect_m(0, 0, PLINTH_W, 0.15, fill="#334155", stroke="#0F172A")
+    svg += rect_m(PLINTH_W - 0.15, 0, 0.15, PLINTH_D, fill="#334155", stroke="#0F172A")
+    svg += rect_m(0, PLINTH_D - 0.15, PLINTH_W, 0.15, fill="#334155", stroke="#0F172A")
+    svg += rect_m(0, 0, 0.15, PLINTH_D, fill="#334155", stroke="#0F172A")
+    
+    # Sheltered Function Pavilion (750 sq ft)
+    svg += rect_m(0, 0, PLINTH_W, 6.2, fill="#FEF3C7", stroke="#D97706", sw=1.5, opacity=0.8)
+    svg += text_m(5.6, 3.5, "SHELTERED OPEN FUNCTION PAVILION", size=18, weight="800", fill="#92400E")
+    svg += text_m(5.6, 2.8, "37'-0\" x 20'-4\" [11.28m x 6.20m] | 750 SQ.FT", size=14, weight="600", fill="#78350F")
+    svg += text_m(5.6, 2.2, "(Family Festivals, Ritual Gathering, Open Plinth Verandah)", size=12, fill="#B45309")
 
     # Covered Car Parking Bay
     svg += rect_m(3.8, PLINTH_D - 5.8, 2.8, 5.5, fill="#E0F2FE", stroke="#0284C7", sw=1.5, rx=6)
-    # Car Silhouette
     svg += rect_m(4.1, PLINTH_D - 5.5, 2.2, 4.8, fill="#BAE6FD", stroke="#0369A1", sw=1.5, rx=12)
     svg += text_m(5.2, PLINTH_D - 3.1, "COVERED CAR PARKING\n9'-0\" x 18'-0\" [SEDAN/SUV]", size=13, weight="700", fill="#075985")
 
     # 2-Wheeler Parking (4 Bikes)
     svg += rect_m(7.0, PLINTH_D - 3.0, 2.5, 2.5, fill="#F0FDF4", stroke="#16A34A", sw=1.5, rx=4)
     svg += text_m(8.25, PLINTH_D - 1.7, "2-WHEELER PARKING\n(4 MOTORCYCLES)", size=12, weight="600", fill="#15803D")
+    svg += "</g>\n"
 
-    # External Core & Columns
+    # 5. DUAL MEASUREMENT STRINGS (PLOT + PLINTH + SETBACKS)
+    svg += "<g id='plot_and_plinth_dimensions'>\n"
+    # Outer Plot Dimensions
+    # South Total Plot Width: 54'-0"
+    svg += line_m(px0, py0 - 1.8, px1, py0 - 1.8, stroke="#0F172A", sw=2.0)
+    svg += line_m(px0, py0 - 2.1, px0, py0 - 1.5, stroke="#0F172A", sw=2.5)
+    svg += line_m(px1, py0 - 2.1, px1, py0 - 1.5, stroke="#0F172A", sw=2.5)
+    svg += text_m((px0 + px1)/2.0, py0 - 2.3, "54'-0\" [16.46m] TOTAL PLOT WIDTH (EAST-WEST)", size=15, weight="800", fill="#0F172A")
+
+    # West Total Plot Depth: 66'-0"
+    svg += line_m(px0 - 1.8, py0, px0 - 1.8, py1, stroke="#0F172A", sw=2.0)
+    svg += line_m(px0 - 2.1, py0, px0 - 1.5, py0, stroke="#0F172A", sw=2.5)
+    svg += line_m(px0 - 2.1, py1, px0 - 1.5, py1, stroke="#0F172A", sw=2.5)
+    svg += text_m(px0 - 2.4, (py0 + py1)/2.0, "66'-0\" [20.12m] TOTAL PLOT DEPTH (NORTH-SOUTH)", size=15, weight="800", fill="#0F172A", rot=-90)
+
+    # Inner Plinth Dimensions
+    svg += line_m(0, -1.0, PLINTH_W, -1.0, stroke="#059669", sw=1.5)
+    svg += text_m(PLINTH_W / 2.0, -1.35, "37'-0\" [11.28m] BUILT-UP PLINTH WIDTH", size=12, weight="700", fill="#059669")
+    svg += line_m(-1.0, 0, -1.0, PLINTH_D, stroke="#059669", sw=1.5)
+    svg += text_m(-1.35, PLINTH_D / 2.0, "40'-0\" [12.19m] BUILT-UP PLINTH DEPTH", size=12, weight="700", fill="#059669", rot=-90)
+    svg += "</g>\n"
+
+    # External Vertical Core, Columns & Title Block
     svg += add_external_vertical_core_svg()
     svg += add_grids_and_dimensions_svg()
-    svg += add_title_block_svg("Ground Stilt, Parking & Pavilion")
+    svg += add_title_block_svg("Ground Floor — Entire Plot & Built-up Plinth")
     svg += "</svg>"
     
     p = OUTPUT_DIR / "ground_stilt_blueprint.svg"
