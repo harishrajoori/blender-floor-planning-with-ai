@@ -22,31 +22,35 @@
 
 ## 📐 Floor-by-Floor Program Breakdown
 
-### 1. Ground Floor (Level 0, +0.00m) — Stilt Parking & Pavilion
-- **Sheltered Function Pavilion ($37'\text{-}0" \times 20'\text{-}0" \approx 740\text{ sq.ft}$):** Open-air plinth verandah for traditional family gatherings and festivals.
-- **Covered Parking Bay:** $8'\text{-}6" \times 17'\text{-}0"$ car stall + dedicated 4 two-wheeler parking stalls in the North-East driveway zone.
-- **Vertical Circulation Core (NW Vayu Zone):** Dog-legged staircase ($7'\text{-}3" \times 14'\text{-}6"$) and 6-PAX passenger elevator shaft ($1.6\text{m} \times 1.6\text{m}$ clear).
+### 1. Ground Floor (Level 0, +0.00m) — Stilt Parking, Pavilion & Gardens
+- **Sheltered Function Pavilion ($37'\text{-}0" \times 20'\text{-}4" \approx 750\text{ sq.ft}$):** Open-air plinth verandah for traditional family gatherings, festival pandals, and celebrations.
+- **Covered Parking Bay:** $9'\text{-}0" \times 18'\text{-}0"$ sedan/SUV car stall + dedicated 4 two-wheeler parking stalls in the East driveway zone.
+- **North & East Gardens:** $15'\text{-}0"$ deep North front lawn and expansive East morning plantation setback.
+- **External Vertical Core (NW Vayu Zone):** Dog-legged staircase ($7'\text{-}3" \times 11'\text{-}0"$) and 6-PAX passenger elevator shaft ($1.6\text{m} \times 1.6\text{m}$ clear) located **completely outside the residential envelope** for independent access.
 
 ### 2. First Floor (Level 1, +3.00m) — Brother's 2BHK Residence
-- **Master Bedroom (SW Niruthi):** $12'\text{-}6" \times 13'\text{-}4"$ ($167\text{ sq.ft}$) with built-in wardrobe and attached toilet ($5'\text{-}0" \times 6'\text{-}6"$).
-- **Common Toilet (West Varuna):** $5'\text{-}0" \times 6'\text{-}6"$ stacked directly adjacent to master bath over a continuous plumbing duct (OTS).
-- **Modular Kitchen (SE Agneya):** $12'\text{-}6" \times 11'\text{-}0"$ ($138\text{ sq.ft}$) with L-shaped granite counter, East-facing cooktop, and corner sink.
-- **Central Living & Dining (Brahmasthana):** $14'\text{-}0" \times 13'\text{-}6"$ formal living hall + $10'\text{-}0" \times 11'\text{-}6"$ dining area with zero obstructive partition walls.
-- **Bedroom 2 (North Vayu):** $9'\text{-}6" \times 12'\text{-}6"$ ($119\text{ sq.ft}$) with North-facing natural ventilation window.
-- **Pooja Mandir (NE Ishanya):** $6'\text{-}0" \times 7'\text{-}9"$ sacred altar.
-- **East Sitout Balcony:** $7'\text{-}0" \times 12'\text{-}6"$ ($88\text{ sq.ft}$) open-to-sky terrace for morning eastern light.
-- **Simhadwaram (Main Entrance):** North-facing threshold door `D1` ($3'\text{-}6" \times 7'\text{-}0"$).
+- **Master Bedroom (SW Niruthi):** $12'\text{-}6" \times 13'\text{-}4"$ with full-width built-in wardrobe, headboard facing South, and private access to spacious attached bath.
+- **Spacious Bathrooms (West Varuna):** $6'\text{-}0" \times 8'\text{-}6"$ attached and common bathrooms with separate wet/dry zones over a continuous plumbing duct (OTS).
+- **Modular Kitchen (SE Agneya):** $12'\text{-}6" \times 11'\text{-}6"$ with L-shaped granite counter, East-facing cooktop, corner sink, and pantry cupboards.
+- **External Out-of-House Utility Balcony:** Washing machine, laundry sink, and gas cylinder station situated outside the kitchen envelope.
+- **Grand Living & Dining (Brahmasthana):** $18'\text{-}0" \times 14'\text{-}0"$ completely open hall with built-in TV console, L-shaped sectional sofa, and 6-seater dining table.
+- **Bedroom 2 (North Vayu):** $11'\text{-}6" \times 11'\text{-}6"$ with full wardrobe, study desk, and North balcony door.
+- **Pooja Mandir (East-NE):** $4'\text{-}6" \times 6'\text{-}6"$ sacred altar.
+- **Open Ishanya (NE) Sitout Balcony:** $13'\text{-}0" \times 12'\text{-}0"$ open-to-sky terrace kept **completely unencumbered and light** to honor classical Ishanya Vaastu.
+- **Dual Light Doors:** NNE Simhadwaram entrance door `D1` ($3'\text{-}6" \times 7'\text{-}0"$) and glazed double door on the East/NE sitout align for continuous morning illumination and cross-ventilation.
+- **Three Balconies:** North front balcony ($11'\text{-}6" \times 4'\text{-}3"$), East/NE open sitout ($13'\text{-}0" \times 12'\text{-}0"$), and South shaded balcony ($12'\text{-}6" \times 4'\text{-}0"$).
 
-### 3. Second Floor (Level 2, +6.00m) — Owner's 2BHK + Office + Dual Pooja
-- **Master Bedroom (SW Niruthi):** $12'\text{-}6" \times 13'\text{-}4"$ with attached toilet ($5'\text{-}0" \times 6'\text{-}6"$), stacked 1:1 with Level 1.
-- **Common Toilet (West Varuna):** $5'\text{-}0" \times 6'\text{-}6"$ stacked 1:1 with continuous vertical wet stack.
-- **Dedicated Home Office / Study (Center Bay):** $11'\text{-}6" \times 8'\text{-}0"$ ($92\text{ sq.ft}$) high-focus executive workstation with bookcase and private doorway.
-- **Modular Kitchen (SE Agneya):** $12'\text{-}6" \times 11'\text{-}0"$ stacked 1:1.
-- **Family Living Hall:** $14'\text{-}0" \times 13'\text{-}6"$.
-- **Bedroom 2 (North Vayu):** $9'\text{-}6" \times 12'\text{-}6"$ stacked 1:1.
-- **NE Dual Pooja Suite:**
-  - **Daily Pooja Room:** $4'\text{-}0" \times 4'\text{-}0"$ for routine household morning prayers.
-  - **Mallanna Temple Shrine:** $9'\text{-}0" \times 9'\text{-}0" = 81\text{ sq.ft}$ dedicated sacred room accommodating a permanent deity altar platform and a $4.65\text{ m}^2$ prayer carpet area for 4 adult worshippers.
+### 3. Second Floor (Level 2, +6.00m) — Owner's Residence & Home Office
+- **Master Bedroom (SW Niruthi):** $12'\text{-}6" \times 13'\text{-}4"$ with full-width built-in wardrobe, stacked 1:1 with Level 1.
+- **Spacious Bathrooms (West Varuna):** $6'\text{-}0" \times 8'\text{-}6"$ stacked 1:1 with continuous vertical wet stack.
+- **North-Facing Home Office / Executive Study:** $11'\text{-}6" \times 11'\text{-}0"$ with wide North exterior window overlooking the front garden, executive desk facing East/North, and full wall bookcase cupboards (completely unblocked by the external core).
+- **Modular Kitchen (SE Agneya) & Out-of-House Utility:** Stacked 1:1 with Level 1.
+- **Grand Family Living Hall:** $18'\text{-}0" \times 14'\text{-}0"$ open central Brahmasthana.
+- **NE Dual Pooja Suite (Detached from Kitchen):**
+  - **Daily Pooja Room:** $5'\text{-}6" \times 6'\text{-}6"$ for routine household morning prayers.
+  - **Mallanna Temple Shrine:** $8'\text{-}6" \times 10'\text{-}0"$ dedicated sacred room accommodating a permanent deity altar platform and a $4.65\text{ m}^2$ clear prayer carpet area for 4 adult worshippers.
+- **Open Ishanya (NE) Sitout:** Left open to the sky for morning sunlight and cosmic energy, with glazed light double door.
+- **Three Balconies:** North garden balcony, East/NE open sitout, and South shaded balcony.
 
 ---
 
@@ -123,10 +127,15 @@ blender-floor-planning-with-ai/
 
 | Space / Room | Assigned Zone | Deity / Element | Civil / Architectural Implementation |
 | :--- | :--- | :--- | :--- |
-| **Master Bedroom** | South-West (Niruthi) | Earth / Heavy | Maximum mass, thickest exterior wall, bed placed South-head |
-| **Kitchen** | South-East (Agneya) | Fire (Agni) | L-counter, cooking cooktop facing East, corner sink |
-| **Vertical Core** | North-West (Vayu) | Air / Movement | Dog-legged staircase turning clockwise, 6-PAX lift shaft |
-| **Attached & Common Baths** | West (Varuna) | Water / Drainage | Stacked 1:1, continuous OTS shaft down to stilt |
-| **Living & Dining** | Central | Brahmasthana | Completely open, unobstructed span, natural cross ventilation |
-| **Pooja & Mallanna Shrine** | North-East (Ishanya) | Water / Divine | Northeast light, sacred altar platforms, prayer floor space |
-| **Main Entrance Door** | North Face | Simhadwaram | North-facing opening D1, unobstructed threshold |
+| **Master Bedroom** | South-West (Niruthi) | Earth / Heavy | Heaviest corner, thickest walls, king bed placed South-head, full cupboards |
+| **Kitchen** | South-East (Agneya) | Fire (Agni) | L-shaped granite counter, East-facing cooktop, pantry cupboards |
+| **Out-of-House Utility** | External East (SE) | Water / Drainage | Cantilevered wash & gas cylinder balcony outside kitchen envelope |
+| **External Vertical Core** | North-West (Vayu) | Air / Movement | Dog-legged stairs + 6-PAX lift located **outside** home envelope |
+| **Spacious Bathrooms** | West (Varuna) | Water / Drainage | 6'0" x 8'6" wet/dry zones, continuous vertical OTS shaft |
+| **Living & Dining** | Central | Brahmasthana | 18'0" x 14'0" expansive open hall, unencumbered by shear walls, sofas + TV wall |
+| **North Home Office** | North Facade | Mercury / Focus | Wide window overlooking North garden, unblocked by external core |
+| **Mallanna Shrine & Pooja** | East-NE Axis | Sacred / Divine | Detached from kitchen, sacred altar, 4-person prayer carpet area |
+| **Open Ishanya Sitout** | North-East Corner | Water / Light | **Kept open to sky / unencumbered** for sacred dawn light & positive prana |
+| **Dual Light Doors** | NNE & East/NE | Surya / Vayu | NNE Simhadwaram & East glazed door align for cross-ventilation corridor |
+| **Three Balconies** | North, East, South | Climate & Shading | Cross-ventilation, morning sunrise view, and southern sun-shading |
+| **Ground Stilt & Gardens** | Ground Level | Multi-functional | 750 sq ft pavilion, covered SUV parking, 4 bike bays, North & East gardens |

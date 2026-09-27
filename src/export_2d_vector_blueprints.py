@@ -1,10 +1,15 @@
 """
 High-Precision 2D Vector Architectural Blueprint SVG Generator for Property 2 (54' x 66')
-Generates scalable, layered vector CAD sheets:
-  1. Ground Stilt & Parking Blueprint (Level 0)
-  2. Brother's 2BHK Residence Blueprint (Level 1)
-  3. Owner's 2BHK + Office + Dual Pooja Blueprint (Level 2)
-Includes architectural dimension chains, hatching, 16 RCC columns, and title block.
+Redesigned according to Owner Requirements & Canonical Telangana Vaastu Principles:
+  1. North-East (Ishanya) kept open as an unencumbered light sitout terrace.
+  2. External Vertical Core (Dog-legged Stairs + 6-PAX Lift) outside the living envelope in NW.
+  3. North-facing Home Office with clear front garden view.
+  4. Sequence along East: Kitchen (SE) -> Dining/Living -> Mallanna Shrine -> Daily Pooja -> Open NE Sitout.
+  5. Dual light doors (NNE Simhadwaram & East/NE Glazed Door) for continuous cross-ventilation.
+  6. External Utility / Wash balcony cantilevered outside the kitchen.
+  7. Spacious luxury bathrooms (6'0" x 8'6") with distinct dry/wet zones.
+  8. Three balconies: North, East (Ishanya), and South.
+  9. Complete built-in millwork: wardrobes/cupboards, executive desk, TV console, sofas, gardens & parking.
 """
 
 import math
@@ -13,11 +18,11 @@ from pathlib import Path
 OUTPUT_DIR = Path(__file__).resolve().parent.parent / "output"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Scale: 100 pixels per meter (1cm on screen = 1m real world)
+# Scale: 100 pixels per meter (1cm = 1m)
 SCALE = 100.0
-# Origin offset in SVG pixels (giving generous margin for title block, dimensions, and road annotations)
-OX = 420.0
-OY = 1380.0  # SVG Y is inverted (+Y is down in SVG, so Y_svg = OY - y_m * SCALE)
+# Origin offset in SVG pixels (generous margin for external core, roads, gardens, dimensions, title block)
+OX = 480.0
+OY = 1420.0
 
 PLINTH_W = 11.2776
 PLINTH_D = 12.192
@@ -61,10 +66,8 @@ def text_m(x, y, text, size=14, weight="normal", fill="#111827", anchor="middle"
 
 def door_svg(name, hx, hy, w, side='E'):
     out = ""
-    # Leaf
     if side == 'E':
         out += line_m(hx, hy, hx + w, hy, stroke="#059669", sw=2.5)
-        # 90 deg swing arc
         sx0, sy0 = to_svg_x(hx + w), to_svg_y(hy)
         sx1, sy1 = to_svg_x(hx), to_svg_y(hy + w)
         r = w * SCALE
@@ -98,67 +101,47 @@ def window_svg(x0, y0, w, h, is_horiz=True):
     return out
 
 def build_base_sheet(title, floor_code):
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2200 1650" width="2200" height="1650" style="background:#FFFFFF;">
-<defs>
-  <pattern id="grid_pt" width="20" height="20" patternUnits="userSpaceOnUse">
-    <circle cx="2" cy="2" r="0.75" fill="#E2E8F0"/>
-  </pattern>
-  <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-    <feDropShadow dx="3" dy="4" stdDeviation="4" flood-opacity="0.12"/>
-  </filter>
-</defs>
-<rect width="2200" height="1650" fill="#FAFAFB"/>
-<rect width="2200" height="1650" fill="url(#grid_pt)"/>
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1800" width="2400" height="1800">
+  <defs>
+    <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#F1F5F9" stroke-width="0.8"/>
+    </pattern>
+    <pattern id="concreteHatch" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M0 10 L10 0 M0 0 L10 10" fill="none" stroke="#E2E8F0" stroke-width="0.5"/>
+    </pattern>
+  </defs>
 
-<!-- Architectural Sheet Border -->
-<rect x="40" y="40" width="2120" height="1570" fill="none" stroke="#0F172A" stroke-width="3"/>
-<rect x="48" y="48" width="2104" height="1554" fill="none" stroke="#94A3B8" stroke-width="1"/>
+  <!-- Drafting Sheet Background -->
+  <rect width="100%" height="100%" fill="#FFFFFF"/>
+  <rect x="30" y="30" width="2340" height="1740" fill="none" stroke="#CBD5E1" stroke-width="2"/>
+  <rect x="40" y="40" width="2320" height="1720" fill="url(#gridPattern)" stroke="#0F172A" stroke-width="1"/>
 
-<!-- Title Block & Stamp -->
-<g id="title_block" transform="translate(1620, 1150)">
-  <rect x="0" y="0" width="480" height="410" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="0" y="0" width="480" height="65" fill="#1E293B"/>
-  <text x="240" y="40" font-family="Inter, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF" text-anchor="middle">SRI HARISH RAJOORI RESIDENCE</text>
-  
-  <rect x="0" y="65" width="480" height="50" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="240" y="98" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#0D9488" text-anchor="middle">{title.upper()}</text>
-  
-  <text x="20" y="145" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#334155">PLOT DIMENSIONS: <tspan font-weight="400">54\'-0" x 66\'-0" (SW CORNER)</tspan></text>
-  <text x="20" y="172" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#334155">BUILT PLINTH: <tspan font-weight="400">37\'-0" x 40\'-0" | 1,480 SQ.FT</tspan></text>
-  <text x="20" y="199" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#334155">STRUCTURAL GRID: <tspan font-weight="400">16 RCC Columns (9" x 18")</tspan></text>
-  <text x="20" y="226" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#334155">APPROVED SETBACKS: <tspan font-weight="400">South: 9\', West: 8\', North: 6\', East: 5\'</tspan></text>
-  <text x="20" y="253" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#334155">VAASTU SHASTRA: <tspan font-weight="700" fill="#D97706">Telugu / Telangana Compliant</tspan></text>
-  <text x="20" y="280" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#334155">CIVIL STATUS: <tspan font-weight="700" fill="#059669">Verified 3-Bay Structural Partition</tspan></text>
-  
-  <line x1="15" y1="295" x2="465" y2="295" stroke="#E2E8F0" stroke-width="1.5"/>
-  <text x="20" y="325" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#64748B">DOOR SCHEDULE: <tspan font-weight="400">D1: 3\'6"x7\' (Main) | D2: 3\'0"x7\' | D3: 2\'6"x7\' (Bath)</tspan></text>
-  <text x="20" y="348" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#64748B">WINDOW SCHEDULE: <tspan font-weight="400">W1: 5\'0"x4\'6" | W2: 4\'0"x4\'6" | V1: 2\'0"x2\'0"</tspan></text>
-  <text x="20" y="375" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#64748B">DRAWING NO: <tspan font-weight="700" fill="#0F172A">CAD-{floor_code}-01</tspan> | SCALE: 1:100 @ A3 | DATE: SEP 2026</text>
-</g>
+  <!-- Site Setbacks and Roads -->
+  <g id="site_context">
+    <!-- North Front Garden (15' Setback) -->
+    <rect x="{to_svg_x(0):.1f}" y="{to_svg_y(PLINTH_D + 2.5):.1f}" width="{PLINTH_W * SCALE:.1f}" height="{2.5 * SCALE:.1f}" fill="#DCFCE7" stroke="#86EFAC" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="{to_svg_x(PLINTH_W/2.0):.1f}" y="{to_svg_y(PLINTH_D + 1.2):.1f}" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#166534" text-anchor="middle">
+      NORTH FRONT GARDEN &amp; LAWN (15\'-0" CLEAR FRONT SETBACK)
+    </text>
 
-<!-- North Arrow Compass -->
-<g id="north_arrow" transform="translate(1950, 180)">
-  <circle cx="0" cy="0" r="45" fill="#FFFFFF" stroke="#0F172A" stroke-width="2" filter="url(#shadow)"/>
-  <polygon points="0,-35 12,15 0,8 -12,15" fill="#DC2626"/>
-  <polygon points="0,-35 -12,15 0,8" fill="#991B1B"/>
-  <polygon points="0,35 12,8 0,15 -12,8" fill="#CBD5E1"/>
-  <text x="0" y="-42" font-family="Inter, sans-serif" font-size="16" font-weight="800" fill="#DC2626" text-anchor="middle">NORTH</text>
-</g>
+    <!-- East Morning Garden (Setback) -->
+    <rect x="{to_svg_x(PLINTH_W + 0.1):.1f}" y="{to_svg_y(PLINTH_D):.1f}" width="{2.2 * SCALE:.1f}" height="{PLINTH_D * SCALE:.1f}" fill="#DCFCE7" stroke="#86EFAC" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="{to_svg_x(PLINTH_W + 1.2):.1f}" y="{to_svg_y(6.0):.1f}" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#166534" text-anchor="middle" transform="rotate(-90 {to_svg_x(PLINTH_W + 1.2):.1f} {to_svg_y(6.0):.1f})">
+      EAST MORNING GARDEN &amp; PLANTATION SETBACK
+    </text>
 
-<!-- Road Annotations -->
-<g id="road_indicators">
-  <!-- West Road -->
-  <rect x="70" y="200" width="90" height="1100" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4" rx="8"/>
-  <text x="115" y="750" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#3B82F6" text-anchor="middle" transform="rotate(-90 115 750)">
-    ◄◄ 30\'-0" WIDE WEST ROAD (PRIMARY ACCESS &amp; MAIN GATE ENTRY) ◄◄
-  </text>
-  
-  <!-- South Road -->
-  <rect x="250" y="1460" width="1300" height="90" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4" rx="8"/>
-  <text x="900" y="1515" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#3B82F6" text-anchor="middle">
-    ▼▼ 30\'-0" WIDE SOUTH ROAD (SECONDARY CORNER ACCESS) ▼▼
-  </text>
-</g>
+    <!-- West Road -->
+    <rect x="70" y="160" width="90" height="1200" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4" rx="8"/>
+    <text x="115" y="750" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#3B82F6" text-anchor="middle" transform="rotate(-90 115 750)">
+      ◄◄ 30\'-0" WIDE WEST ROAD (PRIMARY VEHICLE &amp; PEDESTRIAN ACCESS) ◄◄
+    </text>
+    
+    <!-- South Road -->
+    <rect x="250" y="1520" width="1400" height="90" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4" rx="8"/>
+    <text x="950" y="1575" font-family="Inter, sans-serif" font-size="16" font-weight="700" fill="#3B82F6" text-anchor="middle">
+      ▼▼ 30\'-0" WIDE SOUTH ROAD (SECONDARY CORNER ACCESS) ▼▼
+    </text>
+  </g>
 '''
     return svg
 
@@ -166,41 +149,40 @@ def add_grids_and_dimensions_svg():
     out = "<g id='structural_grid_and_dims'>\n"
     # Vertical grid lines X1-X4
     for i, cx in enumerate(GRID_X):
-        out += line_m(cx, -1.8, cx, PLINTH_D + 1.8, stroke="#94A3B8", sw=1.0, dash="5,5")
+        out += line_m(cx, -2.2, cx, PLINTH_D + 2.2, stroke="#94A3B8", sw=1.0, dash="5,5")
         # Top bubble
-        sx, sy = to_svg_x(cx), to_svg_y(PLINTH_D + 2.1)
+        sx, sy = to_svg_x(cx), to_svg_y(PLINTH_D + 2.5)
         out += f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="18" fill="#F8FAFC" stroke="#0F172A" stroke-width="1.5"/>\n'
         out += f'<text x="{sx:.1f}" y="{sy+5:.1f}" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">{i+1}</text>\n'
         # Bottom bubble
-        sx, sy = to_svg_x(cx), to_svg_y(-2.1)
+        sx, sy = to_svg_x(cx), to_svg_y(-2.5)
         out += f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="18" fill="#F8FAFC" stroke="#0F172A" stroke-width="1.5"/>\n'
         out += f'<text x="{sx:.1f}" y="{sy+5:.1f}" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">{i+1}</text>\n'
 
     # Horizontal grid lines YA-YD
     lbls = ['A', 'B', 'C', 'D']
     for i, cy in enumerate(GRID_Y):
-        out += line_m(-1.8, cy, PLINTH_W + 1.8, cy, stroke="#94A3B8", sw=1.0, dash="5,5")
+        out += line_m(-3.0, cy, PLINTH_W + 2.0, cy, stroke="#94A3B8", sw=1.0, dash="5,5")
         # Left bubble
-        sx, sy = to_svg_x(-2.1), to_svg_y(cy)
+        sx, sy = to_svg_x(-3.3), to_svg_y(cy)
         out += f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="18" fill="#F8FAFC" stroke="#0F172A" stroke-width="1.5"/>\n'
         out += f'<text x="{sx:.1f}" y="{sy+5:.1f}" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">{lbls[i]}</text>\n'
         # Right bubble
-        sx, sy = to_svg_x(PLINTH_W + 2.1), to_svg_y(cy)
+        sx, sy = to_svg_x(PLINTH_W + 2.3), to_svg_y(cy)
         out += f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="18" fill="#F8FAFC" stroke="#0F172A" stroke-width="1.5"/>\n'
         out += f'<text x="{sx:.1f}" y="{sy+5:.1f}" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle">{lbls[i]}</text>\n'
 
-    # Dimension chains
     # Overall South: 37'-0"
-    out += line_m(0, -1.1, PLINTH_W, -1.1, stroke="#475569", sw=1.5)
-    out += line_m(-0.15, -1.25, 0.15, -0.95, stroke="#475569", sw=2.0)
-    out += line_m(PLINTH_W - 0.15, -1.25, PLINTH_W + 0.15, -0.95, stroke="#475569", sw=2.0)
-    out += text_m(PLINTH_W / 2.0, -1.45, "37'-0\" [11.28m] OVERALL PLINTH WIDTH", size=13, weight="600", fill="#1E293B")
+    out += line_m(0, -1.3, PLINTH_W, -1.3, stroke="#475569", sw=1.5)
+    out += line_m(-0.15, -1.45, 0.15, -1.15, stroke="#475569", sw=2.0)
+    out += line_m(PLINTH_W - 0.15, -1.45, PLINTH_W + 0.15, -1.15, stroke="#475569", sw=2.0)
+    out += text_m(PLINTH_W / 2.0, -1.65, "37'-0\" [11.28m] OVERALL PLINTH WIDTH", size=13, weight="600", fill="#1E293B")
 
     # Overall West: 40'-0"
-    out += line_m(-1.1, 0, -1.1, PLINTH_D, stroke="#475569", sw=1.5)
-    out += line_m(-1.25, -0.15, -0.95, 0.15, stroke="#475569", sw=2.0)
-    out += line_m(-1.25, PLINTH_D - 0.15, -0.95, PLINTH_D + 0.15, stroke="#475569", sw=2.0)
-    out += text_m(-1.45, PLINTH_D / 2.0, "40'-0\" [12.19m] PLINTH DEPTH", size=13, weight="600", fill="#1E293B", rot=-90)
+    out += line_m(-2.8, 0, -2.8, PLINTH_D, stroke="#475569", sw=1.5)
+    out += line_m(-2.95, -0.15, -2.65, 0.15, stroke="#475569", sw=2.0)
+    out += line_m(-2.95, PLINTH_D - 0.15, -2.65, PLINTH_D + 0.15, stroke="#475569", sw=2.0)
+    out += text_m(-3.05, PLINTH_D / 2.0, "40'-0\" [12.19m] PLINTH DEPTH", size=13, weight="600", fill="#1E293B", rot=-90)
 
     # 16 Columns
     out += "<g id='rcc_columns'>\n"
@@ -211,376 +193,456 @@ def add_grids_and_dimensions_svg():
     out += "</g>\n"
     return out
 
-def export_first_floor_svg():
-    svg = build_base_sheet("First Floor Plan - Brother's 2BHK Residence", "L1")
+def add_external_vertical_core_svg():
+    out = "<g id='external_vertical_core'>\n"
+    # External Landing Verandah Slab
+    out += rect_m(-2.5, 6.0, 2.5, 6.2, fill="#F1F5F9", stroke="#475569", sw=1.5)
+    
+    # Dog-legged Stairs (-2.4 to -0.3, Y: 6.2 to 9.5)
+    out += rect_m(-2.4, 6.2, 2.1, 3.3, fill="#E2E8F0", stroke="#64748B", sw=1.2)
+    out += rect_m(-2.4, 6.2, 2.1, 1.1, fill="#CBD5E1", stroke="#64748B", sw=1.0)
+    out += line_m(-1.35, 7.3, -1.35, 9.5, stroke="#475569", sw=1.8)
+    for i in range(1, 7):
+        ty = 7.3 + i * (2.2 / 7.0)
+        out += line_m(-2.4, ty, -1.45, ty, stroke="#94A3B8", sw=1.0)
+        out += line_m(-1.25, ty, -0.3, ty, stroke="#94A3B8", sw=1.0)
+    out += text_m(-1.35, 7.8, "EXTERNAL STAIRS\n7'-3\" x 11'-0\" [NW VAYU]", size=11, weight="600", fill="#0F172A", rot=-90)
+
+    # 6-PAX Passenger Lift (-2.3 to -0.4, Y: 9.8 to 11.9)
+    out += rect_m(-2.3, 9.8, 1.9, 2.1, fill="#E2E8F0", stroke="#334155", sw=2.0)
+    out += rect_m(-1.95, 10.15, 1.2, 1.4, fill="#FFFFFF", stroke="#0284C7", sw=1.5)
+    out += line_m(-1.95, 10.15, -0.75, 11.55, stroke="#38BDF8", sw=1.0)
+    out += line_m(-1.95, 11.55, -0.75, 10.15, stroke="#38BDF8", sw=1.0)
+    out += text_m(-1.35, 10.8, "6-PAX LIFT\n1.6m x 1.6m", size=11, weight="700", fill="#0369A1", rot=-90)
+    
+    # Core Perimeter Railing
+    out += line_m(-2.5, 6.0, -2.5, 12.2, stroke="#475569", sw=2.0)
+    out += "</g>\n"
+    return out
+
+def add_title_block_svg(sheet_title):
+    bx = to_svg_x(PLINTH_W + 1.2)
+    by = to_svg_y(2.6)
+    bw = (6.8 - 1.2) * SCALE
+    bh = (2.6 - (-4.2)) * SCALE
+    cx = bx + bw / 2.0
+    
+    out = f'''<g id="title_block">
+  <rect x="{bx:.1f}" y="{by:.1f}" width="{bw:.1f}" height="{bh:.1f}" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+  <rect x="{bx+6:.1f}" y="{by+6:.1f}" width="{bw-12:.1f}" height="{bh-12:.1f}" fill="none" stroke="#64748B" stroke-width="1"/>
+  
+  <text x="{cx:.1f}" y="{by+35:.1f}" font-family="Inter, sans-serif" font-size="18" font-weight="800" fill="#0F172A" text-anchor="middle">PROPERTY 2 RESIDENCE</text>
+  <text x="{cx:.1f}" y="{by+65:.1f}" font-family="Inter, sans-serif" font-size="15" font-weight="700" fill="#0D9488" text-anchor="middle">{sheet_title.upper()}</text>
+  
+  <line x1="{bx+15:.1f}" y1="{by+85:.1f}" x2="{bx+bw-15:.1f}" y2="{by+85:.1f}" stroke="#CBD5E1" stroke-width="1"/>
+  
+  <text x="{bx+20:.1f}" y="{by+115:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#334155"><b>PLOT:</b> 54'-0" x 66'-0" (SW Corner, 3,564 sq ft)</text>
+  <text x="{bx+20:.1f}" y="{by+140:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#334155"><b>PLINTH:</b> 37'-0" x 40'-0" (1,480 sq ft Footprint)</text>
+  <text x="{bx+20:.1f}" y="{by+165:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#334155"><b>CORE:</b> External NW Stairs &amp; 6-PAX Lift</text>
+  <text x="{bx+20:.1f}" y="{by+190:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#0D9488"><b>VAASTU:</b> Telugu / Telangana (Open Ishanya NE)</text>
+  <text x="{bx+20:.1f}" y="{by+215:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#334155"><b>BALCONIES:</b> North, East (Ishanya), &amp; South</text>
+  <text x="{bx+20:.1f}" y="{by+240:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#334155"><b>UTILITY:</b> External Out-of-House Balcony</text>
+  <text x="{bx+20:.1f}" y="{by+265:.1f}" font-family="Inter, sans-serif" font-size="12" fill="#334155"><b>BATHS:</b> Spacious 6'0" x 8'6" Wet/Dry Stacks</text>
+  
+  <line x1="{bx+15:.1f}" y1="{by+285:.1f}" x2="{bx+bw-15:.1f}" y2="{by+285:.1f}" stroke="#CBD5E1" stroke-width="1"/>
+  
+  <text x="{bx+20:.1f}" y="{by+315:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'6"x7'</text>
+  <text x="{bx+20:.1f}" y="{by+335:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#64748B">WINDOWS: W1: 5'0"x4'6" | W2: 4'0"x4'6" | V1: 2'0"x2'0"</text>
+  <text x="{bx+20:.1f}" y="{by+355:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#64748B">MILLWORK: Full Wardrobes, Desk, TV Console, Sofas</text>
+</g>
+'''
+    return out
+
+# =============================================================================
+# EXPORT 1: GROUND STILT & PARKING BLUEPRINT
+# =============================================================================
+def export_ground_stilt_svg():
+    svg = build_base_sheet("Ground Stilt, Parking & Pavilion Blueprint", "L0")
     # Base slab
     svg += rect_m(0, 0, PLINTH_W, PLINTH_D, fill="#F8FAFC", stroke="#0F172A", sw=2.0)
     
-    # Exterior 9" Walls
+    # Sheltered Function Pavilion
+    svg += rect_m(0, 0, PLINTH_W, 6.2, fill="#FEF3C7", stroke="#D97706", sw=1.5, opacity=0.7)
+    svg += text_m(5.6, 3.4, "SHELTERED OPEN FUNCTION PAVILION", size=18, weight="800", fill="#92400E")
+    svg += text_m(5.6, 2.7, "37'-0\" x 20'-4\" [11.28m x 6.20m] | 750 SQ.FT", size=14, weight="600", fill="#78350F")
+    svg += text_m(5.6, 2.1, "(Traditional Family Events, Open Verandah, Cultural Gatherings)", size=12, fill="#B45309")
+
+    # Covered Car Parking Bay
+    svg += rect_m(3.8, PLINTH_D - 5.8, 2.8, 5.5, fill="#E0F2FE", stroke="#0284C7", sw=1.5, rx=6)
+    # Car Silhouette
+    svg += rect_m(4.1, PLINTH_D - 5.5, 2.2, 4.8, fill="#BAE6FD", stroke="#0369A1", sw=1.5, rx=12)
+    svg += text_m(5.2, PLINTH_D - 3.1, "COVERED CAR PARKING\n9'-0\" x 18'-0\" [SEDAN/SUV]", size=13, weight="700", fill="#075985")
+
+    # 2-Wheeler Parking (4 Bikes)
+    svg += rect_m(7.0, PLINTH_D - 3.0, 2.5, 2.5, fill="#F0FDF4", stroke="#16A34A", sw=1.5, rx=4)
+    svg += text_m(8.25, PLINTH_D - 1.7, "2-WHEELER PARKING\n(4 MOTORCYCLES)", size=12, weight="600", fill="#15803D")
+
+    # External Core & Columns
+    svg += add_external_vertical_core_svg()
+    svg += add_grids_and_dimensions_svg()
+    svg += add_title_block_svg("Ground Stilt, Parking & Pavilion")
+    svg += "</svg>"
+    
+    p = OUTPUT_DIR / "ground_stilt_blueprint.svg"
+    p.write_text(svg, encoding="utf-8")
+    print(f"✅ Generated Vector SVG: {p}")
+
+# =============================================================================
+# EXPORT 2: FIRST FLOOR — BROTHER'S 2BHK RESIDENCE
+# =============================================================================
+def export_first_floor_svg():
+    svg = build_base_sheet("First Floor Plan - Brother's 2BHK Residence", "L1")
+    svg += rect_m(0, 0, PLINTH_W, PLINTH_D, fill="#F8FAFC", stroke="#0F172A", sw=2.0)
+
+    # 1. BALCONIES (North, East/Ishanya, South) & External Utility
+    # North Balcony
+    svg += rect_m(3.81, PLINTH_D, 3.50, 1.30, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")
+    svg += text_m(5.5, PLINTH_D + 0.65, "NORTH BALCONY (11'-6\" x 4'-3\")", size=11, weight="600", fill="#1D4ED8")
+    # East / North-East Open Sitout (LEFT OPEN FOR ISHANYA LIGHT!)
+    svg += rect_m(7.31, 8.5, PLINTH_W - 7.31, PLINTH_D - 8.5, fill="#EFF6FF", stroke="#0284C7", sw=1.8)
+    svg += text_m(9.2, 11.2, "OPEN ISHANYA (NE) SITOUT", size=14, weight="800", fill="#0369A1")
+    svg += text_m(9.2, 10.7, "13'-0\" x 12'-0\" [OPEN TO SKY]", size=12, weight="600", fill="#0284C7")
+    svg += text_m(9.2, 10.2, "(Sacred Morning Daylight Corridor)", size=10, fill="#075985")
+    # South Balcony
+    svg += rect_m(0, -1.2, 3.81, 1.2, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")
+    svg += text_m(1.9, -0.6, "SOUTH SHADED BALCONY (12'-6\" x 4'-0\")", size=11, weight="600", fill="#1D4ED8")
+    # External Out-of-House Utility Balcony
+    svg += rect_m(PLINTH_W, 0, 1.4, 3.5, fill="#F1F5F9", stroke="#475569", sw=1.5)
+    svg += text_m(PLINTH_W + 0.7, 1.75, "OUT-OF-HOUSE UTILITY\n(WASH & GAS BALCONY)", size=11, weight="600", fill="#334155", rot=-90)
+
+    # 2. EXTERIOR 9" WALLS
     svg += "<g id='exterior_walls'>\n"
     # South Wall
     svg += rect_m(0, 0, 1.2, 0.23, fill="#334155", stroke="#0F172A")
-    svg += window_svg(1.2, 0, 1.5, 0.23, is_horiz=True)
-    svg += rect_m(2.7, 0, PLINTH_W - 2.7, 0.23, fill="#334155", stroke="#0F172A")
-    
+    svg += door_svg("Door_MB_S_Balcony", 1.2, 0.23, 0.90, side='S')
+    svg += rect_m(2.1, 0, 3.81 - 2.1, 0.23, fill="#334155", stroke="#0F172A")
+    svg += rect_m(3.81, 0, PLINTH_W - 3.81, 0.23, fill="#334155", stroke="#0F172A")
     # East Wall
-    svg += rect_m(PLINTH_W - 0.23, 0, 0.23, 1.0, fill="#334155", stroke="#0F172A")
-    svg += window_svg(PLINTH_W - 0.23, 1.0, 0.23, 1.2, is_horiz=False)
-    svg += rect_m(PLINTH_W - 0.23, 2.2, 0.23, 2.8, fill="#334155", stroke="#0F172A")
-    svg += window_svg(PLINTH_W - 0.23, 5.0, 0.23, 2.4, is_horiz=False)
-    svg += rect_m(PLINTH_W - 0.23, 7.4, 0.23, PLINTH_D - 7.4, fill="#334155", stroke="#0F172A")
-    
+    svg += rect_m(PLINTH_W - 0.23, 0, 0.23, 1.2, fill="#334155", stroke="#0F172A")
+    svg += door_svg("Door_Kit_Utility", PLINTH_W - 0.23, 1.2, 0.85, side='E')
+    svg += rect_m(PLINTH_W - 0.23, 2.05, 0.23, 0.15, fill="#334155", stroke="#0F172A")
+    svg += window_svg(PLINTH_W - 0.23, 2.2, 0.23, 1.2, is_horiz=False)
+    svg += rect_m(PLINTH_W - 0.23, 3.4, 0.23, 1.6, fill="#334155", stroke="#0F172A")
+    svg += window_svg(PLINTH_W - 0.23, 5.0, 0.23, 2.2, is_horiz=False)
+    svg += rect_m(PLINTH_W - 0.23, 7.2, 0.23, 1.3, fill="#334155", stroke="#0F172A")
     # North Wall
-    svg += rect_m(0, PLINTH_D - 0.23, 5.0, 0.23, fill="#334155", stroke="#0F172A")
-    svg += window_svg(5.0, PLINTH_D - 0.23, 1.5, 0.23, is_horiz=True)
-    svg += rect_m(6.5, PLINTH_D - 0.23, PLINTH_W - 6.5, 0.23, fill="#334155", stroke="#0F172A")
-    
+    svg += rect_m(0, PLINTH_D - 0.23, 1.5, 0.23, fill="#334155", stroke="#0F172A")
+    svg += door_svg("Simhadwaram_D1", 1.5, PLINTH_D - 0.23, 1.05, side='S') # NNE Door
+    svg += rect_m(2.55, PLINTH_D - 0.23, 3.81 - 2.55, 0.23, fill="#334155", stroke="#0F172A")
+    svg += rect_m(3.81, PLINTH_D - 0.23, 0.99, 0.23, fill="#334155", stroke="#0F172A")
+    svg += door_svg("Door_B2_North_Balcony", 4.8, PLINTH_D - 0.23, 0.90, side='N')
+    svg += window_svg(5.8, PLINTH_D - 0.23, 1.4, 0.23, is_horiz=True)
+    svg += rect_m(7.2, PLINTH_D - 0.23, 0.11, 0.23, fill="#334155", stroke="#0F172A")
     # West Wall
-    svg += rect_m(0, 0.23, 0.23, 4.0, fill="#334155", stroke="#0F172A")
-    svg += window_svg(0, 4.23, 0.23, 0.6, is_horiz=False)
-    svg += rect_m(0, 4.83, 0.23, PLINTH_D - 0.23 - 4.83, fill="#334155", stroke="#0F172A")
+    svg += rect_m(0, 0.23, 0.23, 1.27, fill="#334155", stroke="#0F172A")
+    svg += window_svg(0, 1.5, 0.23, 1.5, is_horiz=False)
+    svg += rect_m(0, 3.0, 0.23, 2.0, fill="#334155", stroke="#0F172A")
+    svg += window_svg(0, 5.0, 0.23, 0.8, is_horiz=False)
+    svg += rect_m(0, 5.8, 0.23, PLINTH_D - 0.23 - 5.8, fill="#334155", stroke="#0F172A")
     svg += "</g>\n"
 
-    # Partitions (4.5")
+    # 3. INTERIOR PARTITIONS (4.5")
     svg += "<g id='interior_partitions'>\n"
-    # Master Bed
+    # Master Bed Wall East
     svg += rect_m(3.81 - 0.0575, 0.23, 0.115, 3.83, fill="#475569", stroke="#0F172A")
-    svg += rect_m(0.23, 4.06 - 0.0575, 1.6, 0.115, fill="#475569", stroke="#0F172A")
+    # Master Bed North Wall with ATTACHED BATH DOOR & MB MAIN DOOR
+    svg += rect_m(0.23, 4.06 - 0.0575, 0.27, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_AttBath", 0.5, 4.06, 0.75, side='N') # Attached Bath Door!
+    svg += rect_m(1.25, 4.06 - 0.0575, 1.45, 0.115, fill="#475569", stroke="#0F172A")
     svg += door_svg("Door_MB", 2.7, 4.06, 0.90, side='S')
-    svg += rect_m(2.7, 4.06 - 0.0575, 1.05, 0.115, fill="#475569", stroke="#0F172A")
-    
-    # Baths
-    svg += rect_m(1.8 - 0.0575, 4.06, 0.115, 1.94, fill="#475569", stroke="#0F172A")
-    svg += rect_m(0.23, 6.0 - 0.0575, 3.58, 0.115, fill="#475569", stroke="#0F172A")
-    svg += rect_m(3.81 - 0.0575, 4.06, 0.115, 0.94, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_CB", 3.81, 5.0, 0.75, side='W')
-    svg += rect_m(3.81 - 0.0575, 5.75, 0.115, 0.25, fill="#475569", stroke="#0F172A")
+    svg += rect_m(3.6, 4.06 - 0.0575, 0.21, 0.115, fill="#475569", stroke="#0F172A")
 
-    # Kitchen
-    svg += rect_m(7.31 - 0.0575, 0.23, 0.115, 2.27, fill="#475569", stroke="#0F172A")
+    # Spacious Bathrooms (6'0" x 8'6")
+    svg += rect_m(1.83 - 0.0575, 4.06, 0.115, 2.60, fill="#475569", stroke="#0F172A")
+    svg += rect_m(0.23, 6.66 - 0.0575, 3.58, 0.115, fill="#475569", stroke="#0F172A")
+    svg += rect_m(3.81 - 0.0575, 4.06, 0.115, 1.14, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_CommonBath", 3.81, 5.2, 0.75, side='W')
+    svg += rect_m(3.81 - 0.0575, 5.95, 0.115, 0.71, fill="#475569", stroke="#0F172A")
+
+    # Kitchen (SE Agneya)
+    svg += rect_m(7.31 - 0.0575, 0.23, 0.115, 1.97, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Kit", 7.31, 2.2, 0.90, side='W')
+    svg += rect_m(7.31 - 0.0575, 3.1, 0.115, 0.40, fill="#475569", stroke="#0F172A")
     svg += rect_m(7.31, 3.5 - 0.0575, PLINTH_W - 0.23 - 7.31, 0.115, fill="#475569", stroke="#0F172A")
 
-    # Bed 2
-    svg += rect_m(4.6 - 0.0575, 8.13, 0.115, PLINTH_D - 0.23 - 8.13, fill="#475569", stroke="#0F172A")
-    svg += rect_m(7.5 - 0.0575, 8.13, 0.115, PLINTH_D - 0.23 - 8.13, fill="#475569", stroke="#0F172A")
-    svg += rect_m(4.6, 8.13 - 0.0575, 0.9, 0.115, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_B2", 5.5, 8.13, 0.90, side='N')
-    svg += rect_m(6.4, 8.13 - 0.0575, 1.1, 0.115, fill="#475569", stroke="#0F172A")
+    # Bedroom 2 (North)
+    svg += rect_m(3.81 - 0.0575, 8.5, 0.115, PLINTH_D - 0.23 - 8.5, fill="#475569", stroke="#0F172A")
+    svg += rect_m(7.31 - 0.0575, 8.5, 0.115, PLINTH_D - 0.23 - 8.5, fill="#475569", stroke="#0F172A")
+    svg += rect_m(3.81, 8.5 - 0.0575, 1.19, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_B2", 5.0, 8.5, 0.90, side='N')
+    svg += rect_m(5.9, 8.5 - 0.0575, 1.41, 0.115, fill="#475569", stroke="#0F172A")
 
-    # Pooja & Balcony
-    svg += rect_m(7.5 - 0.0575, 8.13, 0.115, 2.37, fill="#475569", stroke="#0F172A")
-    svg += rect_m(7.5, 10.5 - 0.0575, 2.0, 0.115, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_Pooja", 8.0, 8.13, 0.80, side='N')
-
-    # Main Door
-    svg += door_svg("Door_Simha", 4.6, 6.2, 1.05, side='E')
+    # Pooja & Ishanya Glazed Light Door
+    svg += rect_m(7.31, 8.5 - 0.0575, 0.89, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Ishanya_Light", 8.2, 8.5, 1.20, side='E') # Glazed Double Door!
+    svg += rect_m(9.4, 8.5 - 0.0575, 0.60, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Pooja", 10.0, 8.5, 0.80, side='N')
+    svg += rect_m(10.8, 8.5 - 0.0575, PLINTH_W - 0.23 - 10.8, 0.115, fill="#475569", stroke="#0F172A")
+    svg += rect_m(10.0 - 0.0575, 8.5, 0.115, 2.0, fill="#475569", stroke="#0F172A")
+    svg += rect_m(10.0, 10.5 - 0.0575, PLINTH_W - 0.23 - 10.0, 0.115, fill="#475569", stroke="#0F172A")
     svg += "</g>\n"
 
-    # Staircase & Lift
-    svg += "<g id='vertical_core'>\n"
-    svg += rect_m(0.23, 6.0, 2.2, 4.4, fill="#F1F5F9", stroke="#64748B", sw=1.5)
-    svg += rect_m(0.23, 6.0, 2.2, 1.1, fill="#E2E8F0", stroke="#94A3B8")
-    for i in range(1, 8):
-        ty = 7.1 + i * (3.3 / 8.0)
-        svg += line_m(0.23, ty, 1.28, ty, stroke="#94A3B8", sw=1.0)
-        svg += line_m(1.38, ty, 2.43, ty, stroke="#94A3B8", sw=1.0)
-    svg += line_m(1.33, 7.1, 1.33, 10.4, stroke="#475569", sw=2.0)
-    
-    # Lift
-    svg += rect_m(2.5, 7.5, 2.05, 2.05, fill="#E2E8F0", stroke="#334155", sw=2.0)
-    svg += rect_m(2.85, 7.85, 1.35, 1.35, fill="#FFFFFF", stroke="#0284C7", sw=1.5)
-    svg += line_m(2.85, 7.85, 4.20, 9.20, stroke="#38BDF8", sw=1.0)
-    svg += line_m(2.85, 9.20, 4.20, 7.85, stroke="#38BDF8", sw=1.0)
-    svg += "</g>\n"
-
-    # Furniture / Architectural Symbols
-    svg += "<g id='furniture_and_millwork'>\n"
+    # 4. BUILT-IN CUPBOARDS & MILLWORK
+    svg += "<g id='millwork_and_furniture'>\n"
+    # Master Bed Wardrobe (Full width west wall)
+    svg += rect_m(0.23, 0.35, 0.60, 3.45, fill="#FEF3C7", stroke="#D97706", sw=1.2)
+    svg += text_m(0.53, 2.0, "FULL WARDROBE CUPBOARD", size=10, weight="600", fill="#B45309", rot=-90)
     # Master Bed
-    svg += rect_m(1.0, 0.4, 1.8, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
-    svg += text_m(1.9, 1.4, "KING BED\n6'0\" x 6'6\"", size=11, fill="#1D4ED8")
-    svg += rect_m(0.3, 1.5, 0.6, 2.3, fill="#FEF3C7", stroke="#D97706")
-    svg += text_m(0.6, 2.65, "WARDROBE", size=10, fill="#B45309", rot=-90)
+    svg += rect_m(1.4, 0.4, 2.0, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
+    svg += text_m(2.4, 1.4, "KING BED\n6'0\" x 6'6\"", size=11, fill="#1D4ED8")
+    svg += rect_m(3.81 - 0.40, 1.5, 0.35, 1.7, fill="#E2E8F0", stroke="#475569", sw=1.0)
+    svg += text_m(3.81 - 0.22, 2.35, "TV UNIT", size=9, fill="#334155", rot=-90)
 
-    # Bed 2
-    svg += rect_m(5.2, 9.7, 1.5, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
-    svg += text_m(5.95, 10.7, "QUEEN BED\n5'0\" x 6'6\"", size=11, fill="#1D4ED8")
+    # Bed 2 Wardrobe & Queen Bed
+    svg += rect_m(3.81 + 0.06, 9.2, 0.55, 2.6, fill="#FEF3C7", stroke="#D97706", sw=1.2)
+    svg += text_m(4.1, 10.5, "WARDROBE", size=10, fill="#B45309", rot=-90)
+    svg += rect_m(4.8, PLINTH_D - 2.4, 1.8, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
+    svg += text_m(5.7, PLINTH_D - 1.4, "QUEEN BED\n5'0\" x 6'6\"", size=11, fill="#1D4ED8")
 
-    # Kitchen Counter L-shape
-    svg += rect_m(PLINTH_W - 0.83, 0.23, 0.6, 3.2, fill="#374151", stroke="#1F2937")
-    svg += rect_m(7.4, 0.23, PLINTH_W - 0.83 - 7.4, 0.6, fill="#374151", stroke="#1F2937")
-    svg += rect_m(PLINTH_W - 0.8, 1.3, 0.5, 0.6, fill="#E0F2FE", stroke="#0284C7")
-    svg += text_m(PLINTH_W - 0.55, 1.6, "SINK", size=9, fill="#0369A1")
-    svg += rect_m(PLINTH_W - 0.8, 2.3, 0.5, 0.7, fill="#FEF08A", stroke="#CA8A04")
-    svg += text_m(PLINTH_W - 0.55, 2.65, "HOB", size=9, fill="#854D0E")
+    # L-Shaped Sectional Sofa & Entertainment TV Console in Living
+    svg += rect_m(4.2, 5.0, 2.8, 0.9, fill="#EDE9FE", stroke="#7C3AED", rx=4)
+    svg += rect_m(4.2, 5.9, 0.9, 1.6, fill="#EDE9FE", stroke="#7C3AED", rx=4)
+    svg += rect_m(5.5, 6.2, 1.2, 1.0, fill="#F3F4F6", stroke="#4B5563", rx=2)
+    svg += text_m(6.1, 6.7, "COFFEE TABLE", size=9, fill="#374151")
+    svg += rect_m(3.81 + 0.06, 4.5, 0.40, 2.0, fill="#FEF3C7", stroke="#D97706", sw=1.2)
+    svg += text_m(4.0, 5.5, "LIVING TV WALL UNIT", size=10, weight="600", fill="#B45309", rot=-90)
 
-    # Dining Table
-    svg += rect_m(4.8, 1.5, 1.5, 0.9, fill="#FED7AA", stroke="#EA580C", rx=4)
-    svg += text_m(5.55, 1.95, "DINING (6-SEAT)\n5'0\" x 3'0\"", size=10, fill="#9A3412")
+    # 6-Seater Dining Table
+    svg += rect_m(5.0, 2.2, 1.6, 1.4, fill="#FEF3C7", stroke="#D97706", rx=4)
+    svg += text_m(5.8, 2.9, "DINING TABLE\n(6-SEATER)", size=11, fill="#B45309")
 
-    # Sofa & Living
-    svg += rect_m(PLINTH_W - 1.13, 4.5, 0.9, 2.0, fill="#E0E7FF", stroke="#6366F1", rx=4)
-    svg += rect_m(PLINTH_W - 2.2, 5.0, 0.8, 1.0, fill="#F3F4F6", stroke="#9CA3AF")
-    svg += text_m(PLINTH_W - 0.68, 5.5, "SOFA", size=10, fill="#4338CA", rot=-90)
+    # Kitchen Cabinets & Pantry
+    svg += rect_m(PLINTH_W - 0.23 - 0.65, 0.23, 0.65, 3.2, fill="#1E293B", stroke="#000000", sw=1.2)
+    svg += rect_m(7.4, 0.23, PLINTH_W - 0.23 - 7.4 - 0.65, 0.65, fill="#1E293B", stroke="#000000", sw=1.2)
+    svg += rect_m(7.4, 2.5, 0.50, 0.9, fill="#FEF3C7", stroke="#D97706", sw=1.0)
+    svg += text_m(7.65, 2.95, "PANTRY", size=9, fill="#B45309", rot=-90)
+    svg += rect_m(PLINTH_W - 0.23 - 0.60, 2.1, 0.50, 0.8, fill="#F59E0B", stroke="#B45309", rx=2)
+    svg += text_m(PLINTH_W - 0.23 - 0.35, 2.5, "EAST HOB", size=9, fill="#FFFFFF")
 
-    # Pooja Mandir
-    svg += rect_m(7.6, 8.2, 1.8, 0.6, fill="#FEF08A", stroke="#EAB308")
-    svg += text_m(8.5, 8.5, "POOJA ALTAR", size=10, fill="#854D0E")
+    # External Utility Fixtures
+    svg += rect_m(PLINTH_W + 0.2, 0.4, 0.7, 0.7, fill="#E2E8F0", stroke="#334155")
+    svg += text_m(PLINTH_W + 0.55, 0.75, "WM", size=10, fill="#334155")
+    svg += rect_m(PLINTH_W + 0.2, 1.6, 0.6, 0.8, fill="#E2E8F0", stroke="#334155")
+    svg += text_m(PLINTH_W + 0.5, 2.0, "SINK", size=10, fill="#334155")
     svg += "</g>\n"
 
-    # Room Labels & Vaastu Tags
+    # 5. ROOM LABELS & VAASTU TAGS
     svg += "<g id='room_labels'>\n"
-    svg += text_m(2.0, 3.2, "MASTER BEDROOM", size=15, weight="700", fill="#0F172A")
-    svg += text_m(2.0, 2.8, "12'-6\" x 13'-4\" [3.81m x 4.06m]", size=12, weight="500", fill="#334155")
-    svg += text_m(2.0, 2.45, "[NIRUTHI / SW ZONE - HEAVY]", size=11, weight="600", fill="#9A3412")
+    svg += text_m(2.0, 3.1, "MASTER BEDROOM", size=14, weight="700", fill="#0F172A")
+    svg += text_m(2.0, 2.7, "12'-6\" x 13'-4\" [3.81m x 4.06m]", size=11, weight="600", fill="#334155")
+    svg += text_m(2.0, 2.35, "[NIRUTHI / SW - HEAVY | FULL WARDROBE]", size=10, fill="#9A3412")
 
-    svg += text_m(1.0, 5.1, "ATT. TOILET\n5'0\" x 6'6\"", size=11, weight="600", fill="#334155")
-    svg += text_m(2.8, 5.1, "COMMON TOILET\n5'0\" x 6'6\" [VARUNA]", size=11, weight="600", fill="#334155")
+    svg += text_m(1.0, 5.4, "SPACIOUS ATT. BATH\n6'0\" x 8'6\" [WET/DRY]", size=11, weight="600", fill="#0F172A")
+    svg += text_m(2.8, 5.4, "SPACIOUS COM. BATH\n6'0\" x 8'6\" [VARUNA]", size=11, weight="600", fill="#0F172A")
 
-    svg += text_m(9.2, 2.2, "MODULAR KITCHEN", size=15, weight="700", fill="#0F172A")
-    svg += text_m(9.2, 1.85, "12'-6\" x 11'-0\" [3.81m x 3.35m]", size=12, weight="500", fill="#334155")
-    svg += text_m(9.2, 1.55, "[AGNEYA / SE ZONE - FIRE]", size=11, weight="600", fill="#C2410C")
+    svg += text_m(9.2, 2.1, "MODULAR KITCHEN", size=14, weight="700", fill="#0F172A")
+    svg += text_m(9.2, 1.75, "12'-6\" x 11'-6\" [SE AGNEYA]", size=11, weight="600", fill="#C2410C")
 
-    svg += text_m(5.55, 2.9, "DINING AREA\n10'-0\" x 11'-6\"", size=13, weight="600", fill="#0F172A")
+    svg += text_m(5.8, 1.5, "DINING AREA\n10'-6\" x 11'-6\"", size=12, weight="600", fill="#0F172A")
 
-    svg += text_m(9.2, 6.0, "FORMAL LIVING ROOM", size=16, weight="700", fill="#0F172A")
-    svg += text_m(9.2, 5.6, "14'-0\" x 13'-6\" [4.27m x 4.11m]", size=12, weight="500", fill="#334155")
-    svg += text_m(9.2, 5.25, "[CENTRAL BRAHMASTHANA - OPEN]", size=11, weight="600", fill="#0D9488")
+    svg += text_m(6.0, 4.4, "GRAND LIVING HALL", size=15, weight="800", fill="#0F172A")
+    svg += text_m(6.0, 4.0, "18'-0\" x 14'-0\" [OPEN BRAHMASTHANA]", size=11, weight="600", fill="#047857")
 
-    svg += text_m(6.0, 10.6, "BEDROOM 2", size=15, weight="700", fill="#0F172A")
-    svg += text_m(6.0, 10.2, "9'-6\" x 12'-6\" [2.90m x 3.81m]", size=12, weight="500", fill="#334155")
-    svg += text_m(6.0, 9.85, "[VAYU / NORTH ZONE]", size=11, weight="600", fill="#64748B")
+    svg += text_m(5.5, 10.5, "BEDROOM 2", size=14, weight="700", fill="#0F172A")
+    svg += text_m(5.5, 10.1, "11'-6\" x 11'-6\" [VAYU/NORTH]", size=11, weight="600", fill="#334155")
 
-    svg += text_m(8.4, 9.3, "POOJA MANDIR", size=13, weight="700", fill="#D97706")
-    svg += text_m(8.4, 8.95, "6'0\" x 7'9\" [ISHANYA]", size=11, weight="600", fill="#B45309")
-
-    svg += text_m(10.0, 11.3, "EAST SITOUT BALCONY", size=13, weight="700", fill="#0284C7")
-    svg += text_m(10.0, 10.95, "7'0\" x 12'6\" (OPEN TO SKY)", size=11, weight="500", fill="#0369A1")
-
-    svg += text_m(5.8, 6.7, "SIMHADWARAM MAIN ENTRANCE\nNORTH-FACING [D1]", size=12, weight="700", fill="#059669")
+    svg += text_m(10.5, 9.5, "POOJA MANDIR\n4'6\" x 6'6\"", size=11, weight="700", fill="#D97706")
+    svg += text_m(2.0, PLINTH_D - 0.7, "SIMHADWARAM (D1)\nNORTH-FACING", size=11, weight="700", fill="#059669")
     svg += "</g>\n"
 
-    # Grids & Dims
+    svg += add_external_vertical_core_svg()
     svg += add_grids_and_dimensions_svg()
+    svg += add_title_block_svg("First Floor - Brother's 2BHK Residence")
     svg += "</svg>"
-    
-    path = OUTPUT_DIR / "first_floor_brother_blueprint.svg"
-    with open(path, "w") as f:
-        f.write(svg)
-    print(f"✅ Generated Vector SVG: {path}")
 
+    p = OUTPUT_DIR / "first_floor_brother_blueprint.svg"
+    p.write_text(svg, encoding="utf-8")
+    print(f"✅ Generated Vector SVG: {p}")
+
+# =============================================================================
+# EXPORT 3: SECOND FLOOR — OWNER'S 2BHK + OFFICE + DUAL POOJA
+# =============================================================================
 def export_second_floor_svg():
-    svg = build_base_sheet("Second Floor Plan - Owner's 2BHK + Office + Dual Pooja", "L2")
+    svg = build_base_sheet("Second Floor Plan - Owner's Residence & Office", "L2")
     svg += rect_m(0, 0, PLINTH_W, PLINTH_D, fill="#F8FAFC", stroke="#0F172A", sw=2.0)
-    
-    # Exterior 9" Walls (Identical stack)
+
+    # 1. BALCONIES & EXTERNAL UTILITY
+    # North Balcony
+    svg += rect_m(3.81, PLINTH_D, 3.50, 1.30, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")
+    svg += text_m(5.5, PLINTH_D + 0.65, "NORTH BALCONY (11'-6\" x 4'-3\")", size=11, weight="600", fill="#1D4ED8")
+    # East / North-East Open Sitout (LEFT OPEN FOR ISHANYA LIGHT!)
+    svg += rect_m(7.31, 8.5, PLINTH_W - 7.31, PLINTH_D - 8.5, fill="#EFF6FF", stroke="#0284C7", sw=1.8)
+    svg += text_m(9.2, 11.2, "OPEN ISHANYA (NE) SITOUT", size=14, weight="800", fill="#0369A1")
+    svg += text_m(9.2, 10.7, "13'-0\" x 12'-0\" [OPEN TO SKY]", size=12, weight="600", fill="#0284C7")
+    svg += text_m(9.2, 10.2, "(Dual Light Corridor to Simhadwaram)", size=10, fill="#075985")
+    # South Balcony
+    svg += rect_m(0, -1.2, 3.81, 1.2, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")
+    svg += text_m(1.9, -0.6, "SOUTH SHADED BALCONY (12'-6\" x 4'-0\")", size=11, weight="600", fill="#1D4ED8")
+    # External Out-of-House Utility Balcony
+    svg += rect_m(PLINTH_W, 0, 1.4, 3.5, fill="#F1F5F9", stroke="#475569", sw=1.5)
+    svg += text_m(PLINTH_W + 0.7, 1.75, "OUT-OF-HOUSE UTILITY\n(WASH & GAS BALCONY)", size=11, weight="600", fill="#334155", rot=-90)
+
+    # 2. EXTERIOR 9" WALLS
     svg += "<g id='exterior_walls'>\n"
+    # South Wall
     svg += rect_m(0, 0, 1.2, 0.23, fill="#334155", stroke="#0F172A")
-    svg += window_svg(1.2, 0, 1.5, 0.23, is_horiz=True)
-    svg += rect_m(2.7, 0, PLINTH_W - 2.7, 0.23, fill="#334155", stroke="#0F172A")
-    
-    svg += rect_m(PLINTH_W - 0.23, 0, 0.23, 1.0, fill="#334155", stroke="#0F172A")
-    svg += window_svg(PLINTH_W - 0.23, 1.0, 0.23, 1.2, is_horiz=False)
-    svg += rect_m(PLINTH_W - 0.23, 2.2, 0.23, 2.8, fill="#334155", stroke="#0F172A")
-    svg += window_svg(PLINTH_W - 0.23, 5.0, 0.23, 2.4, is_horiz=False)
-    svg += rect_m(PLINTH_W - 0.23, 7.4, 0.23, PLINTH_D - 7.4, fill="#334155", stroke="#0F172A")
-    
-    svg += rect_m(0, PLINTH_D - 0.23, 5.0, 0.23, fill="#334155", stroke="#0F172A")
-    svg += window_svg(5.0, PLINTH_D - 0.23, 1.5, 0.23, is_horiz=True)
-    svg += rect_m(6.5, PLINTH_D - 0.23, PLINTH_W - 6.5, 0.23, fill="#334155", stroke="#0F172A")
-    
-    svg += rect_m(0, 0.23, 0.23, 4.0, fill="#334155", stroke="#0F172A")
-    svg += window_svg(0, 4.23, 0.23, 0.6, is_horiz=False)
-    svg += rect_m(0, 4.83, 0.23, PLINTH_D - 0.23 - 4.83, fill="#334155", stroke="#0F172A")
+    svg += door_svg("Door_MB_S_Balcony", 1.2, 0.23, 0.90, side='S')
+    svg += rect_m(2.1, 0, 3.81 - 2.1, 0.23, fill="#334155", stroke="#0F172A")
+    svg += rect_m(3.81, 0, PLINTH_W - 3.81, 0.23, fill="#334155", stroke="#0F172A")
+    # East Wall
+    svg += rect_m(PLINTH_W - 0.23, 0, 0.23, 1.2, fill="#334155", stroke="#0F172A")
+    svg += door_svg("Door_Kit_Utility", PLINTH_W - 0.23, 1.2, 0.85, side='E')
+    svg += rect_m(PLINTH_W - 0.23, 2.05, 0.23, 0.15, fill="#334155", stroke="#0F172A")
+    svg += window_svg(PLINTH_W - 0.23, 2.2, 0.23, 1.2, is_horiz=False)
+    svg += rect_m(PLINTH_W - 0.23, 3.4, 0.23, 1.6, fill="#334155", stroke="#0F172A")
+    svg += window_svg(PLINTH_W - 0.23, 5.0, 0.23, 2.2, is_horiz=False)
+    svg += rect_m(PLINTH_W - 0.23, 7.2, 0.23, 1.3, fill="#334155", stroke="#0F172A")
+    # North Wall (NORTH-FACING HOME OFFICE WINDOW)
+    svg += rect_m(0, PLINTH_D - 0.23, 1.5, 0.23, fill="#334155", stroke="#0F172A")
+    svg += door_svg("Simhadwaram_D1", 1.5, PLINTH_D - 0.23, 1.05, side='S')
+    svg += rect_m(2.55, PLINTH_D - 0.23, 3.81 - 2.55, 0.23, fill="#334155", stroke="#0F172A")
+    svg += rect_m(3.81, PLINTH_D - 0.23, 0.49, 0.23, fill="#334155", stroke="#0F172A")
+    svg += window_svg(4.3, PLINTH_D - 0.23, 1.9, 0.23, is_horiz=True) # Wide Office Window looking to garden!
+    svg += rect_m(6.2, PLINTH_D - 0.23, 1.11, 0.23, fill="#334155", stroke="#0F172A")
+    # West Wall
+    svg += rect_m(0, 0.23, 0.23, 1.27, fill="#334155", stroke="#0F172A")
+    svg += window_svg(0, 1.5, 0.23, 1.5, is_horiz=False)
+    svg += rect_m(0, 3.0, 0.23, 2.0, fill="#334155", stroke="#0F172A")
+    svg += window_svg(0, 5.0, 0.23, 0.8, is_horiz=False)
+    svg += rect_m(0, 5.8, 0.23, PLINTH_D - 0.23 - 5.8, fill="#334155", stroke="#0F172A")
     svg += "</g>\n"
 
-    # Partitions (4.5")
+    # 3. INTERIOR PARTITIONS (4.5")
     svg += "<g id='interior_partitions'>\n"
-    # Master Bed & Baths
+    # Master Bed
     svg += rect_m(3.81 - 0.0575, 0.23, 0.115, 3.83, fill="#475569", stroke="#0F172A")
-    svg += rect_m(0.23, 4.06 - 0.0575, 1.6, 0.115, fill="#475569", stroke="#0F172A")
+    svg += rect_m(0.23, 4.06 - 0.0575, 0.27, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_AttBath", 0.5, 4.06, 0.75, side='N') # Attached Bath Door!
+    svg += rect_m(1.25, 4.06 - 0.0575, 1.45, 0.115, fill="#475569", stroke="#0F172A")
     svg += door_svg("Door_MB", 2.7, 4.06, 0.90, side='S')
-    svg += rect_m(2.7, 4.06 - 0.0575, 1.05, 0.115, fill="#475569", stroke="#0F172A")
-    
-    svg += rect_m(1.8 - 0.0575, 4.06, 0.115, 1.94, fill="#475569", stroke="#0F172A")
-    svg += rect_m(0.23, 6.0 - 0.0575, 3.58, 0.115, fill="#475569", stroke="#0F172A")
-    svg += rect_m(3.81 - 0.0575, 4.06, 0.115, 0.94, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_CB", 3.81, 5.0, 0.75, side='W')
-    svg += rect_m(3.81 - 0.0575, 5.75, 0.115, 0.25, fill="#475569", stroke="#0F172A")
+    svg += rect_m(3.6, 4.06 - 0.0575, 0.21, 0.115, fill="#475569", stroke="#0F172A")
+
+    # Spacious Bathrooms
+    svg += rect_m(1.83 - 0.0575, 4.06, 0.115, 2.60, fill="#475569", stroke="#0F172A")
+    svg += rect_m(0.23, 6.66 - 0.0575, 3.58, 0.115, fill="#475569", stroke="#0F172A")
+    svg += rect_m(3.81 - 0.0575, 4.06, 0.115, 1.14, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_CommonBath", 3.81, 5.2, 0.75, side='W')
+    svg += rect_m(3.81 - 0.0575, 5.95, 0.115, 0.71, fill="#475569", stroke="#0F172A")
 
     # Kitchen
-    svg += rect_m(7.31 - 0.0575, 0.23, 0.115, 2.27, fill="#475569", stroke="#0F172A")
+    svg += rect_m(7.31 - 0.0575, 0.23, 0.115, 1.97, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Kit", 7.31, 2.2, 0.90, side='W')
+    svg += rect_m(7.31 - 0.0575, 3.1, 0.115, 0.40, fill="#475569", stroke="#0F172A")
     svg += rect_m(7.31, 3.5 - 0.0575, PLINTH_W - 0.23 - 7.31, 0.115, fill="#475569", stroke="#0F172A")
 
-    # Home Office / Study
-    svg += rect_m(3.81, 2.8 - 0.0575, 3.5, 0.115, fill="#475569", stroke="#0F172A")
-    svg += rect_m(3.81, 5.2 - 0.0575, 1.19, 0.115, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_Office", 5.0, 5.2, 0.90, side='S')
-    svg += rect_m(5.9, 5.2 - 0.0575, 1.41, 0.115, fill="#475569", stroke="#0F172A")
+    # NORTH-FACING HOME OFFICE (Executive Study)
+    svg += rect_m(3.81 - 0.0575, 8.8, 0.115, PLINTH_D - 0.23 - 8.8, fill="#475569", stroke="#0F172A")
+    svg += rect_m(7.31 - 0.0575, 8.8, 0.115, PLINTH_D - 0.23 - 8.8, fill="#475569", stroke="#0F172A")
+    svg += rect_m(3.81, 8.8 - 0.0575, 0.99, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Office", 4.8, 8.8, 0.90, side='N')
+    svg += rect_m(5.7, 8.8 - 0.0575, 1.61, 0.115, fill="#475569", stroke="#0F172A")
 
-    # Bed 2
-    svg += rect_m(4.6 - 0.0575, 8.13, 0.115, PLINTH_D - 0.23 - 8.13, fill="#475569", stroke="#0F172A")
-    svg += rect_m(7.5 - 0.0575, 8.13, 0.115, PLINTH_D - 0.23 - 8.13, fill="#475569", stroke="#0F172A")
-    svg += rect_m(4.6, 8.13 - 0.0575, 0.9, 0.115, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_B2", 5.5, 8.13, 0.90, side='N')
-    svg += rect_m(6.4, 8.13 - 0.0575, 1.1, 0.115, fill="#475569", stroke="#0F172A")
+    # DUAL POOJA SUITE (DETACHED FROM KITCHEN) & GLAZED LIGHT DOOR
+    svg += rect_m(7.31, 8.5 - 0.0575, 0.89, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Ishanya_Light", 8.2, 8.5, 1.20, side='E') # Glazed Double Door!
+    svg += rect_m(9.4, 8.5 - 0.0575, 0.60, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Mallanna_Pooja", 10.0, 8.5, 0.90, side='N')
+    svg += rect_m(10.9, 8.5 - 0.0575, PLINTH_W - 0.23 - 10.9, 0.115, fill="#475569", stroke="#0F172A")
 
-    # NE Dual Pooja Suite (Daily Pooja + Mallanna Temple Shrine)
-    svg += rect_m(7.5, 10.5 - 0.0575, PLINTH_W - 0.23 - 7.5, 0.115, fill="#475569", stroke="#0F172A")
-    svg += rect_m(8.8 - 0.0575, 10.5, 0.115, PLINTH_D - 0.23 - 10.5, fill="#475569", stroke="#0F172A")
-    svg += door_svg("Door_DailyPooja", 8.0, 10.5, 0.80, side='S')
-    svg += door_svg("Door_Mallanna", 9.5, 10.5, 0.90, side='N')
+    # Mallanna Shrine Partitions: X: 8.8 to 11.05, Y: 5.5 to 8.5
+    svg += rect_m(8.8 - 0.0575, 5.5, 0.115, 3.0, fill="#475569", stroke="#0F172A")
+    svg += rect_m(8.8, 5.5 - 0.0575, 0.80, 0.115, fill="#475569", stroke="#0F172A")
+    svg += door_svg("Door_Mallanna_Entry", 9.6, 5.5, 0.90, side='N')
+    svg += rect_m(10.5, 5.5 - 0.0575, PLINTH_W - 0.23 - 10.5, 0.115, fill="#475569", stroke="#0F172A")
 
-    # Main Door
-    svg += door_svg("Door_Simha", 4.6, 6.2, 1.05, side='E')
+    # Daily Pooja Room: X: 9.4 to 11.05, Y: 8.5 to 10.5
+    svg += rect_m(9.4 - 0.0575, 8.5, 0.115, 2.0, fill="#475569", stroke="#0F172A")
+    svg += rect_m(9.4, 10.5 - 0.0575, PLINTH_W - 0.23 - 9.4, 0.115, fill="#475569", stroke="#0F172A")
     svg += "</g>\n"
 
-    # Core
-    svg += "<g id='vertical_core'>\n"
-    svg += rect_m(0.23, 6.0, 2.2, 4.4, fill="#F1F5F9", stroke="#64748B", sw=1.5)
-    svg += rect_m(0.23, 6.0, 2.2, 1.1, fill="#E2E8F0", stroke="#94A3B8")
-    for i in range(1, 8):
-        ty = 7.1 + i * (3.3 / 8.0)
-        svg += line_m(0.23, ty, 1.28, ty, stroke="#94A3B8", sw=1.0)
-        svg += line_m(1.38, ty, 2.43, ty, stroke="#94A3B8", sw=1.0)
-    svg += line_m(1.33, 7.1, 1.33, 10.4, stroke="#475569", sw=2.0)
-    
-    svg += rect_m(2.5, 7.5, 2.05, 2.05, fill="#E2E8F0", stroke="#334155", sw=2.0)
-    svg += rect_m(2.85, 7.85, 1.35, 1.35, fill="#FFFFFF", stroke="#0284C7", sw=1.5)
-    svg += line_m(2.85, 7.85, 4.20, 9.20, stroke="#38BDF8", sw=1.0)
-    svg += line_m(2.85, 9.20, 4.20, 7.85, stroke="#38BDF8", sw=1.0)
+    # 4. MILLWORK, BUILT-IN CUPBOARDS & FURNITURE
+    svg += "<g id='millwork_and_furniture'>\n"
+    # Master Bed Wardrobe
+    svg += rect_m(0.23, 0.35, 0.60, 3.45, fill="#FEF3C7", stroke="#D97706", sw=1.2)
+    svg += text_m(0.53, 2.0, "FULL WARDROBE CUPBOARD", size=10, weight="600", fill="#B45309", rot=-90)
+    svg += rect_m(1.4, 0.4, 2.0, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
+    svg += text_m(2.4, 1.4, "KING BED\n6'0\" x 6'6\"", size=11, fill="#1D4ED8")
+    svg += rect_m(3.81 - 0.40, 1.5, 0.35, 1.7, fill="#E2E8F0", stroke="#475569", sw=1.0)
+    svg += text_m(3.81 - 0.22, 2.35, "TV UNIT", size=9, fill="#334155", rot=-90)
+
+    # Home Office Executive Desk & Cupboards
+    svg += rect_m(4.6, 10.0, 1.8, 0.8, fill="#FEF3C7", stroke="#D97706", rx=4)
+    svg += text_m(5.5, 10.4, "EXECUTIVE DESK\n(NORTH GARDEN VIEW)", size=10, weight="700", fill="#B45309")
+    svg += rect_m(3.81 + 0.06, 9.2, 0.55, 2.6, fill="#FEF3C7", stroke="#D97706", sw=1.2)
+    svg += text_m(4.1, 10.5, "BOOKCASE CUPBOARD", size=10, fill="#B45309", rot=-90)
+
+    # Mallanna Altar Platform & Prayer Carpet
+    svg += rect_m(9.0, 7.5, PLINTH_W - 0.23 - 9.1, 0.9, fill="#FDE68A", stroke="#D97706", rx=2)
+    svg += text_m(10.0, 7.95, "SACRED ALTAR PLATFORM", size=10, weight="700", fill="#92400E")
+    svg += rect_m(9.0, 5.8, PLINTH_W - 0.23 - 9.2, 1.6, fill="#FEF08A", stroke="#CA8A04", dash="2,2")
+    svg += text_m(10.0, 6.6, "4-PERSON PRAYER CARPET\n(4.65 m² CLEAR)", size=10, fill="#854D0E")
+
+    # Living & Dining
+    svg += rect_m(4.2, 5.0, 2.8, 0.9, fill="#EDE9FE", stroke="#7C3AED", rx=4)
+    svg += rect_m(4.2, 5.9, 0.9, 1.6, fill="#EDE9FE", stroke="#7C3AED", rx=4)
+    svg += rect_m(5.5, 6.2, 1.2, 1.0, fill="#F3F4F6", stroke="#4B5563", rx=2)
+    svg += text_m(6.1, 6.7, "COFFEE TABLE", size=9, fill="#374151")
+    svg += rect_m(3.81 + 0.06, 4.5, 0.40, 2.0, fill="#FEF3C7", stroke="#D97706", sw=1.2)
+    svg += text_m(4.0, 5.5, "LIVING TV WALL UNIT", size=10, weight="600", fill="#B45309", rot=-90)
+    svg += rect_m(5.0, 2.2, 1.6, 1.4, fill="#FEF3C7", stroke="#D97706", rx=4)
+    svg += text_m(5.8, 2.9, "DINING TABLE\n(6-SEATER)", size=11, fill="#B45309")
+
+    # Kitchen & Utility
+    svg += rect_m(PLINTH_W - 0.23 - 0.65, 0.23, 0.65, 3.2, fill="#1E293B", stroke="#000000", sw=1.2)
+    svg += rect_m(7.4, 0.23, PLINTH_W - 0.23 - 7.4 - 0.65, 0.65, fill="#1E293B", stroke="#000000", sw=1.2)
+    svg += rect_m(7.4, 2.5, 0.50, 0.9, fill="#FEF3C7", stroke="#D97706", sw=1.0)
+    svg += text_m(7.65, 2.95, "PANTRY", size=9, fill="#B45309", rot=-90)
+    svg += rect_m(PLINTH_W - 0.23 - 0.60, 2.1, 0.50, 0.8, fill="#F59E0B", stroke="#B45309", rx=2)
+    svg += text_m(PLINTH_W - 0.23 - 0.35, 2.5, "EAST HOB", size=9, fill="#FFFFFF")
+    svg += rect_m(PLINTH_W + 0.2, 0.4, 0.7, 0.7, fill="#E2E8F0", stroke="#334155")
+    svg += text_m(PLINTH_W + 0.55, 0.75, "WM", size=10, fill="#334155")
+    svg += rect_m(PLINTH_W + 0.2, 1.6, 0.6, 0.8, fill="#E2E8F0", stroke="#334155")
+    svg += text_m(PLINTH_W + 0.5, 2.0, "SINK", size=10, fill="#334155")
     svg += "</g>\n"
 
-    # Millwork & Furniture
-    svg += "<g id='furniture_and_millwork'>\n"
-    svg += rect_m(1.0, 0.4, 1.8, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
-    svg += text_m(1.9, 1.4, "KING BED\n6'0\" x 6'6\"", size=11, fill="#1D4ED8")
-    svg += rect_m(0.3, 1.5, 0.6, 2.3, fill="#FEF3C7", stroke="#D97706")
-    svg += text_m(0.6, 2.65, "WARDROBE", size=10, fill="#B45309", rot=-90)
-
-    # Home Office Executive Desk & Bookcase
-    svg += rect_m(4.5, 3.4, 1.5, 0.8, fill="#E2E8F0", stroke="#475569", rx=4)
-    svg += text_m(5.25, 3.8, "EXEC WORK DESK\n5'0\" x 2'8\"", size=10, fill="#1E293B")
-    svg += rect_m(3.9, 3.2, 0.35, 1.6, fill="#FEF3C7", stroke="#D97706")
-    svg += text_m(4.07, 4.0, "BOOKCASE", size=8, fill="#92400E", rot=-90)
-
-    # Bed 2
-    svg += rect_m(5.2, 9.7, 1.5, 2.0, fill="#DBEAFE", stroke="#3B82F6", rx=4)
-    svg += text_m(5.95, 10.7, "QUEEN BED\n5'0\" x 6'6\"", size=11, fill="#1D4ED8")
-
-    # Kitchen Counter
-    svg += rect_m(PLINTH_W - 0.83, 0.23, 0.6, 3.2, fill="#374151", stroke="#1F2937")
-    svg += rect_m(7.4, 0.23, PLINTH_W - 0.83 - 7.4, 0.6, fill="#374151", stroke="#1F2937")
-    svg += rect_m(PLINTH_W - 0.8, 1.3, 0.5, 0.6, fill="#E0F2FE", stroke="#0284C7")
-    svg += text_m(PLINTH_W - 0.55, 1.6, "SINK", size=9, fill="#0369A1")
-    svg += rect_m(PLINTH_W - 0.8, 2.3, 0.5, 0.7, fill="#FEF08A", stroke="#CA8A04")
-    svg += text_m(PLINTH_W - 0.55, 2.65, "HOB", size=9, fill="#854D0E")
-
-    # Mallanna Shrine Altar & Sacred Prayer Floor
-    svg += rect_m(8.9, 10.6, 2.0, 0.7, fill="#FEF08A", stroke="#EAB308", rx=2)
-    svg += text_m(9.9, 10.95, "MALLANNA SACRED ALTAR", size=10, weight="700", fill="#854D0E")
-    svg += rect_m(9.0, 11.4, 1.9, 0.5, fill="#FED7AA", stroke="#F97316", rx=2)
-    svg += text_m(9.95, 11.65, "PRAYER CARPET (4 ADULTS)", size=9, fill="#C2410C")
-    svg += "</g>\n"
-
-    # Room Labels
+    # 5. LABELS & VAASTU
     svg += "<g id='room_labels'>\n"
-    svg += text_m(2.0, 3.2, "MASTER BEDROOM", size=15, weight="700", fill="#0F172A")
-    svg += text_m(2.0, 2.8, "12'-6\" x 13'-4\" [3.81m x 4.06m]", size=12, weight="500", fill="#334155")
-    svg += text_m(2.0, 2.45, "[NIRUTHI / SW ZONE - HEAVY]", size=11, weight="600", fill="#9A3412")
+    svg += text_m(2.0, 3.1, "MASTER BEDROOM", size=14, weight="700", fill="#0F172A")
+    svg += text_m(2.0, 2.7, "12'-6\" x 13'-4\" [3.81m x 4.06m]", size=11, weight="600", fill="#334155")
+    svg += text_m(2.0, 2.35, "[NIRUTHI / SW - HEAVY | FULL WARDROBE]", size=10, fill="#9A3412")
 
-    svg += text_m(1.0, 5.1, "ATT. TOILET\n5'0\" x 6'6\"", size=11, weight="600", fill="#334155")
-    svg += text_m(2.8, 5.1, "COMMON TOILET\n5'0\" x 6'6\" [VARUNA]", size=11, weight="600", fill="#334155")
+    svg += text_m(1.0, 5.4, "SPACIOUS ATT. BATH\n6'0\" x 8'6\" [WET/DRY]", size=11, weight="600", fill="#0F172A")
+    svg += text_m(2.8, 5.4, "SPACIOUS COM. BATH\n6'0\" x 8'6\" [VARUNA]", size=11, weight="600", fill="#0F172A")
 
-    svg += text_m(9.2, 2.2, "MODULAR KITCHEN", size=15, weight="700", fill="#0F172A")
-    svg += text_m(9.2, 1.85, "12'-6\" x 11'-0\" [3.81m x 3.35m]", size=12, weight="500", fill="#334155")
-    svg += text_m(9.2, 1.55, "[AGNEYA / SE ZONE - FIRE]", size=11, weight="600", fill="#C2410C")
+    svg += text_m(9.2, 2.1, "MODULAR KITCHEN", size=14, weight="700", fill="#0F172A")
+    svg += text_m(9.2, 1.75, "12'-6\" x 11'-6\" [SE AGNEYA]", size=11, weight="600", fill="#C2410C")
 
-    # Home Office
-    svg += text_m(5.55, 4.5, "HOME OFFICE / STUDY SUITE", size=14, weight="700", fill="#0F172A")
-    svg += text_m(5.55, 4.15, "11'-6\" x 8'-0\" [3.50m x 2.44m]", size=12, weight="500", fill="#334155")
-    svg += text_m(5.55, 3.85, "[HIGH-FOCUS WORK SUITE]", size=11, weight="600", fill="#2563EB")
+    svg += text_m(5.5, 11.4, "HOME OFFICE / EXECUTIVE STUDY", size=14, weight="800", fill="#0F172A")
+    svg += text_m(5.5, 11.0, "11'-6\" x 11'-0\" [NORTH FRONT GARDEN VIEW]", size=11, weight="600", fill="#1D4ED8")
+    svg += text_m(5.5, 10.65, "(Unobstructed by Lift/Core | Executive Millwork)", size=10, fill="#64748B")
 
-    svg += text_m(5.55, 2.2, "DINING AREA\n10'-0\" x 9'-0\"", size=12, weight="600", fill="#0F172A")
+    svg += text_m(6.0, 4.4, "GRAND LIVING HALL", size=15, weight="800", fill="#0F172A")
+    svg += text_m(6.0, 4.0, "18'-0\" x 14'-0\" [OPEN BRAHMASTHANA]", size=11, weight="600", fill="#047857")
 
-    svg += text_m(9.2, 6.0, "FAMILY LIVING AREA", size=16, weight="700", fill="#0F172A")
-    svg += text_m(9.2, 5.6, "14'-0\" x 13'-6\" [4.27m x 4.11m]", size=12, weight="500", fill="#334155")
-    svg += text_m(9.2, 5.25, "[CENTRAL BRAHMASTHANA - OPEN]", size=11, weight="600", fill="#0D9488")
+    svg += text_m(9.9, 7.1, "MALLANNA TEMPLE SHRINE", size=12, weight="700", fill="#D97706")
+    svg += text_m(9.9, 6.75, "8'-6\" x 10'-0\" [DETACHED FROM KITCHEN]", size=10, weight="600", fill="#B45309")
 
-    svg += text_m(6.0, 10.6, "BEDROOM 2", size=15, weight="700", fill="#0F172A")
-    svg += text_m(6.0, 10.2, "9'-6\" x 12'-6\" [2.90m x 3.81m]", size=12, weight="500", fill="#334155")
-    svg += text_m(6.0, 9.85, "[VAYU / NORTH ZONE]", size=11, weight="600", fill="#64748B")
-
-    # NE Dual Pooja
-    svg += text_m(8.15, 9.5, "DAILY POOJA", size=12, weight="700", fill="#D97706")
-    svg += text_m(8.15, 9.15, "4'0\" x 4'0\"", size=11, weight="600", fill="#B45309")
-
-    svg += text_m(10.0, 11.5, "MALLANNA TEMPLE SHRINE", size=14, weight="700", fill="#DC2626")
-    svg += text_m(10.0, 11.15, "9'0\" x 9'0\" [81 SQ.FT]", size=12, weight="600", fill="#991B1B")
-    svg += text_m(10.0, 10.85, "[SACRED ISHANYA / NE CORNER]", size=11, weight="600", fill="#D97706")
-
-    svg += text_m(5.8, 6.7, "SIMHADWARAM MAIN ENTRANCE\nNORTH-FACING [D1]", size=12, weight="700", fill="#059669")
+    svg += text_m(10.2, 9.5, "DAILY POOJA\n5'6\" x 6'6\"", size=11, weight="700", fill="#D97706")
+    svg += text_m(2.0, PLINTH_D - 0.7, "SIMHADWARAM (D1)\nNORTH-FACING", size=11, weight="700", fill="#059669")
     svg += "</g>\n"
 
-    # Grids & Dims
+    svg += add_external_vertical_core_svg()
     svg += add_grids_and_dimensions_svg()
+    svg += add_title_block_svg("Second Floor - Owner's Residence & Office")
     svg += "</svg>"
-    
-    path = OUTPUT_DIR / "second_floor_owner_blueprint.svg"
-    with open(path, "w") as f:
-        f.write(svg)
-    print(f"✅ Generated Vector SVG: {path}")
 
-def export_ground_stilt_svg():
-    svg = build_base_sheet("Ground Stilt Floor & Parking Plan", "L0")
-    svg += rect_m(0, 0, PLINTH_W, PLINTH_D, fill="#F8FAFC", stroke="#0F172A", sw=2.0)
-    
-    # Pavilion zone
-    svg += rect_m(0, 0, PLINTH_W, 6.0, fill="#FEFCE8", stroke="#CA8A04", sw=1.5, opacity=0.7)
-    
-    # Parking bays
-    svg += rect_m(PLINTH_W - 3.2, PLINTH_D - 5.5, 2.8, 5.2, fill="#F0F9FF", stroke="#0284C7", sw=1.5, dash="4,4")
-    svg += rect_m(PLINTH_W - 4.6, PLINTH_D - 2.8, 1.2, 2.4, fill="#F0FDF4", stroke="#16A34A", sw=1.5, dash="4,4")
-    svg += rect_m(PLINTH_W - 4.6, PLINTH_D - 5.4, 1.2, 2.4, fill="#F0FDF4", stroke="#16A34A", sw=1.5, dash="4,4")
-    
-    # Staircase & Lift Core
-    svg += "<g id='vertical_core'>\n"
-    svg += rect_m(0.23, 6.0, 2.2, 4.4, fill="#F1F5F9", stroke="#64748B", sw=1.5)
-    svg += rect_m(0.23, 6.0, 2.2, 1.1, fill="#E2E8F0", stroke="#94A3B8")
-    for i in range(1, 8):
-        ty = 7.1 + i * (3.3 / 8.0)
-        svg += line_m(0.23, ty, 1.28, ty, stroke="#94A3B8", sw=1.0)
-        svg += line_m(1.38, ty, 2.43, ty, stroke="#94A3B8", sw=1.0)
-    svg += line_m(1.33, 7.1, 1.33, 10.4, stroke="#475569", sw=2.0)
-    
-    svg += rect_m(2.5, 7.5, 2.05, 2.05, fill="#E2E8F0", stroke="#334155", sw=2.0)
-    svg += rect_m(2.85, 7.85, 1.35, 1.35, fill="#FFFFFF", stroke="#0284C7", sw=1.5)
-    svg += line_m(2.85, 7.85, 4.20, 9.20, stroke="#38BDF8", sw=1.0)
-    svg += line_m(2.85, 9.20, 4.20, 7.85, stroke="#38BDF8", sw=1.0)
-    svg += "</g>\n"
-
-    # Annotations
-    svg += "<g id='ground_annotations'>\n"
-    svg += text_m(5.6, 3.4, "SHELTERED OPEN FUNCTION PAVILION", size=18, weight="700", fill="#0F172A")
-    svg += text_m(5.6, 2.9, "37'-0\" x 20'-0\" [11.28m x 6.10m] | 740 SQ.FT", size=14, weight="500", fill="#334155")
-    svg += text_m(5.6, 2.4, "(Community & Family Gatherings, Traditional Events, Plinth Verandah)", size=12, weight="500", fill="#64748B")
-
-    svg += text_m(PLINTH_W - 1.8, PLINTH_D - 2.8, "COVERED CAR STALL\n8'-6\" x 17'-0\"\n[NE DRIVEWAY ACCESS]", size=12, weight="700", fill="#0284C7")
-    svg += text_m(PLINTH_W - 4.0, PLINTH_D - 1.6, "2-WHEELERS\n(2 BIKES)", size=10, weight="600", fill="#16A34A")
-    svg += text_m(PLINTH_W - 4.0, PLINTH_D - 4.2, "2-WHEELERS\n(2 BIKES)", size=10, weight="600", fill="#16A34A")
-
-    svg += text_m(1.33, 8.2, "DOG-LEGGED STAIRCASE\n7'-3\" x 14'-6\" [NW VAYU]", size=12, weight="700", fill="#1E293B", rot=-90)
-    svg += text_m(3.52, 8.5, "PASSENGER LIFT\n6-PAX CORE", size=11, weight="700", fill="#0284C7", rot=-90)
-    svg += "</g>\n"
-
-    svg += add_grids_and_dimensions_svg()
-    svg += "</svg>"
-    
-    path = OUTPUT_DIR / "ground_stilt_blueprint.svg"
-    with open(path, "w") as f:
-        f.write(svg)
-    print(f"✅ Generated Vector SVG: {path}")
+    p = OUTPUT_DIR / "second_floor_owner_blueprint.svg"
+    p.write_text(svg, encoding="utf-8")
+    print(f"✅ Generated Vector SVG: {p}")
 
 if __name__ == "__main__":
+    print("Starting High-Precision Vector SVG Blueprints Export (Redesigned Plan)...")
     export_ground_stilt_svg()
     export_first_floor_svg()
     export_second_floor_svg()
+    print("All Vector SVGs Exported Successfully.")
