@@ -422,9 +422,9 @@
     
     <div class="controls">
       <div class="floor-tabs">
+        <button class="tab-btn active" id="tab-l2" onclick="switchFloor('l2')">Level 2: Owner Suite &amp; Office</button>
+        <button class="tab-btn" id="tab-l1" onclick="switchFloor('l1')">Level 1: Brother 2BHK</button>
         <button class="tab-btn" id="tab-l0" onclick="switchFloor('l0')">Level 0: Stilt &amp; Plot</button>
-        <button class="tab-btn active" id="tab-l1" onclick="switchFloor('l1')">Level 1: Brother 2BHK</button>
-        <button class="tab-btn" id="tab-l2" onclick="switchFloor('l2')">Level 2: Owner Suite</button>
       </div>
       
       <div class="view-mode-toggle">
@@ -586,7 +586,7 @@
       }
     };
 
-    let currentFloor = 'l1';
+    let currentFloor = 'l2';
     let currentMode = 'vector';
     let zoomLevel = 1.0;
     let panX = 0;
@@ -720,13 +720,13 @@
       };
     }
 
-    // Initialize on document ready
+    // Initialize on document ready (defaults to Owner Suite & Office)
     document.addEventListener('DOMContentLoaded', () => {
-      switchFloor('l1');
+      switchFloor('l2');
     });
     
     // Immediate fallback execution
-    switchFloor('l1');
+    switchFloor('l2');
   </script>
 </body>
 </html>
