@@ -11,12 +11,10 @@
 
   <!-- 30' Roads -->
   <g id="roads">
-    <!-- West Road -->
     <rect x="-85.1" y="-119.9" width="640.0" height="2569.3" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" rx="0" opacity="1.0" stroke-dasharray="6,4" />
 
-    <text x="234.9" y="1164.8" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#2563EB" text-anchor="middle" transform="rotate(-90 234.9 1164.8)" >◄◄ 30'-0&quot; WIDE WEST ROAD (PRIMARY ACCESS &amp; GATES) ◄◄</text>
+    <text x="234.9" y="1164.8" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#2563EB" text-anchor="middle" transform="rotate(-90 234.9 1164.8)" >◄◄ 30'-0&quot; WIDE WEST ROAD (PRIMARY ACCESS &amp; MAIN GATES) ◄◄</text>
 
-    <!-- South Road -->
     <rect x="-85.1" y="1969.5" width="2516.7" height="480.0" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" rx="0" opacity="1.0" stroke-dasharray="6,4" />
 
     <text x="1213.3" y="2249.5" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#2563EB" text-anchor="middle"  >▼▼ 30'-0&quot; WIDE SOUTH ROAD (SECONDARY CORNER ACCESS) ▼▼</text>
@@ -31,7 +29,6 @@
 
   <!-- Landscaped Gardens & Setbacks -->
   <g id="gardens_and_driveway">
-    <!-- North Front Garden (17' Setback) -->
     <rect x="566.9" y="372.1" width="1292.7" height="402.5" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.5" rx="0" opacity="0.7" />
 
     <text x="1213.3" y="535.4" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#166534" text-anchor="middle"  >NORTH FRONT GARDEN &amp; LAWN (17'-0&quot; CLEAR SETBACK)</text>
@@ -39,19 +36,16 @@
     <text x="1213.3" y="591.4" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#15803D" text-anchor="middle"  >[OPEN, LIGHT &amp; UNENCUMBERED — VAASTU ALIGNED]</text>
 
 
-    <!-- East Morning Garden (9' Setback) -->
     <rect x="1652.2" y="774.6" width="207.5" height="1182.8" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.5" rx="0" opacity="0.7" />
 
     <text x="1764.2" y="1270.0" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#166534" text-anchor="middle" transform="rotate(-90 1764.2 1270.0)" >EAST MORNING GARDEN (9'-0&quot; SETBACK)</text>
 
 
-    <!-- South Setback (9' Setback) -->
     <rect x="750.0" y="1750.0" width="902.2" height="207.5" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1.0" rx="0" opacity="0.5" />
 
     <text x="1201.1" y="1859.7" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#166534" text-anchor="middle"  >SOUTH SETBACK: 9'-0&quot; [2.74m]</text>
 
 
-    <!-- West Driveway (8' Setback) -->
     <rect x="566.9" y="762.6" width="183.1" height="1194.8" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.0" rx="0" opacity="1.0" />
 
     <text x="652.5" y="1510.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#475569" text-anchor="middle" transform="rotate(-90 652.5 1510.0)" >WEST DRIVEWAY: 8'-0&quot; SETBACK</text>
@@ -64,7 +58,6 @@
 
     <rect x="1859.7" y="360.1" width="12.0" height="1609.3" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <!-- South Wall with Corner Gate -->
     <rect x="554.9" y="1957.5" width="795.1" height="12.0" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
     <line x1="1350.0" y1="1957.5" x2="1630.0" y2="1957.5" stroke="#059669" stroke-width="2.5"  />
@@ -74,7 +67,7 @@
 
     <rect x="1630.0" y="1957.5" width="241.7" height="12.0" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <!-- West Wall with Main Vehicle Gate & Pedestrian Gate -->
+    
     <rect x="554.9" y="1070.0" width="12.0" height="899.5" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
     <line x1="566.9" y1="1070.0" x2="566.9" y2="974.0" stroke="#059669" stroke-width="2.5"  />
@@ -97,17 +90,6 @@
   <g id="plinth_builtup">
     <rect x="750.0" y="774.6" width="902.2" height="975.4" fill="#FFFFFF" stroke="#0F172A" stroke-width="2.5" rx="0" opacity="1.0" />
 
-    <!-- Curbs -->
-    <rect x="750.0" y="1738.0" width="902.2" height="12.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="1640.2" y="774.6" width="12.0" height="975.4" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="750.0" y="774.6" width="902.2" height="12.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="750.0" y="774.6" width="12.0" height="975.4" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-
-    <!-- Sheltered Function Pavilion (750 sq ft) -->
     <rect x="750.0" y="1254.0" width="902.2" height="496.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="0" opacity="0.8" />
 
     <text x="1198.0" y="1470.0" font-family="Inter, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#92400E" text-anchor="middle"  >SHELTERED OPEN FUNCTION PAVILION</text>
@@ -117,7 +99,6 @@
     <text x="1198.0" y="1574.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="normal" fill="#B45309" text-anchor="middle"  >(Family Festivals, Ritual Gathering, Open Plinth Verandah)</text>
 
 
-    <!-- Covered Car Parking -->
     <rect x="1054.0" y="798.6" width="224.0" height="440.0" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5" rx="6" opacity="1.0" />
 
     <rect x="1078.0" y="830.6" width="176.0" height="384.0" fill="#BAE6FD" stroke="#0369A1" stroke-width="1.5" rx="12" opacity="1.0" />
@@ -128,7 +109,6 @@
 </text>
 
 
-    <!-- 2-Wheeler Parking (4 Bikes) -->
     <rect x="1310.0" y="814.6" width="200.0" height="200.0" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5" rx="4" opacity="1.0" />
 
     <text x="1410.0" y="910.6" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#15803D" text-anchor="middle"  >
@@ -140,20 +120,20 @@
 
   <!-- External NW Core (Stairs + Lift) -->
   <g id="external_core">
-    <rect x="558.0" y="774.0" width="192.0" height="496.0" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="558.0" y="774.8" width="192.0" height="455.2" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="562.0" y="990.0" width="168.0" height="264.0" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2" rx="0" opacity="1.0" />
+    <rect x="562.0" y="966.0" width="168.0" height="252.0" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2" rx="0" opacity="1.0" />
 
-    <text x="646.0" y="1126.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle" transform="rotate(-90 646.0 1126.0)" >
+    <text x="646.0" y="1094.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle" transform="rotate(-90 646.0 1094.0)" >
   <tspan x="646.0" dy="-0.3em">EXTERNAL STAIRS</tspan>
   <tspan x="646.0" dy="1.25em">7'3&quot;x11'0&quot; [NW VAYU]</tspan>
 </text>
 
-    <rect x="566.0" y="798.0" width="152.0" height="168.0" fill="#E2E8F0" stroke="#334155" stroke-width="2.0" rx="0" opacity="1.0" />
+    <rect x="566.0" y="786.8" width="152.0" height="171.2" fill="#E2E8F0" stroke="#334155" stroke-width="2.0" rx="0" opacity="1.0" />
 
-    <rect x="594.0" y="826.0" width="96.0" height="112.0" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="594.0" y="810.0" width="96.0" height="128.0" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <text x="646.0" y="886.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#0369A1" text-anchor="middle" transform="rotate(-90 646.0 886.0)" >
+    <text x="646.0" y="870.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#0369A1" text-anchor="middle" transform="rotate(-90 646.0 870.0)" >
   <tspan x="646.0" dy="-0.3em">6-PAX LIFT</tspan>
   <tspan x="646.0" dy="1.25em">1.6m x 1.6m</tspan>
 </text>
@@ -182,7 +162,6 @@
 
   <!-- Dual Dimensions (Plot + Plinth) -->
   <g id="dimensions">
-    <!-- Plot South Width (54'-0") -->
     <line x1="554.9" y1="2113.5" x2="1871.7" y2="2113.5" stroke="#0F172A" stroke-width="2.0"  />
 
     <line x1="554.9" y1="2137.5" x2="554.9" y2="2089.5" stroke="#0F172A" stroke-width="2.5"  />
@@ -192,7 +171,6 @@
     <text x="1213.3" y="2153.5" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#0F172A" text-anchor="middle"  >54'-0&quot; [16.46m] TOTAL PLOT WIDTH (EAST-WEST)</text>
 
 
-    <!-- Plot West Depth (66'-0") -->
     <line x1="410.9" y1="1969.5" x2="410.9" y2="360.1" stroke="#0F172A" stroke-width="2.0"  />
 
     <line x1="386.9" y1="1969.5" x2="434.9" y2="1969.5" stroke="#0F172A" stroke-width="2.5"  />
@@ -202,7 +180,6 @@
     <text x="362.9" y="1164.8" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#0F172A" text-anchor="middle" transform="rotate(-90 362.9 1164.8)" >66'-0&quot; [20.12m] TOTAL PLOT DEPTH (NORTH-SOUTH)</text>
 
 
-    <!-- Plinth Dimensions (37' x 40') -->
     <line x1="750.0" y1="1830.0" x2="1652.2" y2="1830.0" stroke="#059669" stroke-width="1.5"  />
 
     <text x="1201.1" y="1858.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#059669" text-anchor="middle"  >37'-0&quot; [11.28m] BUILT-UP PLINTH WIDTH</text>
@@ -228,15 +205,15 @@
   <text x="1985.7" y="1693.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">SETBACKS:</tspan> N:17' E:9' S:9' W:8' (Vaastu Compliant)</text>
   <text x="1985.7" y="1716.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">CORE:</tspan> External NW Stairs &amp; 6-PAX Lift</text>
   <text x="1985.7" y="1739.0" font-family="Inter, sans-serif" font-size="11" fill="#0D9488"><tspan font-weight="700">VAASTU:</tspan> Telugu / Telangana (Open Ishanya NE)</text>
-  <text x="1985.7" y="1762.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BALCONIES:</tspan> North, East (Ishanya), &amp; South</text>
-  <text x="1985.7" y="1785.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">UTILITY:</tspan> External Out-of-House Balcony</text>
-  <text x="1985.7" y="1808.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BATHS:</tspan> Spacious 6'0" x 8'6" Wet/Dry Stacks</text>
+  <text x="1985.7" y="1762.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">ENTRANCE:</tspan> North-North-East (NNE) Simhadwaram</text>
+  <text x="1985.7" y="1785.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">POOJA:</tspan> Both Doors West-Facing (Detached)</text>
+  <text x="1985.7" y="1808.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BATHS:</tspan> 6'0" x 8'6" Wet/Dry (Unblocked East Door)</text>
   
   <line x1="1982.7" y1="1826.0" x2="2432.7" y2="1826.0" stroke="#CBD5E1" stroke-width="1"/>
   
-  <text x="1985.7" y="1850.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'6"x7'</text>
+  <text x="1985.7" y="1850.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'8"x7'</text>
   <text x="1985.7" y="1868.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">WINDOWS: W1: 5'0"x4'6" | W2: 4'0"x4'6" | V1: 2'0"x2'0"</text>
-  <text x="1985.7" y="1886.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">MILLWORK: Full Wardrobes, Desk, TV Console, Sofas</text>
+  <text x="1985.7" y="1886.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">BALCONIES: North (from Office), East (Ishanya), &amp; South</text>
 </g>
 
 </svg>

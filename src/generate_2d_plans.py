@@ -68,7 +68,6 @@ COLOR_POOJA = (0.88, 0.62, 0.12, 1.0)          # Sacred brass / gold
 COLOR_TEXT = (0.08, 0.10, 0.14, 1.0)           # Dark charcoal text
 COLOR_DIM = (0.35, 0.40, 0.48, 1.0)            # Dimension string grey
 COLOR_GRID = (0.60, 0.65, 0.72, 1.0)           # Column grid line grey
-COLOR_BUBBLE = (0.92, 0.94, 0.97, 1.0)         # Grid bubble background
 COLOR_PAVILION = (0.94, 0.92, 0.86, 1.0)       # Pavilion slab
 COLOR_PARKING = (0.88, 0.92, 0.96, 1.0)        # Stilt parking bay
 COLOR_DRIVEWAY = (0.92, 0.93, 0.95, 1.0)       # Paved driveway
@@ -159,123 +158,138 @@ def create_door_2d(name, hinge_x, hinge_y, width, open_angle_deg, open_side='E',
         elif open_side == 'W':
             px = hinge_x - width * math.cos(rad)
             py = hinge_y + width * math.sin(rad)
-        else:
-            px = hinge_x + width * math.cos(rad)
-            py = hinge_y - width * math.sin(rad)
+        else: # 'S'
+            px = hinge_x + width * math.sin(rad)
+            py = hinge_y - width * math.cos(rad)
         pts.append((px, py, 0.02))
         
     polyline.points.add(len(pts) - 1)
-    for idx, (px, py, pz) in enumerate(pts):
-        polyline.points[idx].co = (px, py, pz, 1.0)
+    for i, p in enumerate(pts):
+        polyline.points[i].co = (p[0], p[1], p[2], 1.0)
         
-    curve_obj = bpy.data.objects.new(f"{name}_ArcObj", curve_data)
-    curve_obj.data.materials.append(mat)
-    curve_obj.color = COLOR_DOOR
+    arc_obj = bpy.data.objects.new(f"{name}_ArcObj", curve_data)
+    arc_obj.color = COLOR_DOOR
+    arc_obj.data.materials.append(mat)
     if collection:
-        collection.objects.link(curve_obj)
+        collection.objects.link(arc_obj)
     else:
-        bpy.context.scene.collection.objects.link(curve_obj)
+        bpy.context.scene.collection.objects.link(arc_obj)
+    return arc_obj
 
 def create_window_2d(name, x0, y0, x1, y1, mat=None, collection=None):
     mat = mat or get_or_create_material("Mat_Window", COLOR_WINDOW)
-    create_box(f"{name}_Sill", x0, y0, x1, y1, 0, WALL_H * 0.35, mat, collection)
-    mid_x = (x0 + x1) / 2.0
-    mid_y = (y0 + y1) / 2.0
-    if abs(x1 - x0) > abs(y1 - y0):
-        create_box(f"{name}_Glass", x0, mid_y - 0.02, x1, mid_y + 0.02, 0, WALL_H, mat, collection)
+    dx = abs(x1 - x0)
+    dy = abs(y1 - y0)
+    create_box(f"{name}_Sill", x0, y0, x1, y1, 0, 0.25, mat, collection)
+    if dx > dy:
+        create_box(f"{name}_Glass", x0, (y0+y1)/2.0 - 0.015, x1, (y0+y1)/2.0 + 0.015, 0.25, WALL_H, mat, collection)
     else:
-        create_box(f"{name}_Glass", mid_x - 0.02, y0, mid_x + 0.02, y1, 0, WALL_H, mat, collection)
+        create_box(f"{name}_Glass", (x0+x1)/2.0 - 0.015, y0, (x0+x1)/2.0 + 0.015, y1, 0.25, WALL_H, mat, collection)
 
 def add_columns(collection):
     mat_col = get_or_create_material("Mat_Column", COLOR_COLUMN)
-    for ix, cx in enumerate(GRID_X):
-        for iy, cy in enumerate(GRID_Y):
-            create_box(f"Col_{ix+1}_{chr(65+iy)}", cx - COL_W/2, cy - COL_D/2, cx + COL_W/2, cy + COL_D/2, 0, WALL_H + 0.08, mat_col, collection)
+    for i, cx in enumerate(GRID_X):
+        for j, cy in enumerate(GRID_Y):
+            name = f"RCC_Col_X{i+1}_Y{j+1}"
+            create_box(name, cx - COL_W/2.0, cy - COL_D/2.0, cx + COL_W/2.0, cy + COL_D/2.0, 0, WALL_H + 0.1, mat_col, collection)
 
 def add_external_vertical_core(collection):
-    """External stairs & 6-PAX lift located in NW (Vayu) Zone outside the home envelope."""
-    mat_core = get_or_create_material("Mat_Core", (0.35, 0.30, 0.45, 1.0))
-    mat_tread = get_or_create_material("Mat_Tread", (0.75, 0.77, 0.82, 1.0))
-    mat_lift_cab = get_or_create_material("Mat_LiftCab", (0.88, 0.88, 0.92, 1.0))
+    mat_int = get_or_create_material("Mat_IntWall", COLOR_INT_WALL)
     mat_ext = get_or_create_material("Mat_ExtWall", COLOR_EXT_WALL)
-
-    create_box("Core_Landing_Slab", -2.40, 6.0, 0.0, 12.2, -0.05, 0, mat_core, collection)
-    create_box("Ext_Stair_Base", -2.35, 6.2, -0.25, 9.5, 0, 0.05, mat_tread, collection)
-    create_box("Stair_Mid_Landing", -2.35, 6.2, -0.25, 7.3, 0, 0.08, mat_tread, collection)
-    create_box("Stair_Divider", -1.35, 7.3, -1.25, 9.5, 0, WALL_H * 0.8, mat_core, collection)
-    for i in range(1, 7):
-        ty = 7.3 + i * (2.2 / 7.0)
-        create_box(f"Tread_Up_{i}", -2.35, ty - 0.015, -1.40, ty + 0.015, 0, 0.06, mat_tread, collection)
-        create_box(f"Tread_Dn_{i}", -1.20, ty - 0.015, -0.25, ty + 0.015, 0, 0.06, mat_tread, collection)
-
-    create_box("Lift_Wall_S", -2.3, 9.8, -0.4, 10.0, 0, WALL_H, mat_ext, collection)
-    create_box("Lift_Wall_N", -2.3, 11.7, -0.4, 11.9, 0, WALL_H, mat_ext, collection)
-    create_box("Lift_Wall_W", -2.3, 10.0, -2.1, 11.7, 0, WALL_H, mat_ext, collection)
-    create_box("Lift_Wall_E", -0.6, 10.0, -0.4, 11.7, 0, WALL_H, mat_ext, collection)
-    create_box("Lift_Cab", -1.95, 10.15, -0.75, 11.55, 0, 0.05, mat_lift_cab, collection)
-    create_box("Core_Rail_W", -2.40, 6.0, -2.35, 12.2, 0, WALL_H * 0.9, mat_core, collection)
+    mat_slab = get_or_create_material("Mat_Slab", COLOR_SLAB)
+    mat_furn = get_or_create_material("Mat_Furniture", COLOR_FURNITURE)
+    
+    core_x0 = -2.40
+    core_x1 = 0.0
+    core_y0 = 6.50
+    core_y1 = 12.19
+    
+    # Plinth Base for Core
+    create_box("Core_Slab", core_x0, core_y0, core_x1, core_y1, 0, 0.08, mat_slab, collection)
+    
+    # Staircase Walls
+    create_box("Core_Wall_W", core_x0, core_y0, core_x0 + 0.15, core_y1, 0, WALL_H, mat_ext, collection)
+    create_box("Core_Wall_N", core_x0, core_y1 - 0.15, core_x1, core_y1, 0, WALL_H, mat_ext, collection)
+    create_box("Core_Wall_S", core_x0, core_y0, core_x1, core_y0 + 0.15, 0, WALL_H, mat_ext, collection)
+    create_box("Core_Mid_Wall", core_x0, 9.80 - 0.08, core_x1, 9.80 + 0.08, 0, WALL_H, mat_int, collection)
+    
+    # Dog-legged Stairs (Treads from y=6.65 to 9.70)
+    stair_w = (core_x1 - core_x0 - 0.15 - 0.10) / 2.0
+    num_treads = 10
+    tread_d = (9.70 - 7.50) / num_treads
+    for t in range(num_treads):
+        ty0 = 7.50 + t * tread_d
+        ty1 = ty0 + tread_d
+        create_box(f"Stair_Up_Tr_{t}", core_x0 + 0.15, ty0, core_x0 + 0.15 + stair_w, ty1, 0, 0.08 + (t+1)*0.02, mat_furn, collection)
+        create_box(f"Stair_Dn_Tr_{t}", core_x1 - stair_w, ty0, core_x1, ty1, 0, 0.35 + (t+1)*0.02, mat_furn, collection)
+        
+    create_box("Stair_Mid_Landing", core_x0 + 0.15, 6.65, core_x1, 7.50, 0, 0.30, mat_slab, collection)
+    
+    # 6-PAX Lift Enclosure (from y=9.88 to 12.04)
+    create_box("Lift_Shaft_Box", core_x0 + 0.15, 9.90, core_x1, 12.04, 0, WALL_H, mat_ext, collection)
+    create_box("Lift_Cabin", core_x0 + 0.35, 10.15, core_x1 - 0.20, 11.85, 0.05, WALL_H * 0.95, mat_slab, collection)
+    create_door_2d("Lift_Telescopic_Door", core_x1 - 0.02, 10.55, 0.90, 90, 'W', None, collection)
 
 def add_title_block(sheet_title, collection, is_ground=False):
-    """Engineering Title Block and Legend in right margin."""
-    mat_tb = get_or_create_material("Mat_TitleBlock", (0.95, 0.96, 0.98, 1.0))
-    mat_border = get_or_create_material("Mat_TBBorder", (0.20, 0.25, 0.35, 1.0))
+    mat_paper = get_or_create_material("Mat_TitlePaper", (0.98, 0.98, 0.99, 1.0))
+    mat_border = get_or_create_material("Mat_TitleBorder", COLOR_EXT_WALL)
     
-    bx0 = PLOT_X1 + 1.2 if is_ground else PLINTH_W + 1.2
-    bx1 = bx0 + 5.8
-    by0 = -4.5
-    by1 = 3.5
+    bx = PLOT_X1 + 1.2 if is_ground else PLINTH_W + 1.2
+    by = 2.6
+    bw = 4.8
+    bh = 6.5
     
-    create_box("TB_BG", bx0, by0, bx1, by1, 0, 0.02, mat_tb, collection)
-    create_box("TB_Border_Top", bx0, by1 - 0.03, bx1, by1, 0, 0.03, mat_border, collection)
-    create_box("TB_Border_Bot", bx0, by0, bx1, by0 + 0.03, 0, 0.03, mat_border, collection)
-    create_box("TB_Border_L", bx0, by0, bx0 + 0.03, by1, 0, 0.03, mat_border, collection)
-    create_box("TB_Border_R", bx1 - 0.03, by0, bx1, by1, 0, 0.03, mat_border, collection)
+    create_box("Title_Block_Bg", bx, by, bx + bw, by + bh, 0.01, 0.03, mat_paper, collection)
+    create_box("Title_Border_Out", bx, by, bx + bw, by + bh, 0.03, 0.05, mat_border, collection)
+    create_box("Title_Border_In", bx + 0.06, by + 0.06, bx + bw - 0.06, by + bh - 0.06, 0.04, 0.05, mat_paper, collection)
     
-    cx = (bx0 + bx1) / 2.0
-    add_cad_text("TB_H1", "PROPERTY 2 RESIDENCE", cx, 2.9, size=0.30, color=(0.1, 0.15, 0.25, 1.0), collection=collection)
-    add_cad_text("TB_H2", sheet_title.upper(), cx, 2.4, size=0.24, color=(0.05, 0.45, 0.35, 1.0), collection=collection)
-    add_cad_text("TB_P1", "PLOT: 54'-0\" x 66'-0\" [3,564 SQ.FT]", cx, 1.9, size=0.19, color=COLOR_TEXT, collection=collection)
-    add_cad_text("TB_P2", "PLINTH: 37'-0\" x 40'-0\" [1,480 SQ.FT]", cx, 1.55, size=0.19, color=COLOR_TEXT, collection=collection)
-    add_cad_text("TB_P3", "SETBACKS: N:17' E:9' S:9' W:8' (VAASTU)", cx, 1.20, size=0.18, color=(0.1, 0.5, 0.2, 1.0), collection=collection)
-    add_cad_text("TB_P4", "CORE: EXTERNAL NW STAIRS & 6-PAX LIFT", cx, 0.85, size=0.18, color=(0.15, 0.35, 0.65, 1.0), collection=collection)
-    add_cad_text("TB_P5", "VAASTU: TELUGU / TELANGANA COMPLIANT", cx, 0.50, size=0.18, color=(0.75, 0.40, 0.05, 1.0), collection=collection)
-    add_cad_text("TB_P6", "ISHANYA: OPEN SITOUT TERRACE (NE)", cx, 0.15, size=0.18, color=(0.05, 0.45, 0.35, 1.0), collection=collection)
-    add_cad_text("TB_P7", "OFFICE: NORTH FACING (GARDEN VIEW)", cx, -0.20, size=0.18, color=COLOR_TEXT, collection=collection)
-    add_cad_text("TB_P8", "BATHS: SPACIOUS 6'0\"x8'6\" (WET/DRY)", cx, -0.55, size=0.18, color=COLOR_TEXT, collection=collection)
-    add_cad_text("TB_P9", "UTILITY: OUT-OF-HOUSE WASH BALCONY", cx, -0.90, size=0.18, color=COLOR_TEXT, collection=collection)
+    cx = bx + bw / 2.0
+    add_cad_text("TB_Title1", "PROPERTY 2 RESIDENCE", cx, by + 5.9, size=0.28, color=(0.05, 0.1, 0.2, 1.0), collection=collection)
+    add_cad_text("TB_Title2", sheet_title.upper(), cx, by + 5.4, size=0.20, color=(0.05, 0.55, 0.45, 1.0), collection=collection)
     
-    add_cad_text("TB_Leg1", "DOORS: D1: 3'6\"x7' | D2: 3'0\"x7' | D3: 2'6\"x7'", cx, -1.6, size=0.15, color=COLOR_TEXT, collection=collection)
-    add_cad_text("TB_Leg2", "WINDOWS: W1: 5'0\"x4'6\" | W2: 4'0\"x4'6\" | V1: 2'0\"x2'0\"", cx, -1.95, size=0.15, color=COLOR_TEXT, collection=collection)
-    add_cad_text("TB_Leg3", "MILLWORK: WARDROBES, OFFICE DESK, TV UNIT, SOFAS", cx, -2.3, size=0.14, color=COLOR_DIM, collection=collection)
+    specs = [
+        "PLOT: 54'-0\" x 66'-0\" (SW Corner, 3,564 sf)",
+        "PLINTH: 37'-0\" x 40'-0\" (1,480 sf Footprint)",
+        "SETBACKS: N:17' E:9' S:9' W:8' (Vaastu Compliant)",
+        "CORE: External NW Stairs & 6-PAX Lift",
+        "VAASTU: Telugu / Telangana (Open Ishanya NE)",
+        "ENTRANCE: North-North-East (NNE) Simhadwaram",
+        "POOJA: Both Doors West-Facing (Detached)",
+        "BATHS: 6'0\" x 8'6\" Spacious Wet/Dry Stacks",
+        "BALCONIES: North (from Office), East & South",
+        "MILLWORK: Complete Built-in Cupboards & Desks"
+    ]
+    
+    for i, sp in enumerate(specs):
+        add_cad_text(f"TB_Spec_{i}", sp, bx + 0.25, by + 4.8 - i * 0.42, size=0.14, align_x='LEFT', color=(0.15, 0.2, 0.3, 1.0), collection=collection)
 
-def setup_scene(scene_name, is_ground=False):
-    if scene_name in bpy.data.scenes:
-        scene = bpy.data.scenes[scene_name]
+def setup_scene(name, is_ground=False):
+    if name in bpy.data.scenes:
+        scene = bpy.data.scenes[name]
+        for obj in list(scene.objects):
+            bpy.data.objects.remove(obj, do_unlink=True)
     else:
-        scene = bpy.data.scenes.new(name=scene_name)
-    
+        scene = bpy.data.scenes.new(name)
+        
     scene.render.engine = 'BLENDER_WORKBENCH'
     scene.display.shading.light = 'FLAT'
     scene.display.shading.color_type = 'OBJECT'
-    scene.render.resolution_x = 2800
-    scene.render.resolution_y = 2200
+    scene.render.resolution_x = 2400
+    scene.render.resolution_y = 2000 if is_ground else 1800
     scene.render.resolution_percentage = 100
     
-    cam_name = f"Cam_{scene_name}"
-    if cam_name in bpy.data.cameras:
-        cam_data = bpy.data.cameras[cam_name]
-    else:
-        cam_data = bpy.data.cameras.new(cam_name)
-    
+    cam_name = f"Camera_{name}"
+    cam_data = bpy.data.cameras.new(name=cam_name)
     cam_data.type = 'ORTHO'
+    
     if is_ground:
         cam_data.ortho_scale = 32.0
-        cam_x = (PLOT_X0 + PLOT_X1) / 2.0 + 2.5
+        cam_x = (PLOT_X0 + PLOT_X1) / 2.0 + 1.2
         cam_y = (PLOT_Y0 + PLOT_Y1) / 2.0
     else:
-        cam_data.ortho_scale = 24.0
-        cam_x = PLINTH_W / 2.0 + 1.0
-        cam_y = PLINTH_D / 2.0 - 0.2
+        cam_data.ortho_scale = 22.0
+        cam_x = PLINTH_W / 2.0 + 1.2
+        cam_y = PLINTH_D / 2.0
         
     if cam_name in bpy.data.objects:
         cam_obj = bpy.data.objects[cam_name]
@@ -393,10 +407,10 @@ def build_ground_floor_entire_plot():
     print("Rendered: ground_stilt_2d.png (Entire Plot 54'x66' + Plinth 37'x40')")
 
 # =============================================================================
-# SCENE 2: FIRST FLOOR — BROTHER'S 2BHK RESIDENCE (+3.00m)
+# SCENE 2 & 3 BUILDER: UPPER FLOORS (L1 BROTHER 2BHK & L2 OWNER RESIDENCE)
 # =============================================================================
-def build_first_floor_brother():
-    scene = setup_scene("First_Floor_Brother", is_ground=False)
+def build_upper_floor(scene_name, is_owner_level=False):
+    scene = setup_scene(scene_name, is_ground=False)
     bpy.context.window.scene = scene
     col = scene.collection
     
@@ -410,297 +424,207 @@ def build_first_floor_brother():
     mat_pooja = get_or_create_material("Mat_Pooja", COLOR_POOJA)
     mat_balcony = get_or_create_material("Mat_Balcony", COLOR_BALCONY)
     
-    # Base Slab & Columns
-    create_box("Floor1_Slab", 0, 0, PLINTH_W, PLINTH_D, -0.15, 0, mat_slab, col)
+    # 1. Base Slab, External Core & Columns
+    create_box(f"{scene_name}_Slab", 0, 0, PLINTH_W, PLINTH_D, -0.15, 0, mat_slab, col)
     add_columns(col)
     add_external_vertical_core(col)
     
-    # 3 Balconies & External Utility
-    create_box("Balcony_North_Slab", 3.81, PLINTH_D, 7.31, PLINTH_D + 1.30, 0, 0.05, mat_balcony, col)
-    create_box("Balcony_North_Rail", 3.81, PLINTH_D + 1.25, 7.31, PLINTH_D + 1.30, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Balcony_East_Slab", 7.31, 8.5, PLINTH_W, PLINTH_D, 0, 0.05, mat_balcony, col)
-    create_box("Balcony_East_Rail_N", 7.31, PLINTH_D - 0.1, PLINTH_W, PLINTH_D, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Balcony_East_Rail_E", PLINTH_W - 0.1, 8.5, PLINTH_W, PLINTH_D, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Balcony_South_Slab", 0, -1.2, 3.81, 0, 0, 0.05, mat_balcony, col)
-    create_box("Balcony_South_Rail", 0, -1.2, 3.81, -1.15, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Utility_East_Slab", PLINTH_W, 0, PLINTH_W + 1.4, 3.5, 0, 0.05, mat_balcony, col)
-    create_box("Utility_East_Rail", PLINTH_W + 1.35, 0, PLINTH_W + 1.4, 3.5, 0, WALL_H * 0.9, mat_int, col)
+    # 2. Covered North Verandah / Walkway Deck
+    # Runs from NW core landing (x=0) to NNE Simhadwaram (x=7.315), width y=12.19 to 13.50 (4'-3" wide)
+    create_box("North_Verandah_Slab", 0.0, PLINTH_D, 7.315, PLINTH_D + 1.31, 0, 0.06, mat_balcony, col)
+    create_box("North_Verandah_Railing", 0.0, PLINTH_D + 1.25, 7.315, PLINTH_D + 1.31, 0, WALL_H * 0.9, mat_int, col)
+    
+    # 3. East Open Sitout (Ishanya NE Corner Terrace - Open to Sky)
+    # x=7.315 to 11.277, y=9.72 to 12.19 (13' x 8')
+    create_box("Ishanya_Terrace_Slab", 7.315, 9.72, PLINTH_W, PLINTH_D, 0, 0.05, mat_balcony, col)
+    create_box("Ishanya_Rail_North", 7.315, PLINTH_D - 0.10, PLINTH_W, PLINTH_D, 0, WALL_H * 0.9, mat_int, col)
+    create_box("Ishanya_Rail_East", PLINTH_W - 0.10, 9.72, PLINTH_W, PLINTH_D, 0, WALL_H * 0.9, mat_int, col)
+    
+    # 4. South Shaded Balcony
+    create_box("Balcony_South_Slab", 0, -1.2, 7.315, 0, 0, 0.05, mat_balcony, col)
+    create_box("Balcony_South_Rail", 0, -1.2, 7.315, -1.15, 0, WALL_H * 0.9, mat_int, col)
+    
+    # 5. Out-of-House Utility Balcony (SE Agneya, attached to kitchen)
+    create_box("Utility_East_Slab", PLINTH_W, 0, PLINTH_W + 1.40, 3.80, 0, 0.05, mat_balcony, col)
+    create_box("Utility_East_Rail", PLINTH_W + 1.35, 0, PLINTH_W + 1.40, 3.80, 0, WALL_H * 0.9, mat_int, col)
 
-    # Exterior Walls
+    # 6. Exterior Walls (9" / 0.23m)
+    # South Wall (y = 0 to 0.23)
     create_box("Ext_S_1", 0, 0, 1.2, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
     create_door_2d("Door_MB_South_Balcony", 1.2, EXT_WALL_THICK, 0.90, 90, 'S', None, col)
     create_box("Ext_S_2", 2.1, 0, 3.81, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-    create_box("Ext_S_3", 3.81, 0, 7.31, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-    create_box("Ext_S_4", 7.31, 0, PLINTH_W, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
+    create_box("Ext_S_3", 3.81, 0, 5.0, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
+    create_door_2d("Door_Dining_South_Balcony", 5.0, EXT_WALL_THICK, 1.20, 90, 'S', None, col)
+    create_box("Ext_S_4", 6.2, 0, PLINTH_W, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
     
+    # East Wall (x = PLINTH_W - 0.23 to PLINTH_W)
     create_box("Ext_E_1", PLINTH_W - EXT_WALL_THICK, 0, PLINTH_W, 1.2, 0, WALL_H, mat_ext, col)
     create_door_2d("Door_Kit_Utility", PLINTH_W - EXT_WALL_THICK, 1.2, 0.85, 90, 'E', None, col)
     create_box("Ext_E_2", PLINTH_W - EXT_WALL_THICK, 2.05, PLINTH_W, 3.8, 0, WALL_H, mat_ext, col)
     create_window_2d("Win_Kit_E", PLINTH_W - EXT_WALL_THICK, 2.2, PLINTH_W, 3.4, None, col)
-    create_box("Ext_E_3", PLINTH_W - EXT_WALL_THICK, 3.8, PLINTH_W, 5.0, 0, WALL_H, mat_ext, col)
-    create_window_2d("Win_Liv_E", PLINTH_W - EXT_WALL_THICK, 5.0, PLINTH_W, 7.2, None, col)
-    create_box("Ext_E_4", PLINTH_W - EXT_WALL_THICK, 7.2, PLINTH_W, 8.5, 0, WALL_H, mat_ext, col)
+    create_box("Ext_E_Pooja", PLINTH_W - EXT_WALL_THICK, 4.60, PLINTH_W, 9.60, 0, WALL_H, mat_ext, col)
+    create_window_2d("Win_Pooja_E", PLINTH_W - EXT_WALL_THICK, 5.5, PLINTH_W, 6.5, None, col)
+    create_window_2d("Win_DailyPooja_E", PLINTH_W - EXT_WALL_THICK, 8.0, PLINTH_W, 8.8, None, col)
+    
+    # North Wall (y = PLINTH_D - 0.23 to PLINTH_D)
+    # NW Office / Bedroom 2 North Wall
+    create_box("Ext_N_NW1", 0, PLINTH_D - EXT_WALL_THICK, 1.2, PLINTH_D, 0, WALL_H, mat_ext, col)
+    create_window_2d("Win_NW_North", 1.2, PLINTH_D - EXT_WALL_THICK, 2.7, PLINTH_D, None, col)
+    create_box("Ext_N_NW2", 2.7, PLINTH_D - EXT_WALL_THICK, 2.9, PLINTH_D, 0, WALL_H, mat_ext, col)
+    # Direct Balcony Entrance from Office / Bedroom 2!
+    create_door_2d("Door_Office_North_Balcony", 2.9, PLINTH_D - EXT_WALL_THICK, 0.90, 90, 'N', None, col)
+    create_box("Ext_N_NW3", 3.8, PLINTH_D - EXT_WALL_THICK, 6.0, PLINTH_D, 0, WALL_H, mat_ext, col)
+    
+    # NNE Simhadwaram Main Entrance (x=6.0 to 7.10) - Pure North-North-East, entering Grand Living Hall!
+    create_door_2d("Simhadwaram_D1_NNE", 6.0, PLINTH_D - EXT_WALL_THICK, 1.10, 90, 'S', None, col)
+    create_box("Ext_N_NNE_Post", 7.10, PLINTH_D - EXT_WALL_THICK, 7.315, PLINTH_D, 0, WALL_H, mat_ext, col)
 
-    create_box("Ext_N_W1", 0, PLINTH_D - EXT_WALL_THICK, 1.5, PLINTH_D, 0, WALL_H, mat_ext, col)
-    create_door_2d("Simhadwaram_D1", 1.5, PLINTH_D - EXT_WALL_THICK, 1.05, 90, 'S', None, col)
-    create_box("Ext_N_W2", 2.55, PLINTH_D - EXT_WALL_THICK, 3.81, PLINTH_D, 0, WALL_H, mat_ext, col)
-    create_box("Ext_N_W3", 3.81, PLINTH_D - EXT_WALL_THICK, 4.8, PLINTH_D, 0, WALL_H, mat_ext, col)
-    create_door_2d("Door_B2_North_Balcony", 4.8, PLINTH_D - EXT_WALL_THICK, 0.90, 90, 'N', None, col)
-    create_window_2d("Win_B2_N", 5.8, PLINTH_D - EXT_WALL_THICK, 7.2, PLINTH_D, None, col)
-    create_box("Ext_N_W4", 7.2, PLINTH_D - EXT_WALL_THICK, 7.31, PLINTH_D, 0, WALL_H, mat_ext, col)
-
+    # West Wall (x = 0 to 0.23)
     create_box("Ext_W_1", 0, EXT_WALL_THICK, EXT_WALL_THICK, 4.06, 0, WALL_H, mat_ext, col)
     create_window_2d("Win_MB_W", 0, 1.5, EXT_WALL_THICK, 3.0, None, col)
-    create_box("Ext_W_2", 0, 4.06, EXT_WALL_THICK, 6.7, 0, WALL_H, mat_ext, col)
-    create_window_2d("Vent_Baths", 0, 5.0, EXT_WALL_THICK, 5.8, None, col)
-    create_box("Ext_W_3", 0, 6.7, EXT_WALL_THICK, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
+    create_box("Ext_W_2", 0, 4.06, EXT_WALL_THICK, 7.60, 0, WALL_H, mat_ext, col)
+    create_window_2d("Vent_Baths_W", 0, 5.2, EXT_WALL_THICK, 6.2, None, col)
+    create_box("Ext_W_3", 0, 7.60, EXT_WALL_THICK, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
 
-    # Interior Partitions (4.5")
-    create_box("MB_Wall_E", 3.81 - INT_WALL_THICK/2, EXT_WALL_THICK, 3.81 + INT_WALL_THICK/2, 4.06, 0, WALL_H, mat_int, col)
-    create_box("MB_Wall_N_1", EXT_WALL_THICK, 4.06 - INT_WALL_THICK/2, 0.5, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_AttBath", 0.5, 4.06, 0.75, 90, 'N', None, col)
-    create_box("MB_Wall_N_2", 1.25, 4.06 - INT_WALL_THICK/2, 2.7, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_MB", 2.7, 4.06, 0.90, 90, 'S', None, col)
-    create_box("MB_Wall_N_3", 3.6, 4.06 - INT_WALL_THICK/2, 3.81, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    # 7. Interior Partitions (4.5" / 0.115m)
+    # Master Bedroom (SW Niruthi: x=0.23 to 3.81, y=0.23 to 4.06)
+    create_box("MB_Wall_E", 3.81 - INT_WALL_THICK/2, EXT_WALL_THICK, 3.81 + INT_WALL_THICK/2, 3.2, 0, WALL_H, mat_int, col)
+    create_door_2d("Door_MB_Entry", 3.81, 3.2, 0.86, 90, 'W', None, col)
+    
+    # Master Bedroom North Wall (y=4.06) - connects to Attached Bath privately
+    create_box("MB_Wall_N_1", EXT_WALL_THICK, 4.06 - INT_WALL_THICK/2, 0.8, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    create_door_2d("Door_MB_AttBath", 0.8, 4.06, 0.76, 90, 'N', None, col)
+    create_box("MB_Wall_N_2", 1.56, 4.06 - INT_WALL_THICK/2, 3.81, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
 
-    create_box("Bath_Div_Wall", 1.83 - INT_WALL_THICK/2, 4.06, 1.83 + INT_WALL_THICK/2, 6.66, 0, WALL_H, mat_int, col)
-    create_box("Bath_North_Wall", EXT_WALL_THICK, 6.66 - INT_WALL_THICK/2, 3.81, 6.66 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_box("Bath_East_Wall_1", 3.81 - INT_WALL_THICK/2, 4.06, 3.81 + INT_WALL_THICK/2, 5.2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_CommonBath", 3.81, 5.2, 0.75, 90, 'W', None, col)
-    create_box("Bath_East_Wall_2", 3.81 - INT_WALL_THICK/2, 5.95, 3.81 + INT_WALL_THICK/2, 6.66, 0, WALL_H, mat_int, col)
+    # Bathrooms Complex (West Varuna: x=0.23 to 3.81, y=4.18 to 7.60)
+    # Dividing wall between Attached Bath (West) and Common Bath (East)
+    create_box("Bath_Dividing_Wall", 1.95 - INT_WALL_THICK/2, 4.18, 1.95 + INT_WALL_THICK/2, 7.60, 0, WALL_H, mat_int, col)
+    create_box("Bath_North_Wall", EXT_WALL_THICK, 7.60 - INT_WALL_THICK/2, 3.81, 7.60 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    
+    # Common Bathroom East Wall (x=3.81) - WITH DIRECT UNBLOCKED DOOR FROM LIVING HALL!
+    create_box("CommonBath_East_Wall_1", 3.81 - INT_WALL_THICK/2, 4.18, 3.81 + INT_WALL_THICK/2, 5.20, 0, WALL_H, mat_int, col)
+    create_door_2d("Door_CommonBath_East", 3.81, 5.20, 0.80, 90, 'W', None, col)
+    create_box("CommonBath_East_Wall_2", 3.81 - INT_WALL_THICK/2, 6.00, 3.81 + INT_WALL_THICK/2, 7.60, 0, WALL_H, mat_int, col)
 
-    create_box("Kit_Wall_W", 7.31 - INT_WALL_THICK/2, EXT_WALL_THICK, 7.31 + INT_WALL_THICK/2, 2.2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Kit", 7.31, 2.2, 0.90, 90, 'W', None, col)
-    create_box("Kit_Wall_W2", 7.31 - INT_WALL_THICK/2, 3.1, 7.31 + INT_WALL_THICK/2, 3.5, 0, WALL_H, mat_int, col)
-    create_box("Kit_Wall_N", 7.31, 3.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 3.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    # Kitchen (SE Agneya: x=7.315 to PLINTH_W-0.23, y=0.23 to 3.80)
+    create_box("Kit_Wall_W1", 7.315 - INT_WALL_THICK/2, EXT_WALL_THICK, 7.315 + INT_WALL_THICK/2, 2.0, 0, WALL_H, mat_int, col)
+    create_door_2d("Door_Kit_Entry", 7.315, 2.0, 0.90, 90, 'W', None, col)
+    create_box("Kit_Wall_W2", 7.315 - INT_WALL_THICK/2, 2.9, 7.315 + INT_WALL_THICK/2, 3.80, 0, WALL_H, mat_int, col)
+    create_box("Kit_Wall_N", 7.315, 3.80 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 3.80 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
 
-    create_box("B2_Wall_W", 3.81 - INT_WALL_THICK/2, 8.5, 3.81 + INT_WALL_THICK/2, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_int, col)
-    create_box("B2_Wall_E", 7.31 - INT_WALL_THICK/2, 8.5, 7.31 + INT_WALL_THICK/2, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_int, col)
-    create_box("B2_Wall_S_1", 3.81, 8.5 - INT_WALL_THICK/2, 5.0, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_B2", 5.0, 8.5, 0.90, 90, 'N', None, col)
-    create_box("B2_Wall_S_2", 5.9, 8.5 - INT_WALL_THICK/2, 7.31, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    # NW Room (Home Office on L2 / Bedroom 2 on L1: x=0.23 to 4.00, y=7.72 to 11.96)
+    create_box("NW_Room_Wall_S", EXT_WALL_THICK, 7.72 - INT_WALL_THICK/2, 4.00, 7.72 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    create_box("NW_Room_Wall_E1", 4.00 - INT_WALL_THICK/2, 7.72, 4.00 + INT_WALL_THICK/2, 8.30, 0, WALL_H, mat_int, col)
+    create_door_2d("Door_NW_Room_Entry", 4.00, 8.30, 0.90, 90, 'W', None, col)
+    create_box("NW_Room_Wall_E2", 4.00 - INT_WALL_THICK/2, 9.20, 4.00 + INT_WALL_THICK/2, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_int, col)
 
-    create_box("Ishanya_Wall_1", 7.31, 8.5 - INT_WALL_THICK/2, 8.2, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Ishanya_Light", 8.2, 8.5, 1.20, 90, 'E', None, col)
-    create_box("Ishanya_Wall_2", 9.4, 8.5 - INT_WALL_THICK/2, 10.0, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Pooja", 10.0, 8.5, 0.80, 90, 'N', None, col)
-    create_box("Ishanya_Wall_3", 10.8, 8.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_box("Pooja_Wall_W", 10.0 - INT_WALL_THICK/2, 8.5, 10.0 + INT_WALL_THICK/2, 10.5, 0, WALL_H, mat_int, col)
-    create_box("Pooja_Wall_N", 10.0, 10.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 10.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    # Pooja Rooms Complex (East Zone, buffered from kitchen by dining passage)
+    # Mallanna Temple Room (x=8.50 to 11.05 [8'-4" width], y=4.60 to 7.04 [8'-0" depth])
+    create_box("Mallanna_Wall_S", 8.50, 4.60 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 4.60 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    create_box("Mallanna_Wall_N", 8.50, 7.04 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 7.04 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    create_box("Mallanna_Wall_W1", 8.50 - INT_WALL_THICK/2, 4.60, 8.50 + INT_WALL_THICK/2, 5.20, 0, WALL_H, mat_int, col)
+    # Mallanna Door ON WEST WALL entering from Living/Dining!
+    create_door_2d("Door_Mallanna_West", 8.50, 5.20, 0.90, 90, 'E', None, col)
+    create_box("Mallanna_Wall_W2", 8.50 - INT_WALL_THICK/2, 6.10, 8.50 + INT_WALL_THICK/2, 7.04, 0, WALL_H, mat_int, col)
 
-    # Millwork & Furniture
-    create_box("MB_Wardrobe", EXT_WALL_THICK, 0.35, EXT_WALL_THICK + 0.60, 3.8, 0, 1.10, mat_cupboard, col)
-    create_box("MB_Bed", 1.4, EXT_WALL_THICK + 0.1, 3.4, EXT_WALL_THICK + 2.1, 0, 0.45, mat_bed, col)
-    create_box("MB_Headboard", 1.3, EXT_WALL_THICK, 3.5, EXT_WALL_THICK + 0.1, 0, 0.75, mat_bed, col)
-    create_box("MB_TV_Console", 3.81 - INT_WALL_THICK/2 - 0.35, 1.5, 3.81 - INT_WALL_THICK/2, 3.2, 0, 0.60, mat_furn, col)
+    # Daily Pooja Room (x=8.50 to 11.05, y=7.16 to 9.60 [8'-4" length matching Mallanna width])
+    create_box("DailyPooja_Wall_N", 8.50, 9.60 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 9.60 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
+    create_box("DailyPooja_Wall_W1", 8.50 - INT_WALL_THICK/2, 7.16, 8.50 + INT_WALL_THICK/2, 7.80, 0, WALL_H, mat_int, col)
+    # Daily Pooja Door ON WEST WALL entering from Living Hall!
+    create_door_2d("Door_DailyPooja_West", 8.50, 7.80, 0.80, 90, 'E', None, col)
+    create_box("DailyPooja_Wall_W2", 8.50 - INT_WALL_THICK/2, 8.60, 8.50 + INT_WALL_THICK/2, 9.60, 0, WALL_H, mat_int, col)
 
-    create_box("B2_Wardrobe", 3.81 + INT_WALL_THICK/2, 9.2, 3.81 + 0.60, 11.8, 0, 1.10, mat_cupboard, col)
-    create_box("B2_Bed", 4.8, PLINTH_D - EXT_WALL_THICK - 2.1, 6.6, PLINTH_D - EXT_WALL_THICK - 0.1, 0, 0.45, mat_bed, col)
-    create_box("B2_Study_Desk", 6.2, 8.6, 7.2, 9.4, 0, 0.75, mat_furn, col)
+    # Ishanya Glazed Light Door on West wall of Ishanya Open Sitout (x=7.315, y=9.72 to 12.19)
+    create_box("Ishanya_Inner_Wall_S", 7.315 - INT_WALL_THICK/2, 9.60, 8.50, 9.72, 0, WALL_H, mat_int, col)
+    create_box("Ishanya_Inner_Wall_W1", 7.315 - INT_WALL_THICK/2, 9.72, 7.315 + INT_WALL_THICK/2, 10.30, 0, WALL_H, mat_int, col)
+    create_door_2d("Door_Ishanya_Glazed_Light", 7.315, 10.30, 1.20, 90, 'W', None, col)
+    create_box("Ishanya_Inner_Wall_W2", 7.315 - INT_WALL_THICK/2, 11.50, 7.315 + INT_WALL_THICK/2, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_int, col)
 
-    create_box("Kit_Counter_E", PLINTH_W - EXT_WALL_THICK - 0.65, EXT_WALL_THICK, PLINTH_W - EXT_WALL_THICK, 3.4, 0, 0.85, mat_kit, col)
-    create_box("Kit_Counter_S", 7.4, EXT_WALL_THICK, PLINTH_W - EXT_WALL_THICK - 0.65, EXT_WALL_THICK + 0.65, 0, 0.85, mat_kit, col)
-    create_box("Kit_Pantry_Cupboard", 7.4, 2.5, 7.9, 3.4, 0, 1.20, mat_cupboard, col)
-    create_box("Kit_Stove", PLINTH_W - EXT_WALL_THICK - 0.60, 2.1, PLINTH_W - EXT_WALL_THICK - 0.10, 2.9, 0.86, 0.88, mat_pooja, col)
+    # 8. Millwork, Furniture & Fixtures
+    # Master Bedroom (SW Niruthi)
+    create_box("MB_Wardrobe", EXT_WALL_THICK + 0.1, 0.35, EXT_WALL_THICK + 0.70, 3.80, 0, 1.10, mat_cupboard, col)
+    create_box("MB_Bed", 1.4, EXT_WALL_THICK + 0.15, 3.4, EXT_WALL_THICK + 2.15, 0, 0.45, mat_bed, col)
+    create_box("MB_Headboard", 1.3, EXT_WALL_THICK + 0.05, 3.5, EXT_WALL_THICK + 0.15, 0, 0.75, mat_bed, col)
+
+    # Attached Bath & Common Bath Fixtures
+    create_box("AttBath_Shower", EXT_WALL_THICK + 0.1, 6.2, 1.95 - 0.1, 7.5, 0, 0.15, mat_balcony, col)
+    create_box("AttBath_Vanity", EXT_WALL_THICK + 0.1, 4.3, EXT_WALL_THICK + 0.6, 5.3, 0, 0.85, mat_furn, col)
+    create_box("CommonBath_Shower", 2.05 + 0.1, 6.2, 3.81 - 0.1, 7.5, 0, 0.15, mat_balcony, col)
+    create_box("CommonBath_Vanity", 3.81 - 0.6, 6.3, 3.81 - 0.1, 7.3, 0, 0.85, mat_furn, col)
+
+    # Kitchen Counter & Appliances (SE Agneya)
+    create_box("Kit_Counter_E", PLINTH_W - EXT_WALL_THICK - 0.65, EXT_WALL_THICK, PLINTH_W - EXT_WALL_THICK, 3.70, 0, 0.85, mat_kit, col)
+    create_box("Kit_Counter_S", 7.40, EXT_WALL_THICK, PLINTH_W - EXT_WALL_THICK - 0.65, EXT_WALL_THICK + 0.65, 0, 0.85, mat_kit, col)
+    create_box("Kit_Stove_EastHob", PLINTH_W - EXT_WALL_THICK - 0.60, 2.2, PLINTH_W - EXT_WALL_THICK - 0.10, 3.0, 0.86, 0.88, mat_pooja, col)
     create_box("Kit_Sink", PLINTH_W - EXT_WALL_THICK - 0.60, 1.0, PLINTH_W - EXT_WALL_THICK - 0.10, 1.6, 0.86, 0.87, mat_slab, col)
 
-    create_box("Sofa_Main", 4.2, 5.0, 7.0, 5.9, 0, 0.65, mat_bed, col)
-    create_box("Sofa_L_Ext", 4.2, 5.9, 5.1, 7.5, 0, 0.65, mat_bed, col)
-    create_box("Coffee_Table", 5.5, 6.2, 6.7, 7.2, 0, 0.40, mat_furn, col)
-    create_box("Living_TV_Unit", 3.81 + INT_WALL_THICK/2, 4.5, 3.81 + 0.45, 6.5, 0, 1.10, mat_cupboard, col)
-    create_box("Dining_Table", 5.0, 2.2, 6.6, 3.6, 0, 0.75, mat_furn, col)
-
+    # Out-of-House Utility
     create_box("Utility_Wash_Machine", PLINTH_W + 0.2, 0.4, PLINTH_W + 0.9, 1.1, 0, 0.85, mat_furn, col)
-    create_box("Utility_Sink", PLINTH_W + 0.2, 1.6, PLINTH_W + 0.8, 2.4, 0, 0.75, mat_kit, col)
+    create_box("Utility_Gas_Cage", PLINTH_W + 0.2, 1.5, PLINTH_W + 0.8, 2.3, 0, 0.90, mat_int, col)
 
-    add_title_block("First Floor - Brother's 2BHK Residence", col, is_ground=False)
+    # Dining Table (South-Central, adjacent to kitchen)
+    create_box("Dining_Table", 5.0, 1.8, 6.6, 3.2, 0, 0.75, mat_furn, col)
 
-    # Room Labels
-    add_cad_text("Lbl_MB_1", "MASTER BEDROOM", 2.0, 3.0, size=0.28, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_MB_2", "12'-6\" x 13'-4\" [3.81m x 4.06m]", 2.0, 2.6, size=0.20, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_MB_3", "[NIRUTHI / SW - HEAVY | BUILT-IN WARDROBE]", 2.0, 2.25, size=0.17, color=(0.6, 0.3, 0.1, 1.0), collection=col)
-    add_cad_text("Lbl_AttBath", "SPACIOUS ATT. BATH\n6'0\" x 8'6\" [WET/DRY]", 1.0, 5.4, size=0.18, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_ComBath", "SPACIOUS COM. BATH\n6'0\" x 8'6\" [VARUNA]", 2.8, 5.4, size=0.18, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Kit_1", "MODULAR KITCHEN", 9.2, 2.1, size=0.26, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Kit_2", "12'-6\" x 11'-6\" [SE AGNEYA]", 9.2, 1.75, size=0.19, color=(0.8, 0.3, 0.05, 1.0), collection=col)
-    add_cad_text("Lbl_Util", "OUT-OF-HOUSE UTILITY\nBALCONY (WASH/GAS)", PLINTH_W + 0.7, 2.8, size=0.16, rot_z=math.radians(-90), color=(0.1, 0.3, 0.5, 1.0), collection=col)
-    add_cad_text("Lbl_Din", "DINING AREA\n10'-6\" x 11'-6\"", 5.8, 1.5, size=0.22, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Liv_1", "GRAND LIVING HALL", 6.0, 4.4, size=0.28, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Liv_2", "18'-0\" x 14'-0\" [OPEN BRAHMASTHANA]", 6.0, 4.0, size=0.20, color=(0.1, 0.4, 0.3, 1.0), collection=col)
-    add_cad_text("Lbl_B2_1", "BEDROOM 2", 5.5, 10.5, size=0.28, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_B2_2", "11'-6\" x 11'-6\" [VAYU/NORTH]", 5.5, 10.1, size=0.20, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Pooja", "POOJA MANDIR\n4'6\" x 6'6\"", 10.5, 9.5, size=0.19, color=(0.85, 0.50, 0.05, 1.0), collection=col)
-    add_cad_text("Lbl_Ishanya_1", "OPEN ISHANYA (NE) SITOUT", 8.8, 11.2, size=0.24, color=(0.1, 0.35, 0.7, 1.0), collection=col)
-    add_cad_text("Lbl_Ishanya_2", "[LIGHT & OPEN - VAASTU ALIGNED]", 8.8, 10.8, size=0.18, color=(0.05, 0.45, 0.35, 1.0), collection=col)
-    add_cad_text("Lbl_Simha", "SIMHADWARAM (D1)\nNORTH-FACING", 2.0, PLINTH_D - 0.7, size=0.19, color=(0.05, 0.55, 0.35, 1.0), collection=col)
+    # Grand Living Room Entertainment Wall & Sofas (TV Unit placed on Dining partition facing North!)
+    create_box("Living_TV_Entertainment_Unit", 4.8, 3.80 + INT_WALL_THICK/2, 6.8, 4.25, 0, 1.10, mat_cupboard, col)
+    create_box("Sofa_Living_L", 4.8, 6.2, 7.6, 7.1, 0, 0.65, mat_bed, col)
+    create_box("Sofa_Living_Seat", 4.8, 7.1, 5.7, 8.6, 0, 0.65, mat_bed, col)
+    create_box("Living_Coffee_Table", 6.0, 7.3, 7.2, 8.2, 0, 0.40, mat_furn, col)
 
-    scene.render.filepath = str(OUTPUT_DIR / "first_floor_brother_2d.png")
+    # Mallanna Altar (faces North along South wall of Mallanna room)
+    create_box("Mallanna_Altar", 8.8, 4.60 + INT_WALL_THICK/2 + 0.1, 10.7, 5.3, 0, 0.95, mat_pooja, col)
+    create_box("Mallanna_Carpet", 8.8, 5.5, 10.7, 6.7, 0, 0.05, mat_bed, col)
+
+    # Daily Pooja Altar (faces East along West wall of Daily Pooja room)
+    create_box("DailyPooja_Altar", 8.50 + INT_WALL_THICK/2 + 0.1, 8.0, 9.15, 9.4, 0, 0.90, mat_pooja, col)
+
+    # NW Room Distinction (Home Office vs Bedroom 2)
+    if is_owner_level:
+        # Level 2: Home Office / Executive Study
+        create_box("Office_Exec_Desk", 1.8, 9.2, 3.4, 10.2, 0, 0.75, mat_furn, col)
+        create_box("Office_Exec_Chair", 2.3, 8.6, 2.9, 9.1, 0, 0.60, mat_bed, col)
+        create_box("Office_Bookshelf", 0.4, 8.0, 3.8, 8.5, 0, 1.20, mat_cupboard, col)
+    else:
+        # Level 1: Bedroom 2
+        create_box("B2_Bed", 1.5, 8.8, 3.3, 10.8, 0, 0.45, mat_bed, col)
+        create_box("B2_Wardrobe", 0.4, 8.0, 3.8, 8.6, 0, 1.10, mat_cupboard, col)
+        create_box("B2_Study_Desk", 1.5, 11.0, 2.7, 11.7, 0, 0.75, mat_furn, col)
+
+    title_txt = "Second Floor - Owner's Residence & Office" if is_owner_level else "First Floor - Brother's 2BHK Residence"
+    add_title_block(title_txt, col, is_ground=False)
+
+    # Comprehensive Architectural & Vaastu Text Callouts
+    add_cad_text("Lbl_MB", "MASTER BEDROOM\n12'-6\" x 13'-4\" [NIRUTHI / SW]", 2.0, 2.8, size=0.22, color=COLOR_TEXT, collection=col)
+    add_cad_text("Lbl_AttBath", "ATT. BATH\n6'0\"x8'6\" [PRIVATE]", 1.1, 5.6, size=0.18, color=COLOR_TEXT, collection=col)
+    add_cad_text("Lbl_ComBath", "COMMON BATH\n6'0\"x8'6\" [EAST DOOR]", 2.9, 5.6, size=0.18, color=(0.1, 0.4, 0.2, 1.0), collection=col)
+    
+    if is_owner_level:
+        add_cad_text("Lbl_Office", "HOME OFFICE / STUDY\n12'-4\" x 13'-11\" [GARDEN VIEW]\n(Direct Door to North Balcony)", 2.1, 10.5, size=0.20, color=(0.1, 0.25, 0.6, 1.0), collection=col)
+    else:
+        add_cad_text("Lbl_B2", "BEDROOM 2\n12'-4\" x 13'-11\" [VAYU]\n(Direct Door to North Balcony)", 2.1, 10.5, size=0.20, color=COLOR_TEXT, collection=col)
+        
+    add_cad_text("Lbl_Living", "GRAND LIVING HALL (BRAHMASTHANA)\n18'-0\" x 14'-0\" [OPEN ILLUMINATED CORE]", 6.3, 8.8, size=0.24, color=(0.05, 0.4, 0.3, 1.0), collection=col)
+    add_cad_text("Lbl_Dining", "DINING AREA\n10'-6\" x 11'-8\"", 5.8, 2.5, size=0.20, color=COLOR_TEXT, collection=col)
+    add_cad_text("Lbl_Kitchen", "MODULAR KITCHEN\n12'-3\" x 11'-8\" [AGNEYA / SE]\n(East-Facing Cooking Hob)", 9.2, 2.2, size=0.20, color=(0.7, 0.25, 0.1, 1.0), collection=col)
+    add_cad_text("Lbl_Utility", "UTILITY BALCONY\n(Out-of-House)", PLINTH_W + 0.7, 1.8, size=0.18, rot_z=math.radians(-90), color=COLOR_TEXT, collection=col)
+    
+    add_cad_text("Lbl_Mallanna", "MALLANNA TEMPLE ROOM\n8'-4\" x 8'-0\" [WEST DOOR]\n(Faces North | Detached from Kitchen)", 9.8, 6.2, size=0.18, color=(0.8, 0.45, 0.1, 1.0), collection=col)
+    add_cad_text("Lbl_DailyPooja", "DAILY POOJA MANDIR\n8'-4\" x 8'-0\" [WEST DOOR]\n(Faces East | Sacred Devotion)", 9.8, 8.6, size=0.18, color=(0.8, 0.45, 0.1, 1.0), collection=col)
+    
+    add_cad_text("Lbl_Ishanya", "OPEN ISHANYA (NE) SITOUT\n13'-0\" x 8'-0\" [OPEN TO SKY]\n(Sacred Morning Sunlight Corridor)", 9.2, 11.0, size=0.20, color=(0.05, 0.45, 0.7, 1.0), collection=col)
+    add_cad_text("Lbl_Simhadwaram", "SIMHADWARAM (MAIN ENTRANCE)\nNORTH-NORTH-EAST (NNE) PADA\n(Direct Arrival from Covered Verandah)", 6.5, PLINTH_D + 0.5, size=0.18, color=(0.05, 0.5, 0.2, 1.0), collection=col)
+    add_cad_text("Lbl_Verandah", "COVERED NORTH VERANDAH / WALKWAY (CONNECTS NW CORE TO FRONT DOOR)", 3.6, PLINTH_D + 0.8, size=0.18, color=(0.1, 0.3, 0.5, 1.0), collection=col)
+
+    png_name = "second_floor_owner_2d.png" if is_owner_level else "first_floor_brother_2d.png"
+    scene.render.filepath = str(OUTPUT_DIR / png_name)
     bpy.ops.render.render(write_still=True)
-    print("Rendered: first_floor_brother_2d.png")
+    print(f"Rendered: {png_name}")
 
-# =============================================================================
-# SCENE 3: SECOND FLOOR — OWNER'S RESIDENCE (2BHK + OFFICE + DUAL POOJA)
-# =============================================================================
-def build_second_floor_owner():
-    scene = setup_scene("Second_Floor_Owner", is_ground=False)
-    bpy.context.window.scene = scene
-    col = scene.collection
-    
-    mat_slab = get_or_create_material("Mat_Slab", COLOR_SLAB)
-    mat_ext = get_or_create_material("Mat_ExtWall", COLOR_EXT_WALL)
-    mat_int = get_or_create_material("Mat_IntWall", COLOR_INT_WALL)
-    mat_bed = get_or_create_material("Mat_Bed", COLOR_BED)
-    mat_kit = get_or_create_material("Mat_Kitchen", COLOR_KITCHEN)
-    mat_furn = get_or_create_material("Mat_Furniture", COLOR_FURNITURE)
-    mat_cupboard = get_or_create_material("Mat_Cupboard", COLOR_CUPBOARD)
-    mat_pooja = get_or_create_material("Mat_Pooja", COLOR_POOJA)
-    mat_balcony = get_or_create_material("Mat_Balcony", COLOR_BALCONY)
-    
-    create_box("Floor2_Slab", 0, 0, PLINTH_W, PLINTH_D, -0.15, 0, mat_slab, col)
-    add_columns(col)
-    add_external_vertical_core(col)
-    
-    # 3 Balconies & External Utility
-    create_box("Balcony_North_Slab", 3.81, PLINTH_D, 7.31, PLINTH_D + 1.30, 0, 0.05, mat_balcony, col)
-    create_box("Balcony_North_Rail", 3.81, PLINTH_D + 1.25, 7.31, PLINTH_D + 1.30, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Balcony_East_Slab", 7.31, 8.5, PLINTH_W, PLINTH_D, 0, 0.05, mat_balcony, col)
-    create_box("Balcony_East_Rail_N", 7.31, PLINTH_D - 0.1, PLINTH_W, PLINTH_D, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Balcony_East_Rail_E", PLINTH_W - 0.1, 8.5, PLINTH_W, PLINTH_D, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Balcony_South_Slab", 0, -1.2, 3.81, 0, 0, 0.05, mat_balcony, col)
-    create_box("Balcony_South_Rail", 0, -1.2, 3.81, -1.15, 0, WALL_H * 0.9, mat_int, col)
-    create_box("Utility_East_Slab", PLINTH_W, 0, PLINTH_W + 1.4, 3.5, 0, 0.05, mat_balcony, col)
-    create_box("Utility_East_Rail", PLINTH_W + 1.35, 0, PLINTH_W + 1.4, 3.5, 0, WALL_H * 0.9, mat_int, col)
-
-    # Exterior Walls
-    create_box("Ext_S_1", 0, 0, 1.2, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-    create_door_2d("Door_MB_South_Balcony", 1.2, EXT_WALL_THICK, 0.90, 90, 'S', None, col)
-    create_box("Ext_S_2", 2.1, 0, 3.81, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-    create_box("Ext_S_3", 3.81, 0, 7.31, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-    create_box("Ext_S_4", 7.31, 0, PLINTH_W, EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-    
-    create_box("Ext_E_1", PLINTH_W - EXT_WALL_THICK, 0, PLINTH_W, 1.2, 0, WALL_H, mat_ext, col)
-    create_door_2d("Door_Kit_Utility", PLINTH_W - EXT_WALL_THICK, 1.2, 0.85, 90, 'E', None, col)
-    create_box("Ext_E_2", PLINTH_W - EXT_WALL_THICK, 2.05, PLINTH_W, 3.8, 0, WALL_H, mat_ext, col)
-    create_window_2d("Win_Kit_E", PLINTH_W - EXT_WALL_THICK, 2.2, PLINTH_W, 3.4, None, col)
-    create_box("Ext_E_3", PLINTH_W - EXT_WALL_THICK, 3.8, PLINTH_W, 5.0, 0, WALL_H, mat_ext, col)
-    create_window_2d("Win_Liv_E", PLINTH_W - EXT_WALL_THICK, 5.0, PLINTH_W, 7.2, None, col)
-    create_box("Ext_E_4", PLINTH_W - EXT_WALL_THICK, 7.2, PLINTH_W, 8.5, 0, WALL_H, mat_ext, col)
-
-    create_box("Ext_N_W1", 0, PLINTH_D - EXT_WALL_THICK, 1.5, PLINTH_D, 0, WALL_H, mat_ext, col)
-    create_door_2d("Simhadwaram_D1", 1.5, PLINTH_D - EXT_WALL_THICK, 1.05, 90, 'S', None, col)
-    create_box("Ext_N_W2", 2.55, PLINTH_D - EXT_WALL_THICK, 3.81, PLINTH_D, 0, WALL_H, mat_ext, col)
-    create_box("Ext_N_W3", 3.81, PLINTH_D - EXT_WALL_THICK, 4.3, PLINTH_D, 0, WALL_H, mat_ext, col)
-    create_window_2d("Win_Office_North", 4.3, PLINTH_D - EXT_WALL_THICK, 6.2, PLINTH_D, None, col)
-    create_box("Ext_N_W4", 6.2, PLINTH_D - EXT_WALL_THICK, 7.31, PLINTH_D, 0, WALL_H, mat_ext, col)
-
-    create_box("Ext_W_1", 0, EXT_WALL_THICK, EXT_WALL_THICK, 4.06, 0, WALL_H, mat_ext, col)
-    create_window_2d("Win_MB_W", 0, 1.5, EXT_WALL_THICK, 3.0, None, col)
-    create_box("Ext_W_2", 0, 4.06, EXT_WALL_THICK, 6.7, 0, WALL_H, mat_ext, col)
-    create_window_2d("Vent_Baths", 0, 5.0, EXT_WALL_THICK, 5.8, None, col)
-    create_box("Ext_W_3", 0, 6.7, EXT_WALL_THICK, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_ext, col)
-
-    # Partitions (4.5")
-    create_box("MB_Wall_E", 3.81 - INT_WALL_THICK/2, EXT_WALL_THICK, 3.81 + INT_WALL_THICK/2, 4.06, 0, WALL_H, mat_int, col)
-    create_box("MB_Wall_N_1", EXT_WALL_THICK, 4.06 - INT_WALL_THICK/2, 0.5, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_AttBath", 0.5, 4.06, 0.75, 90, 'N', None, col)
-    create_box("MB_Wall_N_2", 1.25, 4.06 - INT_WALL_THICK/2, 2.7, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_MB", 2.7, 4.06, 0.90, 90, 'S', None, col)
-    create_box("MB_Wall_N_3", 3.6, 4.06 - INT_WALL_THICK/2, 3.81, 4.06 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-
-    create_box("Bath_Div_Wall", 1.83 - INT_WALL_THICK/2, 4.06, 1.83 + INT_WALL_THICK/2, 6.66, 0, WALL_H, mat_int, col)
-    create_box("Bath_North_Wall", EXT_WALL_THICK, 6.66 - INT_WALL_THICK/2, 3.81, 6.66 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_box("Bath_East_Wall_1", 3.81 - INT_WALL_THICK/2, 4.06, 3.81 + INT_WALL_THICK/2, 5.2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_CommonBath", 3.81, 5.2, 0.75, 90, 'W', None, col)
-    create_box("Bath_East_Wall_2", 3.81 - INT_WALL_THICK/2, 5.95, 3.81 + INT_WALL_THICK/2, 6.66, 0, WALL_H, mat_int, col)
-
-    create_box("Kit_Wall_W", 7.31 - INT_WALL_THICK/2, EXT_WALL_THICK, 7.31 + INT_WALL_THICK/2, 2.2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Kit", 7.31, 2.2, 0.90, 90, 'W', None, col)
-    create_box("Kit_Wall_W2", 7.31 - INT_WALL_THICK/2, 3.1, 7.31 + INT_WALL_THICK/2, 3.5, 0, WALL_H, mat_int, col)
-    create_box("Kit_Wall_N", 7.31, 3.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 3.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-
-    create_box("Office_Wall_W", 3.81 - INT_WALL_THICK/2, 8.8, 3.81 + INT_WALL_THICK/2, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_int, col)
-    create_box("Office_Wall_E", 7.31 - INT_WALL_THICK/2, 8.8, 7.31 + INT_WALL_THICK/2, PLINTH_D - EXT_WALL_THICK, 0, WALL_H, mat_int, col)
-    create_box("Office_Wall_S_1", 3.81, 8.8 - INT_WALL_THICK/2, 4.8, 8.8 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Office", 4.8, 8.8, 0.90, 90, 'N', None, col)
-    create_box("Office_Wall_S_2", 5.7, 8.8 - INT_WALL_THICK/2, 7.31, 8.8 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-
-    create_box("Pooja_Div_Wall_1", 7.31, 8.5 - INT_WALL_THICK/2, 8.2, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Ishanya_Light", 8.2, 8.5, 1.20, 90, 'E', None, col)
-    create_box("Pooja_Div_Wall_2", 9.4, 8.5 - INT_WALL_THICK/2, 10.0, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Mallanna_Pooja", 10.0, 8.5, 0.90, 90, 'N', None, col)
-    create_box("Pooja_Div_Wall_3", 10.9, 8.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 8.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-
-    create_box("Mallanna_Wall_W", 8.8 - INT_WALL_THICK/2, 5.5, 8.8 + INT_WALL_THICK/2, 8.5, 0, WALL_H, mat_int, col)
-    create_box("Mallanna_Wall_S_1", 8.8, 5.5 - INT_WALL_THICK/2, 9.6, 5.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Mallanna_Entry", 9.6, 5.5, 0.90, 90, 'N', None, col)
-    create_box("Mallanna_Wall_S_2", 10.5, 5.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 5.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    
-    create_box("Daily_Pooja_Wall_W", 9.4 - INT_WALL_THICK/2, 8.5, 9.4 + INT_WALL_THICK/2, 10.5, 0, WALL_H, mat_int, col)
-    create_box("Daily_Pooja_Wall_N", 9.4, 10.5 - INT_WALL_THICK/2, PLINTH_W - EXT_WALL_THICK, 10.5 + INT_WALL_THICK/2, 0, WALL_H, mat_int, col)
-    create_door_2d("Door_Daily_Pooja", 9.5, 8.5, 0.80, 90, 'N', None, col)
-
-    # Millwork & Furniture
-    create_box("MB_Wardrobe", EXT_WALL_THICK, 0.35, EXT_WALL_THICK + 0.60, 3.8, 0, 1.10, mat_cupboard, col)
-    create_box("MB_Bed", 1.4, EXT_WALL_THICK + 0.1, 3.4, EXT_WALL_THICK + 2.1, 0, 0.45, mat_bed, col)
-    create_box("MB_Headboard", 1.3, EXT_WALL_THICK, 3.5, EXT_WALL_THICK + 0.1, 0, 0.75, mat_bed, col)
-    create_box("MB_TV_Console", 3.81 - INT_WALL_THICK/2 - 0.35, 1.5, 3.81 - INT_WALL_THICK/2, 3.2, 0, 0.60, mat_furn, col)
-
-    create_box("Office_Desk", 4.6, 10.0, 6.4, 10.8, 0, 0.75, mat_furn, col)
-    create_box("Office_Cupboard_Wall", 3.81 + INT_WALL_THICK/2, 9.2, 3.81 + 0.55, 11.8, 0, 1.10, mat_cupboard, col)
-    create_box("Office_Lounge_Chair", 6.2, 9.2, 7.0, 10.0, 0, 0.60, mat_bed, col)
-
-    create_box("Mallanna_Altar", 9.0, 7.5, PLINTH_W - EXT_WALL_THICK - 0.1, 8.4, 0, 0.65, mat_pooja, col)
-    create_box("Mallanna_Prayer_Carpet", 9.0, 5.8, PLINTH_W - EXT_WALL_THICK - 0.2, 7.4, 0, 0.02, mat_pooja, col)
-
-    create_box("Sofa_Main", 4.2, 5.0, 7.0, 5.9, 0, 0.65, mat_bed, col)
-    create_box("Sofa_L_Ext", 4.2, 5.9, 5.1, 7.5, 0, 0.65, mat_bed, col)
-    create_box("Coffee_Table", 5.5, 6.2, 6.7, 7.2, 0, 0.40, mat_furn, col)
-    create_box("Living_TV_Unit", 3.81 + INT_WALL_THICK/2, 4.5, 3.81 + 0.45, 6.5, 0, 1.10, mat_cupboard, col)
-    create_box("Dining_Table", 5.0, 2.2, 6.6, 3.6, 0, 0.75, mat_furn, col)
-
-    create_box("Kit_Counter_E", PLINTH_W - EXT_WALL_THICK - 0.65, EXT_WALL_THICK, PLINTH_W - EXT_WALL_THICK, 3.4, 0, 0.85, mat_kit, col)
-    create_box("Kit_Counter_S", 7.4, EXT_WALL_THICK, PLINTH_W - EXT_WALL_THICK - 0.65, EXT_WALL_THICK + 0.65, 0, 0.85, mat_kit, col)
-    create_box("Kit_Pantry_Cupboard", 7.4, 2.5, 7.9, 3.4, 0, 1.20, mat_cupboard, col)
-    create_box("Kit_Stove", PLINTH_W - EXT_WALL_THICK - 0.60, 2.1, PLINTH_W - EXT_WALL_THICK - 0.10, 2.9, 0.86, 0.88, mat_pooja, col)
-    create_box("Kit_Sink", PLINTH_W - EXT_WALL_THICK - 0.60, 1.0, PLINTH_W - EXT_WALL_THICK - 0.10, 1.6, 0.86, 0.87, mat_slab, col)
-    create_box("Utility_Wash_Machine", PLINTH_W + 0.2, 0.4, PLINTH_W + 0.9, 1.1, 0, 0.85, mat_furn, col)
-    create_box("Utility_Sink", PLINTH_W + 0.2, 1.6, PLINTH_W + 0.8, 2.4, 0, 0.75, mat_kit, col)
-
-    add_title_block("Second Floor - Owner's Residence", col, is_ground=False)
-
-    # Labels
-    add_cad_text("Lbl_MB_1", "MASTER BEDROOM", 2.0, 3.0, size=0.28, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_MB_2", "12'-6\" x 13'-4\" [3.81m x 4.06m]", 2.0, 2.6, size=0.20, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_MB_3", "[NIRUTHI / SW - HEAVY | BUILT-IN WARDROBE]", 2.0, 2.25, size=0.17, color=(0.6, 0.3, 0.1, 1.0), collection=col)
-    add_cad_text("Lbl_AttBath", "SPACIOUS ATT. BATH\n6'0\" x 8'6\" [WET/DRY]", 1.0, 5.4, size=0.18, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_ComBath", "SPACIOUS COM. BATH\n6'0\" x 8'6\" [VARUNA]", 2.8, 5.4, size=0.18, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Kit_1", "MODULAR KITCHEN", 9.2, 2.1, size=0.26, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Kit_2", "12'-6\" x 11'-6\" [SE AGNEYA]", 9.2, 1.75, size=0.19, color=(0.8, 0.3, 0.05, 1.0), collection=col)
-    add_cad_text("Lbl_Util", "OUT-OF-HOUSE UTILITY\nBALCONY (WASH/GAS)", PLINTH_W + 0.7, 2.8, size=0.16, rot_z=math.radians(-90), color=(0.1, 0.3, 0.5, 1.0), collection=col)
-    add_cad_text("Lbl_Office_1", "HOME OFFICE / EXECUTIVE STUDY", 5.5, 11.2, size=0.26, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Office_2", "11'-6\" x 11'-0\" [NORTH GARDEN VIEW]", 5.5, 10.8, size=0.19, color=(0.15, 0.35, 0.65, 1.0), collection=col)
-    add_cad_text("Lbl_Office_3", "(Unblocked by Core | Executive Millwork)", 5.5, 10.45, size=0.16, color=COLOR_DIM, collection=col)
-    add_cad_text("Lbl_Liv_1", "GRAND LIVING HALL", 6.0, 4.4, size=0.28, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_Liv_2", "18'-0\" x 14'-0\" [OPEN BRAHMASTHANA]", 6.0, 4.0, size=0.20, color=(0.1, 0.4, 0.3, 1.0), collection=col)
-    add_cad_text("Lbl_Mallanna_1", "MALLANNA SHRINE", 9.9, 7.0, size=0.22, color=(0.85, 0.50, 0.05, 1.0), collection=col)
-    add_cad_text("Lbl_Mallanna_2", "8'-6\" x 10'-0\" [DETACHED]", 9.9, 6.65, size=0.17, color=COLOR_TEXT, collection=col)
-    add_cad_text("Lbl_DailyPooja", "DAILY POOJA\n5'6\" x 6'6\"", 10.2, 9.5, size=0.19, color=(0.85, 0.50, 0.05, 1.0), collection=col)
-    add_cad_text("Lbl_Ishanya_1", "OPEN ISHANYA (NE) SITOUT", 8.8, 11.2, size=0.24, color=(0.1, 0.35, 0.7, 1.0), collection=col)
-    add_cad_text("Lbl_Ishanya_2", "[LIGHT & OPEN - VAASTU ALIGNED]", 8.8, 10.8, size=0.18, color=(0.05, 0.45, 0.35, 1.0), collection=col)
-    add_cad_text("Lbl_Simha", "SIMHADWARAM (D1)\nNORTH-FACING", 2.0, PLINTH_D - 0.7, size=0.19, color=(0.05, 0.55, 0.35, 1.0), collection=col)
-
-    scene.render.filepath = str(OUTPUT_DIR / "second_floor_owner_2d.png")
-    bpy.ops.render.render(write_still=True)
-    print("Rendered: second_floor_owner_2d.png")
-
-# =============================================================================
-# MAIN EXECUTION
-# =============================================================================
 if __name__ == "__main__":
     print("Starting Blender Architectural CAD Generation (Full Plot + Plinth)...")
     build_ground_floor_entire_plot()
-    build_first_floor_brother()
-    build_second_floor_owner()
+    build_upper_floor("First_Floor_Brother", is_owner_level=False)
+    build_upper_floor("Second_Floor_Owner", is_owner_level=True)
     
     bpy.ops.wm.save_as_mainfile(filepath=str(BLEND_FILE))
     print(f"Master Project Saved: {BLEND_FILE}")

@@ -9,40 +9,54 @@
   <rect x="25" y="25" width="2350" height="1800" fill="none" stroke="#CBD5E1" stroke-width="2"/>
   <rect x="35" y="35" width="2330" height="1780" fill="url(#gridPattern)" stroke="#0F172A" stroke-width="1"/>
 
-  <!-- Plinth Base -->
+  <!-- Plinth Base Slab -->
   <rect x="480.0" y="280.8" width="1127.8" height="1219.2" fill="#F8FAFC" stroke="#0F172A" stroke-width="2.0" rx="0" opacity="1.0" />
 
 
-  <!-- Balconies & External Utility -->
-  <rect x="861.0" y="150.8" width="350.0" height="130.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" stroke-dasharray="4,4" />
+  <!-- Covered North Verandah / Walkway Deck (Linking NW Core to NNE Simhadwaram) -->
+  <g id="north_verandah">
+    <rect x="480.0" y="149.8" width="731.5" height="131.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
 
-  <text x="1030.0" y="215.8" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#1D4ED8" text-anchor="middle"  >NORTH BALCONY (11'-6&quot; x 4'-3&quot;)</text>
+    <line x1="480.0" y1="152.8" x2="1211.5" y2="152.8" stroke="#1D4ED8" stroke-width="2.0"  />
 
+    <text x="840.0" y="215.8" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#1D4ED8" text-anchor="middle"  >COVERED NORTH VERANDAH / ENTRY WALKWAY (4'-3&quot; WIDE DECK)</text>
 
-  <rect x="1211.0" y="280.8" width="396.8" height="369.2" fill="#EFF6FF" stroke="#0284C7" stroke-width="1.8" rx="0" opacity="1.0" />
+  </g>
 
-  <text x="1400.0" y="380.0" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#0369A1" text-anchor="middle"  >OPEN ISHANYA (NE) SITOUT</text>
+  <!-- Open Ishanya (NE) Sitout Terrace (Left Open for Sacred Morning Light) -->
+  <g id="ishanya_open_terrace">
+    <rect x="1211.5" y="280.8" width="396.3" height="247.2" fill="#EFF6FF" stroke="#0284C7" stroke-width="1.8" rx="0" opacity="1.0" />
 
-  <text x="1400.0" y="430.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#0284C7" text-anchor="middle"  >13'-0&quot; x 12'-0&quot; [OPEN TO SKY]</text>
+    <text x="1410.0" y="360.0" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="800" fill="#0369A1" text-anchor="middle"  >OPEN ISHANYA (NE) SITOUT</text>
 
-  <text x="1400.0" y="480.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#075985" text-anchor="middle"  >(Dual Light Corridor to Simhadwaram)</text>
+    <text x="1410.0" y="410.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0284C7" text-anchor="middle"  >13'-0&quot; x 8'-0&quot; [OPEN TO SKY]</text>
 
+    <text x="1410.0" y="460.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#075985" text-anchor="middle"  >(Morning Ishanya Sunlight Corridor)</text>
 
-  <rect x="480.0" y="1500.0" width="381.0" height="120.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" stroke-dasharray="4,4" />
+  </g>
 
-  <text x="670.0" y="1560.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#1D4ED8" text-anchor="middle"  >SOUTH SHADED BALCONY (12'-6&quot; x 4'-0&quot;)</text>
+  <!-- South Shaded Balcony -->
+  <g id="south_balcony">
+    <rect x="480.0" y="1500.0" width="731.5" height="120.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" stroke-dasharray="4,4" />
 
+    <text x="840.0" y="1560.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#1D4ED8" text-anchor="middle"  >SOUTH SHADED SITOUT BALCONY (24'-0&quot; x 4'-0&quot;)</text>
 
-  <rect x="1607.8" y="1150.0" width="140.0" height="350.0" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
+  </g>
 
-  <text x="1677.8" y="1325.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle" transform="rotate(-90 1677.8 1325.0)" >
+  <!-- Out-of-House Utility Balcony (Attached to Kitchen) -->
+  <g id="utility_balcony">
+    <rect x="1607.8" y="1120.0" width="140.0" height="380.0" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <text x="1677.8" y="1310.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#334155" text-anchor="middle" transform="rotate(-90 1677.8 1310.0)" >
   <tspan x="1677.8" dy="-0.3em">OUT-OF-HOUSE UTILITY</tspan>
   <tspan x="1677.8" dy="1.25em">(WASH &amp; GAS BALCONY)</tspan>
 </text>
 
+  </g>
 
-  <!-- Exterior Walls -->
+  <!-- Exterior 9" Walls -->
   <g id="exterior_walls">
+    <!-- South Wall -->
     <rect x="480.0" y="1477.0" width="120.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
     <line x1="600.0" y1="1477.0" x2="600.0" y2="1567.0" stroke="#059669" stroke-width="2.5"  />
@@ -50,9 +64,15 @@
 
     <rect x="690.0" y="1477.0" width="171.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="861.0" y="1477.0" width="746.8" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="861.0" y="1477.0" width="119.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <line x1="980.0" y1="1477.0" x2="980.0" y2="1597.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 980.0 1597.0 A 120.0 120.0 0 0 1 1100.0 1477.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <rect x="1100.0" y="1477.0" width="507.8" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
+    <!-- East Wall -->
     <rect x="1584.8" y="1380.0" width="23.0" height="120.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
     <line x1="1584.8" y1="1380.0" x2="1669.8" y2="1380.0" stroke="#059669" stroke-width="2.5"  />
@@ -63,225 +83,251 @@
     <rect x="1584.8" y="1160.0" width="23.0" height="120.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
 <line x1="1596.3" y1="1280.0" x2="1596.3" y2="1160.0" stroke="#3B82F6" stroke-width="1.2"  />
 
-    <rect x="1584.8" y="1000.0" width="23.0" height="160.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="1584.8" y="1120.0" width="23.0" height="40.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="1584.8" y="780.0" width="23.0" height="220.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
-<line x1="1596.3" y1="1000.0" x2="1596.3" y2="780.0" stroke="#3B82F6" stroke-width="1.2"  />
-
-    <rect x="1584.8" y="650.0" width="23.0" height="130.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="1584.8" y="540.0" width="23.0" height="500.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
-    <rect x="480.0" y="280.8" width="150.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- North Wall with NNE Simhadwaram & Office Balcony Door -->
+    <rect x="480.0" y="280.8" width="120.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <line x1="630.0" y1="303.8" x2="630.0" y2="408.8" stroke="#059669" stroke-width="2.5"  />
-<path d="M 630.0 408.8 A 105.0 105.0 0 0 1 735.0 303.8" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <rect x="600.0" y="280.8" width="150.0" height="23.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
+<line x1="600.0" y1="292.3" x2="750.0" y2="292.3" stroke="#3B82F6" stroke-width="1.2"  />
 
-    <rect x="735.0" y="280.8" width="126.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="750.0" y="280.8" width="20.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="861.0" y="280.8" width="49.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Direct Balcony Entrance from Office / Bedroom 2! -->
+    <line x1="770.0" y1="303.8" x2="770.0" y2="213.8" stroke="#059669" stroke-width="2.5"  />
+<path d="M 770.0 213.8 A 90.0 90.0 0 0 0 860.0 303.8" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-    <rect x="910.0" y="280.8" width="190.0" height="23.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
-<line x1="910.0" y1="292.3" x2="1100.0" y2="292.3" stroke="#3B82F6" stroke-width="1.2"  />
+    <rect x="860.0" y="280.8" width="220.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="1100.0" y="280.8" width="111.0" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Grand Simhadwaram (Main Entrance) at North-North-East (NNE) -->
+    <line x1="1080.0" y1="303.8" x2="1080.0" y2="413.8" stroke="#059669" stroke-width="2.5"  />
+<path d="M 1080.0 413.8 A 110.0 110.0 0 0 1 1190.0 303.8" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <text x="1135.0" y="325.8" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#059669" text-anchor="middle"  >
+  <tspan x="1135.0" dy="-0.3em">SIMHADWARAM (D1)</tspan>
+  <tspan x="1135.0" dy="1.25em">[NNE PADA]</tspan>
+</text>
+
+    <rect x="1190.0" y="280.8" width="21.5" height="23.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
-    <rect x="480.0" y="1350.0" width="23.0" height="127.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- West Wall -->
+    <rect x="480.0" y="1094.0" width="23.0" height="383.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
     <rect x="480.0" y="1200.0" width="23.0" height="150.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
 <line x1="491.5" y1="1350.0" x2="491.5" y2="1200.0" stroke="#3B82F6" stroke-width="1.2"  />
 
-    <rect x="480.0" y="1000.0" width="23.0" height="200.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="480.0" y="740.0" width="23.0" height="354.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="480.0" y="920.0" width="23.0" height="80.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
-<line x1="491.5" y1="1000.0" x2="491.5" y2="920.0" stroke="#3B82F6" stroke-width="1.2"  />
+    <rect x="480.0" y="880.0" width="23.0" height="100.0" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" rx="0" opacity="1.0" />
+<line x1="491.5" y1="980.0" x2="491.5" y2="880.0" stroke="#3B82F6" stroke-width="1.2"  />
 
-    <rect x="480.0" y="303.8" width="23.0" height="616.2" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="480.0" y="303.8" width="23.0" height="436.2" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
   </g>
 
-  <!-- Interior Partitions -->
+  <!-- Interior Partitions (4.5" / 0.115m) -->
   <g id="interior_partitions">
-    <rect x="855.2" y="1094.0" width="11.5" height="383.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Master Bedroom (SW Niruthi) -->
+    <rect x="855.0" y="1180.0" width="11.5" height="297.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="503.0" y="1088.2" width="27.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <line x1="861.0" y1="1180.0" x2="775.0" y2="1180.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 775.0 1180.0 A 86.0 86.0 0 0 1 861.0 1094.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-    <line x1="530.0" y1="1094.0" x2="530.0" y2="1019.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 530.0 1019.0 A 75.0 75.0 0 0 0 605.0 1094.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <rect x="503.0" y="1088.5" width="57.0" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="605.0" y="1088.2" width="145.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <line x1="560.0" y1="1094.0" x2="560.0" y2="1018.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 560.0 1018.0 A 76.0 76.0 0 0 0 636.0 1094.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-    <line x1="750.0" y1="1094.0" x2="750.0" y2="1184.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 750.0 1184.0 A 90.0 90.0 0 0 1 840.0 1094.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
-
-    <rect x="840.0" y="1088.2" width="21.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-
-    <rect x="657.2" y="834.0" width="11.5" height="260.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="503.0" y="828.2" width="358.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="855.2" y="980.0" width="11.5" height="114.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <line x1="861.0" y1="980.0" x2="786.0" y2="980.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 786.0 980.0 A 75.0 75.0 0 0 1 861.0 905.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
-
-    <rect x="855.2" y="834.0" width="11.5" height="71.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="636.0" y="1088.5" width="225.0" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
-    <rect x="1205.2" y="1280.0" width="11.5" height="197.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Spacious West Bathrooms (6'0" x 8'6" Stacks in Varuna) -->
+    <rect x="669.0" y="740.0" width="11.5" height="342.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <line x1="1211.0" y1="1280.0" x2="1121.0" y2="1280.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 1121.0 1280.0 A 90.0 90.0 0 0 1 1211.0 1190.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <rect x="503.0" y="734.5" width="358.0" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="1205.2" y="1150.0" width="11.5" height="40.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Common Bath East Door - 100% UNBLOCKED into Living Hall! -->
+    <rect x="855.0" y="980.0" width="11.5" height="102.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="1211.0" y="1144.2" width="373.8" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <line x1="861.0" y1="980.0" x2="781.0" y2="980.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 781.0 980.0 A 80.0 80.0 0 0 1 861.0 900.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-
-    <!-- Home Office -->
-    <rect x="855.2" y="303.8" width="11.5" height="316.2" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="1205.2" y="303.8" width="11.5" height="316.2" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <rect x="861.0" y="614.2" width="99.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
-
-    <line x1="960.0" y1="620.0" x2="960.0" y2="530.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 960.0 530.0 A 90.0 90.0 0 0 0 1050.0 620.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
-
-    <rect x="1050.0" y="614.2" width="161.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="855.0" y="740.0" width="11.5" height="160.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
-    <!-- Dual Pooja Suite (Detached from Kitchen) -->
-    <rect x="1211.0" y="644.2" width="89.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Kitchen (SE Agneya) -->
+    <rect x="1205.5" y="1300.0" width="11.5" height="177.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <line x1="1300.0" y1="650.0" x2="1420.0" y2="650.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 1420.0 650.0 A 120.0 120.0 0 0 0 1300.0 530.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="1211.5" y1="1300.0" x2="1121.5" y2="1300.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 1121.5 1300.0 A 90.0 90.0 0 0 1 1211.5 1210.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-    <rect x="1420.0" y="644.2" width="60.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="1205.5" y="1120.0" width="11.5" height="90.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <line x1="1480.0" y1="650.0" x2="1480.0" y2="560.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 1480.0 560.0 A 90.0 90.0 0 0 0 1570.0 650.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
-
-    <rect x="1570.0" y="644.2" width="14.8" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="1211.5" y="1114.5" width="373.3" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
-    <rect x="1354.2" y="650.0" width="11.5" height="300.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- NW Room (Office on L2 / Bedroom 2 on L1) -->
+    <rect x="503.0" y="722.5" width="377.0" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="1360.0" y="944.2" width="80.0" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="874.0" y="670.0" width="11.5" height="58.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <line x1="1440.0" y1="950.0" x2="1440.0" y2="860.0" stroke="#059669" stroke-width="2.5"  />
-<path d="M 1440.0 860.0 A 90.0 90.0 0 0 0 1530.0 950.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="880.0" y1="670.0" x2="790.0" y2="670.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 790.0 670.0 A 90.0 90.0 0 0 1 880.0 580.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-    <rect x="1530.0" y="944.2" width="54.8" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="874.0" y="303.8" width="11.5" height="276.2" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
 
-    <rect x="1414.2" y="450.0" width="11.5" height="200.0" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <!-- Pooja Complex (East Zone, Detached from Kitchen) -->
+    <!-- Mallanna Temple Room (8'-4" x 8'-0") -->
+    <rect x="1330.0" y="1034.5" width="254.8" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="1420.0" y="444.2" width="164.8" height="11.5" fill="#475569" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="1330.0" y="790.5" width="254.8" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <rect x="1324.0" y="980.0" width="11.5" height="60.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <!-- Mallanna Door on WEST Wall! -->
+    <line x1="1330.0" y1="980.0" x2="1420.0" y2="980.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 1420.0 980.0 A 90.0 90.0 0 0 0 1330.0 890.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <rect x="1324.0" y="796.0" width="11.5" height="94.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+
+    <!-- Daily Pooja Room (8'-4" x 8'-0" matching Mallanna width) -->
+    <rect x="1330.0" y="534.5" width="254.8" height="11.5" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <rect x="1324.0" y="720.0" width="11.5" height="64.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <!-- Daily Pooja Door on WEST Wall! -->
+    <line x1="1330.0" y1="720.0" x2="1410.0" y2="720.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 1410.0 720.0 A 80.0 80.0 0 0 0 1330.0 640.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <rect x="1324.0" y="540.0" width="11.5" height="100.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+
+    <!-- Ishanya Glazed Light Door on West wall of Ishanya Open Sitout -->
+    <rect x="1205.5" y="528.0" width="118.5" height="12.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <rect x="1205.5" y="470.0" width="11.5" height="58.0" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <line x1="1211.5" y1="470.0" x2="1091.5" y2="470.0" stroke="#059669" stroke-width="2.5"  />
+<path d="M 1091.5 470.0 A 120.0 120.0 0 0 1 1211.5 350.0" fill="none" stroke="#10B981" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <rect x="1205.5" y="303.8" width="11.5" height="46.2" fill="#64748B" stroke="#0F172A" stroke-width="1.5" rx="0" opacity="1.0" />
 
   </g>
 
-  <!-- Millwork -->
-  <g id="millwork">
-    <rect x="503.0" y="1120.0" width="60.0" height="345.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2" rx="0" opacity="1.0" />
+  <!-- Built-In Millwork & Furniture Layout -->
+  <g id="furniture_and_millwork">
+    <!-- Master Bedroom (SW Niruthi) -->
+    <rect x="513.0" y="1120.0" width="60.0" height="345.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2" rx="0" opacity="1.0" />
 
-    <text x="533.0" y="1300.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#B45309" text-anchor="middle" transform="rotate(-90 533.0 1300.0)" >FULL WARDROBE CUPBOARD</text>
+    <text x="543.0" y="1295.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#92400E" text-anchor="middle" transform="rotate(-90 543.0 1295.0)" >FULL WARDROBES</text>
 
-    <rect x="620.0" y="1260.0" width="200.0" height="200.0" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5" rx="4" opacity="1.0" />
+    <rect x="620.0" y="1262.0" width="200.0" height="200.0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5" rx="4" opacity="1.0" />
 
-    <text x="720.0" y="1360.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="normal" fill="#1D4ED8" text-anchor="middle"  >
+    <text x="720.0" y="1362.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#1E40AF" text-anchor="middle"  >
   <tspan x="720.0" dy="-0.3em">KING BED</tspan>
-  <tspan x="720.0" dy="1.25em">6'0&quot; x 6'6&quot;</tspan>
-</text>
-
-    <rect x="821.0" y="1180.0" width="35.0" height="170.0" fill="#E2E8F0" stroke="#475569" stroke-width="1.0" rx="0" opacity="1.0" />
-
-    <text x="839.0" y="1265.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#334155" text-anchor="middle" transform="rotate(-90 839.0 1265.0)" >TV UNIT</text>
-
-
-    <rect x="940.0" y="420.0" width="180.0" height="80.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="4" opacity="1.0" />
-
-    <text x="1030.0" y="460.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#B45309" text-anchor="middle"  >
-  <tspan x="1030.0" dy="-0.3em">EXECUTIVE DESK</tspan>
-  <tspan x="1030.0" dy="1.25em">(NORTH GARDEN VIEW)</tspan>
-</text>
-
-    <rect x="867.0" y="320.0" width="55.0" height="260.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2" rx="0" opacity="1.0" />
-
-    <text x="890.0" y="450.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#B45309" text-anchor="middle" transform="rotate(-90 890.0 450.0)" >BOOKCASE CUPBOARD</text>
-
-
-    <rect x="1380.0" y="660.0" width="194.8" height="90.0" fill="#FDE68A" stroke="#D97706" stroke-width="1.5" rx="2" opacity="1.0" />
-
-    <text x="1480.0" y="705.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#92400E" text-anchor="middle"  >SACRED ALTAR PLATFORM</text>
-
-    <rect x="1380.0" y="760.0" width="184.8" height="160.0" fill="#FEF08A" stroke="#CA8A04" stroke-width="1.5" rx="0" opacity="1.0" stroke-dasharray="2,2" />
-
-    <text x="1480.0" y="840.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#854D0E" text-anchor="middle"  >
-  <tspan x="1480.0" dy="-0.3em">4-PERSON PRAYER CARPET</tspan>
-  <tspan x="1480.0" dy="1.25em">(4.65 m² CLEAR)</tspan>
+  <tspan x="720.0" dy="1.25em">(HEAD SOUTH)</tspan>
 </text>
 
 
-    <rect x="900.0" y="910.0" width="280.0" height="90.0" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5" rx="4" opacity="1.0" />
+    <!-- Baths Fixtures -->
+    <rect x="513.0" y="750.0" width="150.0" height="130.0" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="900.0" y="750.0" width="90.0" height="160.0" fill="#EDE9FE" stroke="#7C3AED" stroke-width="1.5" rx="4" opacity="1.0" />
+    <text x="588.0" y="815.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#15803D" text-anchor="middle"  >SHOWER</text>
 
-    <rect x="1030.0" y="780.0" width="120.0" height="100.0" fill="#F3F4F6" stroke="#4B5563" stroke-width="1.5" rx="2" opacity="1.0" />
+    <rect x="695.0" y="750.0" width="155.0" height="130.0" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <text x="1090.0" y="830.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#374151" text-anchor="middle"  >COFFEE TABLE</text>
-
-    <rect x="867.0" y="850.0" width="40.0" height="200.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2" rx="0" opacity="1.0" />
-
-    <text x="880.0" y="950.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#B45309" text-anchor="middle" transform="rotate(-90 880.0 950.0)" >LIVING TV WALL UNIT</text>
-
-    <rect x="980.0" y="1140.0" width="160.0" height="140.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="4" opacity="1.0" />
-
-    <text x="1060.0" y="1210.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="normal" fill="#B45309" text-anchor="middle"  >
-  <tspan x="1060.0" dy="-0.3em">DINING TABLE</tspan>
-  <tspan x="1060.0" dy="1.25em">(6-SEATER)</tspan>
-</text>
+    <text x="772.0" y="815.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#15803D" text-anchor="middle"  >SHOWER</text>
 
 
-    <rect x="1519.8" y="1157.0" width="65.0" height="320.0" fill="#1E293B" stroke="#000000" stroke-width="1.2" rx="0" opacity="1.0" />
+    <!-- Kitchen (SE Agneya) -->
+    <rect x="1519.8" y="1132.0" width="65.0" height="345.0" fill="#1E293B" stroke="#000000" stroke-width="1.2" rx="0" opacity="1.0" />
 
     <rect x="1220.0" y="1412.0" width="299.8" height="65.0" fill="#1E293B" stroke="#000000" stroke-width="1.2" rx="0" opacity="1.0" />
 
-    <rect x="1220.0" y="1160.0" width="50.0" height="90.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.0" rx="0" opacity="1.0" />
+    <rect x="1524.8" y="1200.0" width="50.0" height="80.0" fill="#F59E0B" stroke="#B45309" stroke-width="1.5" rx="2" opacity="1.0" />
 
-    <text x="1245.0" y="1205.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#B45309" text-anchor="middle" transform="rotate(-90 1245.0 1205.0)" >PANTRY</text>
-
-    <rect x="1524.8" y="1210.0" width="50.0" height="80.0" fill="#F59E0B" stroke="#B45309" stroke-width="1.5" rx="2" opacity="1.0" />
-
-    <text x="1549.8" y="1250.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#FFFFFF" text-anchor="middle"  >EAST HOB</text>
+    <text x="1549.8" y="1240.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#FFFFFF" text-anchor="middle"  >EAST HOB</text>
 
     <rect x="1627.8" y="1390.0" width="70.0" height="70.0" fill="#E2E8F0" stroke="#334155" stroke-width="1.5" rx="0" opacity="1.0" />
 
     <text x="1662.8" y="1425.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#334155" text-anchor="middle"  >WM</text>
 
-    <rect x="1627.8" y="1260.0" width="60.0" height="80.0" fill="#E2E8F0" stroke="#334155" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <text x="1657.8" y="1300.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#334155" text-anchor="middle"  >SINK</text>
+    <!-- Dining Table -->
+    <rect x="980.0" y="1180.0" width="160.0" height="140.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="4" opacity="1.0" />
+
+    <text x="1060.0" y="1250.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#B45309" text-anchor="middle"  >
+  <tspan x="1060.0" dy="-0.3em">DINING TABLE</tspan>
+  <tspan x="1060.0" dy="1.25em">(6-SEATER)</tspan>
+</text>
+
+
+    <!-- Grand Living Hall: TV Console on Dining Divider (Leaving West Bath Passage 100% Clear!) -->
+    <rect x="960.0" y="1074.0" width="200.0" height="40.0" fill="#334155" stroke="#0F172A" stroke-width="1.5" rx="2" opacity="1.0" />
+
+    <text x="1060.0" y="1094.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#FFFFFF" text-anchor="middle"  >TV ENTERTAINMENT CONSOLE</text>
+
+    <rect x="960.0" y="790.0" width="280.0" height="90.0" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5" rx="4" opacity="1.0" />
+
+    <text x="1100.0" y="835.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#1E40AF" text-anchor="middle"  >LUXURY SECTIONAL SOFA</text>
+
+    <rect x="1080.0" y="680.0" width="120.0" height="90.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="3" opacity="1.0" />
+
+    <text x="1140.0" y="725.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#B45309" text-anchor="middle"  >COFFEE TABLE</text>
+
+
+    <!-- Mallanna Altar (South wall facing North) -->
+    <rect x="1360.0" y="969.0" width="190.0" height="65.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="3" opacity="1.0" />
+
+    <text x="1455.0" y="1002.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="700" fill="#B45309" text-anchor="middle"  >MALLANNA ALTAR (FACES NORTH)</text>
+
+    <rect x="1360.0" y="830.0" width="190.0" height="120.0" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5" rx="2" opacity="1.0" />
+
+    <text x="1455.0" y="890.0" font-family="Inter, -apple-system, sans-serif" font-size="8" font-weight="normal" fill="#991B1B" text-anchor="middle"  >4-PERSON PUJA CARPET</text>
+
+
+    <!-- Daily Pooja Altar (West wall facing East) -->
+    <rect x="1336.0" y="560.0" width="65.0" height="140.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="3" opacity="1.0" />
+
+    <text x="1368.0" y="630.0" font-family="Inter, -apple-system, sans-serif" font-size="8" font-weight="700" fill="#B45309" text-anchor="middle" transform="rotate(-90 1368.0 630.0)" >ALTAR (FACES EAST)</text>
+
+
+    <!-- Level 2: Home Office / Executive Study -->
+    <rect x="660.0" y="480.0" width="160.0" height="100.0" fill="#E0E7FF" stroke="#4338CA" stroke-width="1.5" rx="4" opacity="1.0" />
+
+    <text x="740.0" y="530.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#3730A3" text-anchor="middle"  >
+  <tspan x="740.0" dy="-0.3em">EXECUTIVE DESK</tspan>
+  <tspan x="740.0" dy="1.25em">[GARDEN VIEW]</tspan>
+</text>
+
+    <rect x="520.0" y="650.0" width="340.0" height="50.0" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5" rx="0" opacity="1.0" />
+
+    <text x="690.0" y="675.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#B45309" text-anchor="middle"  >EXECUTIVE LIBRARY &amp; BOOKSHELVES</text>
 
   </g>
 
-  <!-- External NW Core -->
+  <!-- External NW Core (Stairs & Lift) -->
   <g id="external_core">
-    <rect x="240.0" y="280.0" width="240.0" height="620.0" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="240.0" y="281.0" width="240.0" height="569.0" fill="#F1F5F9" stroke="#475569" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <rect x="245.0" y="550.0" width="210.0" height="330.0" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2" rx="0" opacity="1.0" />
+    <rect x="245.0" y="520.0" width="210.0" height="315.0" fill="#E2E8F0" stroke="#64748B" stroke-width="1.2" rx="0" opacity="1.0" />
 
-    <text x="350.0" y="720.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle" transform="rotate(-90 350.0 720.0)" >
+    <text x="350.0" y="680.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle" transform="rotate(-90 350.0 680.0)" >
   <tspan x="350.0" dy="-0.3em">EXTERNAL STAIRS</tspan>
   <tspan x="350.0" dy="1.25em">7'3&quot;x11'0&quot; [NW VAYU]</tspan>
 </text>
 
-    <rect x="250.0" y="310.0" width="190.0" height="210.0" fill="#E2E8F0" stroke="#334155" stroke-width="2.0" rx="0" opacity="1.0" />
+    <rect x="250.0" y="296.0" width="190.0" height="214.0" fill="#E2E8F0" stroke="#334155" stroke-width="2.0" rx="0" opacity="1.0" />
 
-    <rect x="285.0" y="345.0" width="120.0" height="140.0" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.5" rx="0" opacity="1.0" />
+    <rect x="285.0" y="325.0" width="120.0" height="160.0" fill="#FFFFFF" stroke="#0284C7" stroke-width="1.5" rx="0" opacity="1.0" />
 
-    <text x="350.0" y="420.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#0369A1" text-anchor="middle" transform="rotate(-90 350.0 420.0)" >
+    <text x="350.0" y="400.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#0369A1" text-anchor="middle" transform="rotate(-90 350.0 400.0)" >
   <tspan x="350.0" dy="-0.3em">6-PAX LIFT</tspan>
   <tspan x="350.0" dy="1.25em">1.6m x 1.6m</tspan>
 </text>
@@ -310,49 +356,49 @@
 
   <!-- Labels -->
   <g id="room_labels">
-    <text x="680.0" y="1190.0" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle"  >MASTER BEDROOM</text>
+    <text x="680.0" y="1200.0" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle"  >MASTER BEDROOM</text>
 
-    <text x="680.0" y="1230.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle"  >12'-6&quot; x 13'-4&quot; [3.81m x 4.06m]</text>
+    <text x="680.0" y="1235.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#334155" text-anchor="middle"  >12'-6&quot; x 13'-4&quot; [3.81m x 4.06m]</text>
 
-    <text x="680.0" y="1265.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#9A3412" text-anchor="middle"  >[NIRUTHI / SW - HEAVY | FULL WARDROBE]</text>
+    <text x="680.0" y="1265.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#9A3412" text-anchor="middle"  >[NIRUTHI / SW - HEAVY | PRIVATE SUITE]</text>
 
-    <text x="580.0" y="960.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle"  >
-  <tspan x="580.0" dy="-0.3em">SPACIOUS ATT. BATH</tspan>
-  <tspan x="580.0" dy="1.25em">6'0&quot; x 8'6&quot; [WET/DRY]</tspan>
+
+    <text x="590.0" y="960.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#0F172A" text-anchor="middle"  >
+  <tspan x="590.0" dy="-0.3em">SPACIOUS ATT. BATH</tspan>
+  <tspan x="590.0" dy="1.25em">6'0&quot; x 8'6&quot; [PRIVATE]</tspan>
 </text>
 
-    <text x="760.0" y="960.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#0F172A" text-anchor="middle"  >
-  <tspan x="760.0" dy="-0.3em">SPACIOUS COM. BATH</tspan>
-  <tspan x="760.0" dy="1.25em">6'0&quot; x 8'6&quot; [VARUNA]</tspan>
+    <text x="770.0" y="960.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#047857" text-anchor="middle"  >
+  <tspan x="770.0" dy="-0.3em">SPACIOUS COM. BATH</tspan>
+  <tspan x="770.0" dy="1.25em">6'0&quot; x 8'6&quot; [EAST DOOR]</tspan>
 </text>
 
-    <text x="1400.0" y="1290.0" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#0F172A" text-anchor="middle"  >MODULAR KITCHEN</text>
 
-    <text x="1400.0" y="1325.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#C2410C" text-anchor="middle"  >12'-6&quot; x 11'-6&quot; [SE AGNEYA]</text>
+    <text x="1400.0" y="1300.0" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#0F172A" text-anchor="middle"  >MODULAR KITCHEN</text>
 
-    <text x="1030.0" y="360.0" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#0F172A" text-anchor="middle"  >HOME OFFICE / EXECUTIVE STUDY</text>
+    <text x="1400.0" y="1335.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#C2410C" text-anchor="middle"  >12'-3&quot; x 11'-8&quot; [SE AGNEYA]</text>
 
-    <text x="1030.0" y="400.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#1D4ED8" text-anchor="middle"  >11'-6&quot; x 11'-0&quot; [NORTH FRONT GARDEN VIEW]</text>
 
-    <text x="1030.0" y="435.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="normal" fill="#64748B" text-anchor="middle"  >(Unobstructed by Lift/Core | Executive Millwork)</text>
+    <text x="1110.0" y="620.0" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#0F172A" text-anchor="middle"  >GRAND LIVING HALL</text>
 
-    <text x="1080.0" y="1060.0" font-family="Inter, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#0F172A" text-anchor="middle"  >GRAND LIVING HALL</text>
+    <text x="1110.0" y="660.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#047857" text-anchor="middle"  >18'-0&quot; x 14'-0&quot; [BRAHMASTHANA - OPEN ILLUMINATED CORE]</text>
 
-    <text x="1080.0" y="1100.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#047857" text-anchor="middle"  >18'-0&quot; x 14'-0&quot; [OPEN BRAHMASTHANA]</text>
 
-    <text x="1470.0" y="790.0" font-family="Inter, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#D97706" text-anchor="middle"  >MALLANNA TEMPLE SHRINE</text>
+    <text x="1460.0" y="880.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#D97706" text-anchor="middle"  >MALLANNA TEMPLE ROOM</text>
 
-    <text x="1470.0" y="825.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#B45309" text-anchor="middle"  >8'-6&quot; x 10'-0&quot; [DETACHED FROM KITCHEN]</text>
+    <text x="1460.0" y="915.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="600" fill="#B45309" text-anchor="middle"  >8'-4&quot; x 8'-0&quot; [WEST DOOR | FACES NORTH]</text>
 
-    <text x="1500.0" y="550.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#D97706" text-anchor="middle"  >
-  <tspan x="1500.0" dy="-0.3em">DAILY POOJA</tspan>
-  <tspan x="1500.0" dy="1.25em">5'6&quot; x 6'6&quot;</tspan>
-</text>
 
-    <text x="680.0" y="350.8" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#059669" text-anchor="middle"  >
-  <tspan x="680.0" dy="-0.3em">SIMHADWARAM (D1)</tspan>
-  <tspan x="680.0" dy="1.25em">NORTH-FACING</tspan>
-</text>
+    <text x="1460.0" y="630.0" font-family="Inter, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#D97706" text-anchor="middle"  >DAILY POOJA MANDIR</text>
+
+    <text x="1460.0" y="665.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="600" fill="#B45309" text-anchor="middle"  >8'-4&quot; x 8'-0&quot; [WEST DOOR | FACES EAST]</text>
+
+
+    <text x="690.0" y="420.0" font-family="Inter, -apple-system, sans-serif" font-size="13" font-weight="800" fill="#0F172A" text-anchor="middle"  >HOME OFFICE / EXECUTIVE STUDY</text>
+
+    <text x="690.0" y="455.0" font-family="Inter, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#1D4ED8" text-anchor="middle"  >12'-4&quot; x 13'-11&quot; [NORTH GARDEN VIEW]</text>
+
+    <text x="690.0" y="485.0" font-family="Inter, -apple-system, sans-serif" font-size="9" font-weight="normal" fill="#64748B" text-anchor="middle"  >(Direct Balcony Door | Executive Library)</text>
 
   </g>
 
@@ -383,15 +429,15 @@
   <text x="1745.8" y="1391.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">SETBACKS:</tspan> N:17' E:9' S:9' W:8' (Vaastu Compliant)</text>
   <text x="1745.8" y="1414.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">CORE:</tspan> External NW Stairs &amp; 6-PAX Lift</text>
   <text x="1745.8" y="1437.0" font-family="Inter, sans-serif" font-size="11" fill="#0D9488"><tspan font-weight="700">VAASTU:</tspan> Telugu / Telangana (Open Ishanya NE)</text>
-  <text x="1745.8" y="1460.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BALCONIES:</tspan> North, East (Ishanya), &amp; South</text>
-  <text x="1745.8" y="1483.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">UTILITY:</tspan> External Out-of-House Balcony</text>
-  <text x="1745.8" y="1506.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BATHS:</tspan> Spacious 6'0" x 8'6" Wet/Dry Stacks</text>
+  <text x="1745.8" y="1460.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">ENTRANCE:</tspan> North-North-East (NNE) Simhadwaram</text>
+  <text x="1745.8" y="1483.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">POOJA:</tspan> Both Doors West-Facing (Detached)</text>
+  <text x="1745.8" y="1506.0" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BATHS:</tspan> 6'0" x 8'6" Wet/Dry (Unblocked East Door)</text>
   
   <line x1="1742.8" y1="1524.0" x2="2192.8" y2="1524.0" stroke="#CBD5E1" stroke-width="1"/>
   
-  <text x="1745.8" y="1548.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'6"x7'</text>
+  <text x="1745.8" y="1548.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'8"x7'</text>
   <text x="1745.8" y="1566.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">WINDOWS: W1: 5'0"x4'6" | W2: 4'0"x4'6" | V1: 2'0"x2'0"</text>
-  <text x="1745.8" y="1584.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">MILLWORK: Full Wardrobes, Desk, TV Console, Sofas</text>
+  <text x="1745.8" y="1584.0" font-family="Inter, sans-serif" font-size="10" fill="#64748B">BALCONIES: North (from Office), East (Ishanya), &amp; South</text>
 </g>
 
 </svg>

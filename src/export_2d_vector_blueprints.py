@@ -2,10 +2,11 @@
 High-Precision 2D Vector Architectural Blueprint SVG Generator for Property 2 (54' x 66')
 Fully calibrated SVG canvas with zero clipping and true coordinate mapping:
   - Level 0 (Ground): Entire Plot (54'x66') + Plinth (37'x40') + Roads + Setbacks + Compound Wall + Gates + Gardens + Parking
-  - Level 1 (Brother 2BHK): Master Suite, Spacious Baths, SE Kitchen, 3 Balconies, Out-of-house Utility, Open Ishanya NE
-  - Level 2 (Owner Suite): Master Suite, North Home Office (Garden View), Dual Pooja (Mallanna + Daily), Open NE Sitout
+  - Level 1 (Brother 2BHK): NNE Simhadwaram, North Verandah from NW Core, West-Door Pooja, Unblocked Common Bath, Balcony from B2
+  - Level 2 (Owner Suite): NNE Simhadwaram, North Verandah from NW Core, North Office with Balcony Door, West-Door Dual Pooja
 """
 
+import html
 import math
 from pathlib import Path
 
@@ -36,7 +37,7 @@ U_SCALE = 100.0
 U_OX = 480.0
 U_OY = 1500.0
 
-# Ground Floor Parameters (Scale: 80 px/m to fit full 54'x66' plot + 30' roads + title block)
+# Ground Floor Parameters (Scale: 80 px/m)
 G_SCALE = 80.0
 G_OX = 750.0
 G_OY = 1750.0
@@ -46,6 +47,10 @@ def to_u_y(y): return U_OY - y * U_SCALE
 
 def to_g_x(x): return G_OX + x * G_SCALE
 def to_g_y(y): return G_OY - y * G_SCALE
+
+def xml_escape(text):
+    text = html.unescape(str(text))
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 def rect_svg(x, y, w, h, is_ground=False, fill="#E5E7EB", stroke="#1F2937", sw=1.5, rx=0, opacity=1.0, dash="", extra=""):
     if dash: extra = f'stroke-dasharray="{dash}" ' + extra
@@ -65,12 +70,6 @@ def line_svg(x0, y0, x1, y1, is_ground=False, stroke="#4B5563", sw=1.0, dash="",
     sx1, sy1 = fx(x1), fy(y1)
     dash_attr = f'stroke-dasharray="{dash}"' if dash else ""
     return f'<line x1="{sx0:.1f}" y1="{sy0:.1f}" x2="{sx1:.1f}" y2="{sy1:.1f}" stroke="{stroke}" stroke-width="{sw}" {dash_attr} {extra}/>\n'
-
-import html
-
-def xml_escape(text):
-    text = html.unescape(str(text))
-    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 def text_svg(x, y, text, is_ground=False, size=14, weight="normal", fill="#111827", anchor="middle", rot=0, extra=""):
     fx = to_g_x if is_ground else to_u_x
@@ -149,15 +148,15 @@ def title_block_svg(sheet_title, is_ground=False):
   <text x="{bx+18:.1f}" y="{by+151:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">SETBACKS:</tspan> N:17' E:9' S:9' W:8' (Vaastu Compliant)</text>
   <text x="{bx+18:.1f}" y="{by+174:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">CORE:</tspan> External NW Stairs &amp; 6-PAX Lift</text>
   <text x="{bx+18:.1f}" y="{by+197:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#0D9488"><tspan font-weight="700">VAASTU:</tspan> Telugu / Telangana (Open Ishanya NE)</text>
-  <text x="{bx+18:.1f}" y="{by+220:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BALCONIES:</tspan> North, East (Ishanya), &amp; South</text>
-  <text x="{bx+18:.1f}" y="{by+243:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">UTILITY:</tspan> External Out-of-House Balcony</text>
-  <text x="{bx+18:.1f}" y="{by+266:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BATHS:</tspan> Spacious 6'0" x 8'6" Wet/Dry Stacks</text>
+  <text x="{bx+18:.1f}" y="{by+220:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">ENTRANCE:</tspan> North-North-East (NNE) Simhadwaram</text>
+  <text x="{bx+18:.1f}" y="{by+243:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">POOJA:</tspan> Both Doors West-Facing (Detached)</text>
+  <text x="{bx+18:.1f}" y="{by+266:.1f}" font-family="Inter, sans-serif" font-size="11" fill="#334155"><tspan font-weight="700">BATHS:</tspan> 6'0" x 8'6" Wet/Dry (Unblocked East Door)</text>
   
   <line x1="{bx+15:.1f}" y1="{by+284:.1f}" x2="{bx+bw-15:.1f}" y2="{by+284:.1f}" stroke="#CBD5E1" stroke-width="1"/>
   
-  <text x="{bx+18:.1f}" y="{by+308:.1f}" font-family="Inter, sans-serif" font-size="10" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'6"x7'</text>
+  <text x="{bx+18:.1f}" y="{by+308:.1f}" font-family="Inter, sans-serif" font-size="10" fill="#64748B">DOORS: D1: 3'6"x7' | D2: 3'0"x7' | D3: 2'8"x7'</text>
   <text x="{bx+18:.1f}" y="{by+326:.1f}" font-family="Inter, sans-serif" font-size="10" fill="#64748B">WINDOWS: W1: 5'0"x4'6" | W2: 4'0"x4'6" | V1: 2'0"x2'0"</text>
-  <text x="{bx+18:.1f}" y="{by+344:.1f}" font-family="Inter, sans-serif" font-size="10" fill="#64748B">MILLWORK: Full Wardrobes, Desk, TV Console, Sofas</text>
+  <text x="{bx+18:.1f}" y="{by+344:.1f}" font-family="Inter, sans-serif" font-size="10" fill="#64748B">BALCONIES: North (from Office), East (Ishanya), &amp; South</text>
 </g>
 '''
 
@@ -178,10 +177,8 @@ def export_ground_stilt_svg():
 
   <!-- 30' Roads -->
   <g id="roads">
-    <!-- West Road -->
     {rect_svg(PLOT_X0 - 8.0, PLOT_Y0 - 6.0, 8.0, PLOT_D + 12.0, is_ground=True, fill="#F8FAFC", stroke="#CBD5E1", dash="6,4")}
-    {text_svg(PLOT_X0 - 4.0, (PLOT_Y0 + PLOT_Y1)/2.0, "◄◄ 30'-0\" WIDE WEST ROAD (PRIMARY ACCESS & GATES) ◄◄", is_ground=True, size=15, weight="700", fill="#2563EB", rot=-90)}
-    <!-- South Road -->
+    {text_svg(PLOT_X0 - 4.0, (PLOT_Y0 + PLOT_Y1)/2.0, "◄◄ 30'-0\" WIDE WEST ROAD (PRIMARY ACCESS & MAIN GATES) ◄◄", is_ground=True, size=15, weight="700", fill="#2563EB", rot=-90)}
     {rect_svg(PLOT_X0 - 8.0, PLOT_Y0 - 6.0, PLOT_W + 15.0, 6.0, is_ground=True, fill="#F8FAFC", stroke="#CBD5E1", dash="6,4")}
     {text_svg((PLOT_X0 + PLOT_X1)/2.0, PLOT_Y0 - 3.5, "▼▼ 30'-0\" WIDE SOUTH ROAD (SECONDARY CORNER ACCESS) ▼▼", is_ground=True, size=15, weight="700", fill="#2563EB")}
   </g>
@@ -193,20 +190,16 @@ def export_ground_stilt_svg():
 
   <!-- Landscaped Gardens & Setbacks -->
   <g id="gardens_and_driveway">
-    <!-- North Front Garden (17' Setback) -->
     {rect_svg(PLOT_X0 + 0.15, PLINTH_D, PLOT_W - 0.30, SETBACK_N - 0.15, is_ground=True, fill="#DCFCE7", stroke="#86EFAC", sw=1.5, opacity=0.7)}
     {text_svg((PLOT_X0 + PLOT_X1)/2.0, (PLINTH_D + PLOT_Y1)/2.0 + 0.4, "NORTH FRONT GARDEN & LAWN (17'-0\" CLEAR SETBACK)", is_ground=True, size=15, weight="800", fill="#166534")}
     {text_svg((PLOT_X0 + PLOT_X1)/2.0, (PLINTH_D + PLOT_Y1)/2.0 - 0.3, "[OPEN, LIGHT & UNENCUMBERED — VAASTU ALIGNED]", is_ground=True, size=12, weight="600", fill="#15803D")}
 
-    <!-- East Morning Garden (9' Setback) -->
     {rect_svg(PLINTH_W, PLOT_Y0 + 0.15, SETBACK_E - 0.15, PLINTH_D - PLOT_Y0 - 0.15, is_ground=True, fill="#DCFCE7", stroke="#86EFAC", sw=1.5, opacity=0.7)}
     {text_svg(PLINTH_W + 1.4, 6.0, "EAST MORNING GARDEN (9'-0\" SETBACK)", is_ground=True, size=13, weight="700", fill="#166534", rot=-90)}
 
-    <!-- South Setback (9' Setback) -->
     {rect_svg(0, PLOT_Y0 + 0.15, PLINTH_W, SETBACK_S - 0.15, is_ground=True, fill="#DCFCE7", stroke="#86EFAC", sw=1.0, opacity=0.5)}
     {text_svg(PLINTH_W/2.0, PLOT_Y0 / 2.0, "SOUTH SETBACK: 9'-0\" [2.74m]", is_ground=True, size=12, weight="600", fill="#166534")}
 
-    <!-- West Driveway (8' Setback) -->
     {rect_svg(PLOT_X0 + 0.15, PLOT_Y0 + 0.15, SETBACK_W - 0.15, PLINTH_D - PLOT_Y0, is_ground=True, fill="#E2E8F0", stroke="#CBD5E1", sw=1.0)}
     {text_svg(PLOT_X0 / 2.0, 3.0, "WEST DRIVEWAY: 8'-0\" SETBACK", is_ground=True, size=11, weight="600", fill="#475569", rot=-90)}
   </g>
@@ -215,12 +208,11 @@ def export_ground_stilt_svg():
   <g id="compound_walls">
     {rect_svg(PLOT_X0, PLOT_Y1 - 0.15, PLOT_W, 0.15, is_ground=True, fill="#1E293B", stroke="#0F172A")}
     {rect_svg(PLOT_X1 - 0.15, PLOT_Y0, 0.15, PLOT_D, is_ground=True, fill="#1E293B", stroke="#0F172A")}
-    <!-- South Wall with Corner Gate -->
     {rect_svg(PLOT_X0, PLOT_Y0, 7.5 - PLOT_X0, 0.15, is_ground=True, fill="#1E293B", stroke="#0F172A")}
     {door_symbol("Gate_South", 7.5, PLOT_Y0 + 0.15, 3.5, is_ground=True, side='E')}
     {text_svg(9.25, PLOT_Y0 - 0.6, "SECONDARY CORNER GATE (30' SOUTH ROAD)", is_ground=True, size=11, weight="700", fill="#2563EB")}
     {rect_svg(11.0, PLOT_Y0, PLOT_X1 - 11.0, 0.15, is_ground=True, fill="#1E293B", stroke="#0F172A")}
-    <!-- West Wall with Main Vehicle Gate & Pedestrian Gate -->
+    
     {rect_svg(PLOT_X0, PLOT_Y0, 0.15, 8.5 - PLOT_Y0, is_ground=True, fill="#1E293B", stroke="#0F172A")}
     {door_symbol("Gate_Pedestrian", PLOT_X0 + 0.15, 8.5, 1.2, is_ground=True, side='N')}
     {text_svg(PLOT_X0 - 0.6, 9.1, "PEDESTRIAN GATE", is_ground=True, size=10, weight="700", fill="#059669", rot=-90)}
@@ -233,36 +225,27 @@ def export_ground_stilt_svg():
   <!-- Built-Up Plinth (37' x 40' = 1,480 sq ft) -->
   <g id="plinth_builtup">
     {rect_svg(0, 0, PLINTH_W, PLINTH_D, is_ground=True, fill="#FFFFFF", stroke="#0F172A", sw=2.5)}
-    <!-- Curbs -->
-    {rect_svg(0, 0, PLINTH_W, 0.15, is_ground=True, fill="#334155", stroke="#0F172A")}
-    {rect_svg(PLINTH_W - 0.15, 0, 0.15, PLINTH_D, is_ground=True, fill="#334155", stroke="#0F172A")}
-    {rect_svg(0, PLINTH_D - 0.15, PLINTH_W, 0.15, is_ground=True, fill="#334155", stroke="#0F172A")}
-    {rect_svg(0, 0, 0.15, PLINTH_D, is_ground=True, fill="#334155", stroke="#0F172A")}
-
-    <!-- Sheltered Function Pavilion (750 sq ft) -->
     {rect_svg(0, 0, PLINTH_W, 6.2, is_ground=True, fill="#FEF3C7", stroke="#D97706", sw=1.5, opacity=0.8)}
     {text_svg(5.6, 3.5, "SHELTERED OPEN FUNCTION PAVILION", is_ground=True, size=18, weight="800", fill="#92400E")}
     {text_svg(5.6, 2.8, "37'-0\" x 20'-4\" [11.28m x 6.20m] | 750 SQ.FT", is_ground=True, size=14, weight="600", fill="#78350F")}
     {text_svg(5.6, 2.2, "(Family Festivals, Ritual Gathering, Open Plinth Verandah)", is_ground=True, size=12, fill="#B45309")}
 
-    <!-- Covered Car Parking -->
     {rect_svg(3.8, PLINTH_D - 5.8, 2.8, 5.5, is_ground=True, fill="#E0F2FE", stroke="#0284C7", sw=1.5, rx=6)}
     {rect_svg(4.1, PLINTH_D - 5.5, 2.2, 4.8, is_ground=True, fill="#BAE6FD", stroke="#0369A1", sw=1.5, rx=12)}
     {text_svg(5.2, PLINTH_D - 3.1, "COVERED CAR PARKING\\n9'-0\" x 18'-0\" [SEDAN/SUV]", is_ground=True, size=13, weight="700", fill="#075985")}
 
-    <!-- 2-Wheeler Parking (4 Bikes) -->
     {rect_svg(7.0, PLINTH_D - 3.0, 2.5, 2.5, is_ground=True, fill="#F0FDF4", stroke="#16A34A", sw=1.5, rx=4)}
     {text_svg(8.25, PLINTH_D - 1.7, "2-WHEELER PARKING\\n(4 MOTORCYCLES)", is_ground=True, size=12, weight="600", fill="#15803D")}
   </g>
 
   <!-- External NW Core (Stairs + Lift) -->
   <g id="external_core">
-    {rect_svg(-2.4, 6.0, 2.4, 6.2, is_ground=True, fill="#F1F5F9", stroke="#475569", sw=1.5)}
-    {rect_svg(-2.35, 6.2, 2.1, 3.3, is_ground=True, fill="#E2E8F0", stroke="#64748B", sw=1.2)}
-    {text_svg(-1.3, 7.8, "EXTERNAL STAIRS\\n7'3\"x11'0\" [NW VAYU]", is_ground=True, size=11, weight="600", fill="#0F172A", rot=-90)}
-    {rect_svg(-2.3, 9.8, 1.9, 2.1, is_ground=True, fill="#E2E8F0", stroke="#334155", sw=2.0)}
-    {rect_svg(-1.95, 10.15, 1.2, 1.4, is_ground=True, fill="#FFFFFF", stroke="#0284C7", sw=1.5)}
-    {text_svg(-1.3, 10.8, "6-PAX LIFT\\n1.6m x 1.6m", is_ground=True, size=11, weight="700", fill="#0369A1", rot=-90)}
+    {rect_svg(-2.4, 6.5, 2.4, 5.69, is_ground=True, fill="#F1F5F9", stroke="#475569", sw=1.5)}
+    {rect_svg(-2.35, 6.65, 2.1, 3.15, is_ground=True, fill="#E2E8F0", stroke="#64748B", sw=1.2)}
+    {text_svg(-1.3, 8.2, "EXTERNAL STAIRS\\n7'3\"x11'0\" [NW VAYU]", is_ground=True, size=11, weight="600", fill="#0F172A", rot=-90)}
+    {rect_svg(-2.3, 9.9, 1.9, 2.14, is_ground=True, fill="#E2E8F0", stroke="#334155", sw=2.0)}
+    {rect_svg(-1.95, 10.15, 1.2, 1.6, is_ground=True, fill="#FFFFFF", stroke="#0284C7", sw=1.5)}
+    {text_svg(-1.3, 11.0, "6-PAX LIFT\\n1.6m x 1.6m", is_ground=True, size=11, weight="700", fill="#0369A1", rot=-90)}
   </g>
 
   <!-- 16 RCC Columns -->
@@ -271,24 +254,21 @@ def export_ground_stilt_svg():
     for cx in GRID_X:
         for cy in GRID_Y:
             svg += rect_svg(cx - 0.115, cy - 0.225, 0.230, 0.450, is_ground=True, fill="#0F172A", stroke="#000000", sw=1.0)
-    
+            
     svg += f'''  </g>
 
   <!-- Dual Dimensions (Plot + Plinth) -->
   <g id="dimensions">
-    <!-- Plot South Width (54'-0\") -->
     {line_svg(PLOT_X0, PLOT_Y0 - 1.8, PLOT_X1, PLOT_Y0 - 1.8, is_ground=True, stroke="#0F172A", sw=2.0)}
     {line_svg(PLOT_X0, PLOT_Y0 - 2.1, PLOT_X0, PLOT_Y0 - 1.5, is_ground=True, stroke="#0F172A", sw=2.5)}
     {line_svg(PLOT_X1, PLOT_Y0 - 2.1, PLOT_X1, PLOT_Y0 - 1.5, is_ground=True, stroke="#0F172A", sw=2.5)}
     {text_svg((PLOT_X0 + PLOT_X1)/2.0, PLOT_Y0 - 2.3, "54'-0\" [16.46m] TOTAL PLOT WIDTH (EAST-WEST)", is_ground=True, size=15, weight="800", fill="#0F172A")}
 
-    <!-- Plot West Depth (66'-0\") -->
     {line_svg(PLOT_X0 - 1.8, PLOT_Y0, PLOT_X0 - 1.8, PLOT_Y1, is_ground=True, stroke="#0F172A", sw=2.0)}
     {line_svg(PLOT_X0 - 2.1, PLOT_Y0, PLOT_X0 - 1.5, PLOT_Y0, is_ground=True, stroke="#0F172A", sw=2.5)}
     {line_svg(PLOT_X0 - 2.1, PLOT_Y1, PLOT_X0 - 1.5, PLOT_Y1, is_ground=True, stroke="#0F172A", sw=2.5)}
     {text_svg(PLOT_X0 - 2.4, (PLOT_Y0 + PLOT_Y1)/2.0, "66'-0\" [20.12m] TOTAL PLOT DEPTH (NORTH-SOUTH)", is_ground=True, size=15, weight="800", fill="#0F172A", rot=-90)}
 
-    <!-- Plinth Dimensions (37' x 40') -->
     {line_svg(0, -1.0, PLINTH_W, -1.0, is_ground=True, stroke="#059669", sw=1.5)}
     {text_svg(PLINTH_W / 2.0, -1.35, "37'-0\" [11.28m] BUILT-UP PLINTH WIDTH", is_ground=True, size=12, weight="700", fill="#059669")}
     {line_svg(-1.0, 0, -1.0, PLINTH_D, is_ground=True, stroke="#059669", sw=1.5)}
@@ -304,9 +284,9 @@ def export_ground_stilt_svg():
     print(f"✅ Generated Ground Vector SVG: {p}")
 
 # =============================================================================
-# EXPORT 2: FIRST FLOOR — BROTHER'S 2BHK RESIDENCE
+# EXPORT 2 & 3: UPPER FLOORS SVG GENERATOR (L1 BROTHER & L2 OWNER RESIDENCE)
 # =============================================================================
-def export_first_floor_svg():
+def export_upper_floor_svg(filename, sheet_title, is_owner_level=False):
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1850" width="2400" height="1850">
   <defs>
     <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -318,139 +298,198 @@ def export_first_floor_svg():
   <rect x="25" y="25" width="2350" height="1800" fill="none" stroke="#CBD5E1" stroke-width="2"/>
   <rect x="35" y="35" width="2330" height="1780" fill="url(#gridPattern)" stroke="#0F172A" stroke-width="1"/>
 
-  <!-- Plinth Base -->
+  <!-- Plinth Base Slab -->
   {rect_svg(0, 0, PLINTH_W, PLINTH_D, is_ground=False, fill="#F8FAFC", stroke="#0F172A", sw=2.0)}
 
-  <!-- Balconies & External Utility -->
-  <!-- North Balcony -->
-  {rect_svg(3.81, PLINTH_D, 3.50, 1.30, is_ground=False, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")}
-  {text_svg(5.5, PLINTH_D + 0.65, "NORTH BALCONY (11'-6\" x 4'-3\")", is_ground=False, size=11, weight="600", fill="#1D4ED8")}
-  <!-- East / NE Open Sitout (Left Open for Ishanya Light) -->
-  {rect_svg(7.31, 8.5, PLINTH_W - 7.31, PLINTH_D - 8.5, is_ground=False, fill="#EFF6FF", stroke="#0284C7", sw=1.8)}
-  {text_svg(9.2, 11.2, "OPEN ISHANYA (NE) SITOUT", is_ground=False, size=14, weight="800", fill="#0369A1")}
-  {text_svg(9.2, 10.7, "13'-0\" x 12'-0\" [OPEN TO SKY]", is_ground=False, size=12, weight="600", fill="#0284C7")}
-  {text_svg(9.2, 10.2, "(Sacred Morning Daylight Corridor)", is_ground=False, size=10, fill="#075985")}
-  <!-- South Balcony -->
-  {rect_svg(0, -1.2, 3.81, 1.2, is_ground=False, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")}
-  {text_svg(1.9, -0.6, "SOUTH SHADED BALCONY (12'-6\" x 4'-0\")", is_ground=False, size=11, weight="600", fill="#1D4ED8")}
-  <!-- Out-of-House Utility Balcony -->
-  {rect_svg(PLINTH_W, 0, 1.4, 3.5, is_ground=False, fill="#F1F5F9", stroke="#475569", sw=1.5)}
-  {text_svg(PLINTH_W + 0.7, 1.75, "OUT-OF-HOUSE UTILITY\\n(WASH & GAS BALCONY)", is_ground=False, size=11, weight="600", fill="#334155", rot=-90)}
+  <!-- Covered North Verandah / Walkway Deck (Linking NW Core to NNE Simhadwaram) -->
+  <g id="north_verandah">
+    {rect_svg(0, PLINTH_D, 7.315, 1.31, is_ground=False, fill="#EFF6FF", stroke="#2563EB", sw=1.5)}
+    {line_svg(0, PLINTH_D + 1.28, 7.315, PLINTH_D + 1.28, is_ground=False, stroke="#1D4ED8", sw=2.0)}
+    {text_svg(3.6, PLINTH_D + 0.65, "COVERED NORTH VERANDAH / ENTRY WALKWAY (4'-3\" WIDE DECK)", is_ground=False, size=11, weight="700", fill="#1D4ED8")}
+  </g>
+
+  <!-- Open Ishanya (NE) Sitout Terrace (Left Open for Sacred Morning Light) -->
+  <g id="ishanya_open_terrace">
+    {rect_svg(7.315, 9.72, PLINTH_W - 7.315, PLINTH_D - 9.72, is_ground=False, fill="#EFF6FF", stroke="#0284C7", sw=1.8)}
+    {text_svg(9.3, 11.4, "OPEN ISHANYA (NE) SITOUT", is_ground=False, size=13, weight="800", fill="#0369A1")}
+    {text_svg(9.3, 10.9, "13'-0\" x 8'-0\" [OPEN TO SKY]", is_ground=False, size=11, weight="600", fill="#0284C7")}
+    {text_svg(9.3, 10.4, "(Morning Ishanya Sunlight Corridor)", is_ground=False, size=10, fill="#075985")}
+  </g>
+
+  <!-- South Shaded Balcony -->
+  <g id="south_balcony">
+    {rect_svg(0, -1.2, 7.315, 1.2, is_ground=False, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")}
+    {text_svg(3.6, -0.6, "SOUTH SHADED SITOUT BALCONY (24'-0\" x 4'-0\")", is_ground=False, size=11, weight="600", fill="#1D4ED8")}
+  </g>
+
+  <!-- Out-of-House Utility Balcony (Attached to Kitchen) -->
+  <g id="utility_balcony">
+    {rect_svg(PLINTH_W, 0, 1.40, 3.80, is_ground=False, fill="#F1F5F9", stroke="#475569", sw=1.5)}
+    {text_svg(PLINTH_W + 0.7, 1.9, "OUT-OF-HOUSE UTILITY\\n(WASH & GAS BALCONY)", is_ground=False, size=10, weight="600", fill="#334155", rot=-90)}
+  </g>
 
   <!-- Exterior 9\" Walls -->
   <g id="exterior_walls">
+    <!-- South Wall -->
     {rect_svg(0, 0, 1.2, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
     {door_symbol("Door_MB_S_Balcony", 1.2, 0.23, 0.90, is_ground=False, side='S')}
-    {rect_svg(2.1, 0, 3.81 - 2.1, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {rect_svg(3.81, 0, PLINTH_W - 3.81, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {rect_svg(2.1, 0, 1.71, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {rect_svg(3.81, 0, 1.19, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {door_symbol("Door_Dining_S_Balcony", 5.0, 0.23, 1.20, is_ground=False, side='S')}
+    {rect_svg(6.2, 0, PLINTH_W - 6.2, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
 
+    <!-- East Wall -->
     {rect_svg(PLINTH_W - 0.23, 0, 0.23, 1.2, is_ground=False, fill="#334155", stroke="#0F172A")}
     {door_symbol("Door_Kit_Utility", PLINTH_W - 0.23, 1.2, 0.85, is_ground=False, side='E')}
     {rect_svg(PLINTH_W - 0.23, 2.05, 0.23, 0.15, is_ground=False, fill="#334155", stroke="#0F172A")}
     {window_symbol(PLINTH_W - 0.23, 2.2, 0.23, 1.2, is_ground=False, is_horiz=False)}
-    {rect_svg(PLINTH_W - 0.23, 3.4, 0.23, 1.6, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(PLINTH_W - 0.23, 5.0, 0.23, 2.2, is_ground=False, is_horiz=False)}
-    {rect_svg(PLINTH_W - 0.23, 7.2, 0.23, 1.3, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {rect_svg(PLINTH_W - 0.23, 3.4, 0.23, 0.40, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {rect_svg(PLINTH_W - 0.23, 4.6, 0.23, 5.0, is_ground=False, fill="#334155", stroke="#0F172A")}
 
-    {rect_svg(0, PLINTH_D - 0.23, 1.5, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {door_symbol("Simhadwaram_D1", 1.5, PLINTH_D - 0.23, 1.05, is_ground=False, side='S')}
-    {rect_svg(2.55, PLINTH_D - 0.23, 3.81 - 2.55, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {rect_svg(3.81, PLINTH_D - 0.23, 0.99, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {door_symbol("Door_B2_North_Balcony", 4.8, PLINTH_D - 0.23, 0.90, is_ground=False, side='N')}
-    {window_symbol(5.8, PLINTH_D - 0.23, 1.4, 0.23, is_ground=False, is_horiz=True)}
-    {rect_svg(7.2, PLINTH_D - 0.23, 0.11, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    <!-- North Wall with NNE Simhadwaram & Office Balcony Door -->
+    {rect_svg(0, PLINTH_D - 0.23, 1.2, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {window_symbol(1.2, PLINTH_D - 0.23, 1.5, 0.23, is_ground=False, is_horiz=True)}
+    {rect_svg(2.7, PLINTH_D - 0.23, 0.20, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    <!-- Direct Balcony Entrance from Office / Bedroom 2! -->
+    {door_symbol("Door_NW_Balcony", 2.9, PLINTH_D - 0.23, 0.90, is_ground=False, side='N')}
+    {rect_svg(3.8, PLINTH_D - 0.23, 2.2, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
+    <!-- Grand Simhadwaram (Main Entrance) at North-North-East (NNE) -->
+    {door_symbol("Simhadwaram_NNE", 6.0, PLINTH_D - 0.23, 1.10, is_ground=False, side='S')}
+    {text_svg(6.55, PLINTH_D - 0.45, "SIMHADWARAM (D1)\\n[NNE PADA]", is_ground=False, size=10, weight="700", fill="#059669")}
+    {rect_svg(7.10, PLINTH_D - 0.23, 0.215, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
 
-    {rect_svg(0, 0.23, 0.23, 1.27, is_ground=False, fill="#334155", stroke="#0F172A")}
+    <!-- West Wall -->
+    {rect_svg(0, 0.23, 0.23, 3.83, is_ground=False, fill="#334155", stroke="#0F172A")}
     {window_symbol(0, 1.5, 0.23, 1.5, is_ground=False, is_horiz=False)}
-    {rect_svg(0, 3.0, 0.23, 2.0, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(0, 5.0, 0.23, 0.8, is_ground=False, is_horiz=False)}
-    {rect_svg(0, 5.8, 0.23, PLINTH_D - 0.23 - 5.8, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {rect_svg(0, 4.06, 0.23, 3.54, is_ground=False, fill="#334155", stroke="#0F172A")}
+    {window_symbol(0, 5.2, 0.23, 1.0, is_ground=False, is_horiz=False)}
+    {rect_svg(0, 7.60, 0.23, PLINTH_D - 7.60 - 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
   </g>
 
-  <!-- Interior Partitions -->
+  <!-- Interior Partitions (4.5\" / 0.115m) -->
   <g id="interior_partitions">
-    {rect_svg(3.81 - 0.0575, 0.23, 0.115, 3.83, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(0.23, 4.06 - 0.0575, 0.27, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_AttBath", 0.5, 4.06, 0.75, is_ground=False, side='N')}
-    {rect_svg(1.25, 4.06 - 0.0575, 1.45, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_MB", 2.7, 4.06, 0.90, is_ground=False, side='S')}
-    {rect_svg(3.6, 4.06 - 0.0575, 0.21, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
+    <!-- Master Bedroom (SW Niruthi) -->
+    {rect_svg(3.81 - 0.06, 0.23, 0.115, 2.97, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {door_symbol("Door_MB_Entry", 3.81, 3.20, 0.86, is_ground=False, side='W')}
+    {rect_svg(0.23, 4.06 - 0.06, 0.57, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {door_symbol("Door_MB_AttBath", 0.80, 4.06, 0.76, is_ground=False, side='N')}
+    {rect_svg(1.56, 4.06 - 0.06, 2.25, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
 
-    <!-- Spacious Bathrooms (6'0\" x 8'6\") -->
-    {rect_svg(1.83 - 0.0575, 4.06, 0.115, 2.60, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(0.23, 6.66 - 0.0575, 3.58, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(3.81 - 0.0575, 4.06, 0.115, 1.14, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_CommonBath", 3.81, 5.2, 0.75, is_ground=False, side='W')}
-    {rect_svg(3.81 - 0.0575, 5.95, 0.115, 0.71, is_ground=False, fill="#475569", stroke="#0F172A")}
+    <!-- Spacious West Bathrooms (6'0\" x 8'6\" Stacks in Varuna) -->
+    {rect_svg(1.95 - 0.06, 4.18, 0.115, 3.42, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(0.23, 7.60 - 0.06, 3.58, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    <!-- Common Bath East Door - 100% UNBLOCKED into Living Hall! -->
+    {rect_svg(3.81 - 0.06, 4.18, 0.115, 1.02, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {door_symbol("Door_CommonBath_East", 3.81, 5.20, 0.80, is_ground=False, side='W')}
+    {rect_svg(3.81 - 0.06, 6.00, 0.115, 1.60, is_ground=False, fill="#64748B", stroke="#0F172A")}
 
-    <!-- Kitchen -->
-    {rect_svg(7.31 - 0.0575, 0.23, 0.115, 1.97, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Kit", 7.31, 2.2, 0.90, is_ground=False, side='W')}
-    {rect_svg(7.31 - 0.0575, 3.1, 0.115, 0.40, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(7.31, 3.5 - 0.0575, PLINTH_W - 0.23 - 7.31, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
+    <!-- Kitchen (SE Agneya) -->
+    {rect_svg(7.315 - 0.06, 0.23, 0.115, 1.77, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {door_symbol("Door_Kit_Entry", 7.315, 2.00, 0.90, is_ground=False, side='W')}
+    {rect_svg(7.315 - 0.06, 2.90, 0.115, 0.90, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(7.315, 3.80 - 0.06, PLINTH_W - 7.315 - 0.23, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
 
-    <!-- Bed 2 -->
-    {rect_svg(3.81 - 0.0575, 8.5, 0.115, PLINTH_D - 0.23 - 8.5, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(7.31 - 0.0575, 8.5, 0.115, PLINTH_D - 0.23 - 8.5, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(3.81, 8.5 - 0.0575, 1.19, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_B2", 5.0, 8.5, 0.90, is_ground=False, side='N')}
-    {rect_svg(5.9, 8.5 - 0.0575, 1.41, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
+    <!-- NW Room (Office on L2 / Bedroom 2 on L1) -->
+    {rect_svg(0.23, 7.72 - 0.06, 3.77, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(4.00 - 0.06, 7.72, 0.115, 0.58, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {door_symbol("Door_NW_Room_Entry", 4.00, 8.30, 0.90, is_ground=False, side='W')}
+    {rect_svg(4.00 - 0.06, 9.20, 0.115, PLINTH_D - 9.20 - 0.23, is_ground=False, fill="#64748B", stroke="#0F172A")}
 
-    <!-- Pooja & Ishanya Light Door -->
-    {rect_svg(7.31, 8.5 - 0.0575, 0.89, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Ishanya_Light", 8.2, 8.5, 1.20, is_ground=False, side='E')}
-    {rect_svg(9.4, 8.5 - 0.0575, 0.60, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Pooja", 10.0, 8.5, 0.80, is_ground=False, side='N')}
-    {rect_svg(10.8, 8.5 - 0.0575, PLINTH_W - 0.23 - 10.8, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(10.0 - 0.0575, 8.5, 0.115, 2.0, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(10.0, 10.5 - 0.0575, PLINTH_W - 0.23 - 10.0, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
+    <!-- Pooja Complex (East Zone, Detached from Kitchen) -->
+    <!-- Mallanna Temple Room (8'-4\" x 8'-0\") -->
+    {rect_svg(8.50, 4.60 - 0.06, PLINTH_W - 8.50 - 0.23, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(8.50, 7.04 - 0.06, PLINTH_W - 8.50 - 0.23, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(8.50 - 0.06, 4.60, 0.115, 0.60, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    <!-- Mallanna Door on WEST Wall! -->
+    {door_symbol("Door_Mallanna_West", 8.50, 5.20, 0.90, is_ground=False, side='E')}
+    {rect_svg(8.50 - 0.06, 6.10, 0.115, 0.94, is_ground=False, fill="#64748B", stroke="#0F172A")}
+
+    <!-- Daily Pooja Room (8'-4\" x 8'-0\" matching Mallanna width) -->
+    {rect_svg(8.50, 9.60 - 0.06, PLINTH_W - 8.50 - 0.23, 0.115, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(8.50 - 0.06, 7.16, 0.115, 0.64, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    <!-- Daily Pooja Door on WEST Wall! -->
+    {door_symbol("Door_DailyPooja_West", 8.50, 7.80, 0.80, is_ground=False, side='E')}
+    {rect_svg(8.50 - 0.06, 8.60, 0.115, 1.00, is_ground=False, fill="#64748B", stroke="#0F172A")}
+
+    <!-- Ishanya Glazed Light Door on West wall of Ishanya Open Sitout -->
+    {rect_svg(7.315 - 0.06, 9.60, 1.185, 0.12, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {rect_svg(7.315 - 0.06, 9.72, 0.115, 0.58, is_ground=False, fill="#64748B", stroke="#0F172A")}
+    {door_symbol("Door_Ishanya_Glazed_Light", 7.315, 10.30, 1.20, is_ground=False, side='W')}
+    {rect_svg(7.315 - 0.06, 11.50, 0.115, PLINTH_D - 11.50 - 0.23, is_ground=False, fill="#64748B", stroke="#0F172A")}
   </g>
 
-  <!-- Millwork & Built-in Cupboards -->
-  <g id="millwork">
-    {rect_svg(0.23, 0.35, 0.60, 3.45, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
-    {text_svg(0.53, 2.0, "FULL WARDROBE CUPBOARD", is_ground=False, size=10, weight="600", fill="#B45309", rot=-90)}
-    {rect_svg(1.4, 0.4, 2.0, 2.0, is_ground=False, fill="#DBEAFE", stroke="#3B82F6", rx=4)}
-    {text_svg(2.4, 1.4, "KING BED\\n6'0\" x 6'6\"", is_ground=False, size=11, fill="#1D4ED8")}
-    {rect_svg(3.81 - 0.40, 1.5, 0.35, 1.7, is_ground=False, fill="#E2E8F0", stroke="#475569", sw=1.0)}
-    {text_svg(3.81 - 0.22, 2.35, "TV UNIT", is_ground=False, size=9, fill="#334155", rot=-90)}
+  <!-- Built-In Millwork & Furniture Layout -->
+  <g id="furniture_and_millwork">
+    <!-- Master Bedroom (SW Niruthi) -->
+    {rect_svg(0.33, 0.35, 0.60, 3.45, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
+    {text_svg(0.63, 2.05, "FULL WARDROBES", is_ground=False, size=9, fill="#92400E", rot=-90)}
+    {rect_svg(1.4, 0.38, 2.0, 2.0, is_ground=False, fill="#DBEAFE", stroke="#2563EB", rx=4)}
+    {text_svg(2.4, 1.38, "KING BED\\n(HEAD SOUTH)", is_ground=False, size=10, fill="#1E40AF")}
 
-    {rect_svg(3.81 + 0.06, 9.2, 0.55, 2.6, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
-    {text_svg(4.1, 10.5, "WARDROBE", is_ground=False, size=10, fill="#B45309", rot=-90)}
-    {rect_svg(4.8, PLINTH_D - 2.4, 1.8, 2.0, is_ground=False, fill="#DBEAFE", stroke="#3B82F6", rx=4)}
-    {text_svg(5.7, PLINTH_D - 1.4, "QUEEN BED\\n5'0\" x 6'6\"", is_ground=False, size=11, fill="#1D4ED8")}
+    <!-- Baths Fixtures -->
+    {rect_svg(0.33, 6.2, 1.5, 1.3, is_ground=False, fill="#F0FDF4", stroke="#16A34A")}
+    {text_svg(1.08, 6.85, "SHOWER", is_ground=False, size=9, fill="#15803D")}
+    {rect_svg(2.15, 6.2, 1.55, 1.3, is_ground=False, fill="#F0FDF4", stroke="#16A34A")}
+    {text_svg(2.92, 6.85, "SHOWER", is_ground=False, size=9, fill="#15803D")}
 
-    {rect_svg(4.2, 5.0, 2.8, 0.9, is_ground=False, fill="#EDE9FE", stroke="#7C3AED", rx=4)}
-    {rect_svg(4.2, 5.9, 0.9, 1.6, is_ground=False, fill="#EDE9FE", stroke="#7C3AED", rx=4)}
-    {rect_svg(5.5, 6.2, 1.2, 1.0, is_ground=False, fill="#F3F4F6", stroke="#4B5563", rx=2)}
-    {text_svg(6.1, 6.7, "COFFEE TABLE", is_ground=False, size=9, fill="#374151")}
-    {rect_svg(3.81 + 0.06, 4.5, 0.40, 2.0, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
-    {text_svg(4.0, 5.5, "LIVING TV WALL UNIT", is_ground=False, size=10, weight="600", fill="#B45309", rot=-90)}
-
-    {rect_svg(5.0, 2.2, 1.6, 1.4, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=4)}
-    {text_svg(5.8, 2.9, "DINING TABLE\\n(6-SEATER)", is_ground=False, size=11, fill="#B45309")}
-
-    {rect_svg(PLINTH_W - 0.23 - 0.65, 0.23, 0.65, 3.2, is_ground=False, fill="#1E293B", stroke="#000000", sw=1.2)}
+    <!-- Kitchen (SE Agneya) -->
+    {rect_svg(PLINTH_W - 0.23 - 0.65, 0.23, 0.65, 3.45, is_ground=False, fill="#1E293B", stroke="#000000", sw=1.2)}
     {rect_svg(7.4, 0.23, PLINTH_W - 0.23 - 7.4 - 0.65, 0.65, is_ground=False, fill="#1E293B", stroke="#000000", sw=1.2)}
-    {rect_svg(7.4, 2.5, 0.50, 0.9, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.0)}
-    {text_svg(7.65, 2.95, "PANTRY", is_ground=False, size=9, fill="#B45309", rot=-90)}
-    {rect_svg(PLINTH_W - 0.23 - 0.60, 2.1, 0.50, 0.8, is_ground=False, fill="#F59E0B", stroke="#B45309", rx=2)}
-    {text_svg(PLINTH_W - 0.23 - 0.35, 2.5, "EAST HOB", is_ground=False, size=9, fill="#FFFFFF")}
-
+    {rect_svg(PLINTH_W - 0.23 - 0.60, 2.2, 0.50, 0.8, is_ground=False, fill="#F59E0B", stroke="#B45309", rx=2)}
+    {text_svg(PLINTH_W - 0.23 - 0.35, 2.6, "EAST HOB", is_ground=False, size=9, fill="#FFFFFF")}
     {rect_svg(PLINTH_W + 0.2, 0.4, 0.7, 0.7, is_ground=False, fill="#E2E8F0", stroke="#334155")}
     {text_svg(PLINTH_W + 0.55, 0.75, "WM", is_ground=False, size=10, fill="#334155")}
-    {rect_svg(PLINTH_W + 0.2, 1.6, 0.6, 0.8, is_ground=False, fill="#E2E8F0", stroke="#334155")}
-    {text_svg(PLINTH_W + 0.5, 2.0, "SINK", is_ground=False, size=10, fill="#334155")}
-  </g>
 
-  <!-- External NW Core -->
+    <!-- Dining Table -->
+    {rect_svg(5.0, 1.8, 1.6, 1.4, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=4)}
+    {text_svg(5.8, 2.5, "DINING TABLE\\n(6-SEATER)", is_ground=False, size=10, fill="#B45309")}
+
+    <!-- Grand Living Hall: TV Console on Dining Divider (Leaving West Bath Passage 100% Clear!) -->
+    {rect_svg(4.8, 3.86, 2.0, 0.40, is_ground=False, fill="#334155", stroke="#0F172A", rx=2)}
+    {text_svg(5.8, 4.06, "TV ENTERTAINMENT CONSOLE", is_ground=False, size=9, fill="#FFFFFF")}
+    {rect_svg(4.8, 6.2, 2.8, 0.9, is_ground=False, fill="#DBEAFE", stroke="#2563EB", rx=4)}
+    {text_svg(6.2, 6.65, "LUXURY SECTIONAL SOFA", is_ground=False, size=10, fill="#1E40AF")}
+    {rect_svg(6.0, 7.3, 1.2, 0.9, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=3)}
+    {text_svg(6.6, 7.75, "COFFEE TABLE", is_ground=False, size=9, fill="#B45309")}
+
+    <!-- Mallanna Altar (South wall facing North) -->
+    {rect_svg(8.8, 4.66, 1.9, 0.65, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=3)}
+    {text_svg(9.75, 4.98, "MALLANNA ALTAR (FACES NORTH)", is_ground=False, size=9, weight="700", fill="#B45309")}
+    {rect_svg(8.8, 5.5, 1.9, 1.2, is_ground=False, fill="#FEF2F2", stroke="#DC2626", rx=2)}
+    {text_svg(9.75, 6.1, "4-PERSON PUJA CARPET", is_ground=False, size=8, fill="#991B1B")}
+
+    <!-- Daily Pooja Altar (West wall facing East) -->
+    {rect_svg(8.56, 8.0, 0.65, 1.4, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=3)}
+    {text_svg(8.88, 8.7, "ALTAR (FACES EAST)", is_ground=False, size=8, weight="700", fill="#B45309", rot=-90)}
+'''
+
+    if is_owner_level:
+        svg += f'''
+    <!-- Level 2: Home Office / Executive Study -->
+    {rect_svg(1.8, 9.2, 1.6, 1.0, is_ground=False, fill="#E0E7FF", stroke="#4338CA", rx=4)}
+    {text_svg(2.6, 9.7, "EXECUTIVE DESK\\n[GARDEN VIEW]", is_ground=False, size=10, weight="700", fill="#3730A3")}
+    {rect_svg(0.4, 8.0, 3.4, 0.5, is_ground=False, fill="#FEF3C7", stroke="#D97706")}
+    {text_svg(2.1, 8.25, "EXECUTIVE LIBRARY & BOOKSHELVES", is_ground=False, size=9, fill="#B45309")}
+'''
+    else:
+        svg += f'''
+    <!-- Level 1: Bedroom 2 -->
+    {rect_svg(1.5, 8.8, 1.8, 2.0, is_ground=False, fill="#DBEAFE", stroke="#2563EB", rx=4)}
+    {text_svg(2.4, 9.8, "QUEEN BED", is_ground=False, size=10, fill="#1E40AF")}
+    {rect_svg(0.4, 8.0, 3.4, 0.5, is_ground=False, fill="#FEF3C7", stroke="#D97706")}
+    {text_svg(2.1, 8.25, "BUILT-IN WARDROBE", is_ground=False, size=9, fill="#B45309")}
+'''
+
+    svg += f'''  </g>
+
+  <!-- External NW Core (Stairs & Lift) -->
   <g id="external_core">
-    {rect_svg(-2.4, 6.0, 2.4, 6.2, is_ground=False, fill="#F1F5F9", stroke="#475569", sw=1.5)}
-    {rect_svg(-2.35, 6.2, 2.1, 3.3, is_ground=False, fill="#E2E8F0", stroke="#64748B", sw=1.2)}
-    {text_svg(-1.3, 7.8, "EXTERNAL STAIRS\\n7'3\"x11'0\" [NW VAYU]", is_ground=False, size=11, weight="600", fill="#0F172A", rot=-90)}
-    {rect_svg(-2.3, 9.8, 1.9, 2.1, is_ground=False, fill="#E2E8F0", stroke="#334155", sw=2.0)}
-    {rect_svg(-1.95, 10.15, 1.2, 1.4, is_ground=False, fill="#FFFFFF", stroke="#0284C7", sw=1.5)}
-    {text_svg(-1.3, 10.8, "6-PAX LIFT\\n1.6m x 1.6m", is_ground=False, size=11, weight="700", fill="#0369A1", rot=-90)}
+    {rect_svg(-2.4, 6.5, 2.4, 5.69, is_ground=False, fill="#F1F5F9", stroke="#475569", sw=1.5)}
+    {rect_svg(-2.35, 6.65, 2.1, 3.15, is_ground=False, fill="#E2E8F0", stroke="#64748B", sw=1.2)}
+    {text_svg(-1.3, 8.2, "EXTERNAL STAIRS\\n7'3\"x11'0\" [NW VAYU]", is_ground=False, size=11, weight="600", fill="#0F172A", rot=-90)}
+    {rect_svg(-2.3, 9.9, 1.9, 2.14, is_ground=False, fill="#E2E8F0", stroke="#334155", sw=2.0)}
+    {rect_svg(-1.95, 10.15, 1.2, 1.6, is_ground=False, fill="#FFFFFF", stroke="#0284C7", sw=1.5)}
+    {text_svg(-1.3, 11.0, "6-PAX LIFT\\n1.6m x 1.6m", is_ground=False, size=11, weight="700", fill="#0369A1", rot=-90)}
   </g>
 
   <!-- 16 RCC Columns -->
@@ -464,222 +503,41 @@ def export_first_floor_svg():
 
   <!-- Labels -->
   <g id="room_labels">
-    {text_svg(2.0, 3.1, "MASTER BEDROOM", is_ground=False, size=14, weight="700", fill="#0F172A")}
-    {text_svg(2.0, 2.7, "12'-6\" x 13'-4\" [3.81m x 4.06m]", is_ground=False, size=11, weight="600", fill="#334155")}
-    {text_svg(2.0, 2.35, "[NIRUTHI / SW - HEAVY | FULL WARDROBE]", is_ground=False, size=10, fill="#9A3412")}
-    {text_svg(1.0, 5.4, "SPACIOUS ATT. BATH\\n6'0\" x 8'6\" [WET/DRY]", is_ground=False, size=11, weight="600", fill="#0F172A")}
-    {text_svg(2.8, 5.4, "SPACIOUS COM. BATH\\n6'0\" x 8'6\" [VARUNA]", is_ground=False, size=11, weight="600", fill="#0F172A")}
-    {text_svg(9.2, 2.1, "MODULAR KITCHEN", is_ground=False, size=14, weight="700", fill="#0F172A")}
-    {text_svg(9.2, 1.75, "12'-6\" x 11'-6\" [SE AGNEYA]", is_ground=False, size=11, weight="600", fill="#C2410C")}
-    {text_svg(5.8, 1.5, "DINING AREA\\n10'-6\" x 11'-6\"", is_ground=False, size=12, weight="600", fill="#0F172A")}
-    {text_svg(6.0, 4.4, "GRAND LIVING HALL", is_ground=False, size=15, weight="800", fill="#0F172A")}
-    {text_svg(6.0, 4.0, "18'-0\" x 14'-0\" [OPEN BRAHMASTHANA]", is_ground=False, size=11, weight="600", fill="#047857")}
-    {text_svg(5.5, 10.5, "BEDROOM 2", is_ground=False, size=14, weight="700", fill="#0F172A")}
-    {text_svg(5.5, 10.1, "11'-6\" x 11'-6\" [VAYU/NORTH]", is_ground=False, size=11, weight="600", fill="#334155")}
-    {text_svg(10.5, 9.5, "POOJA MANDIR\\n4'6\" x 6'6\"", is_ground=False, size=11, weight="700", fill="#D97706")}
-    {text_svg(2.0, PLINTH_D - 0.7, "SIMHADWARAM (D1)\\nNORTH-FACING", is_ground=False, size=11, weight="700", fill="#059669")}
-  </g>
+    {text_svg(2.0, 3.0, "MASTER BEDROOM", is_ground=False, size=13, weight="700", fill="#0F172A")}
+    {text_svg(2.0, 2.65, "12'-6\" x 13'-4\" [3.81m x 4.06m]", is_ground=False, size=11, weight="600", fill="#334155")}
+    {text_svg(2.0, 2.35, "[NIRUTHI / SW - HEAVY | PRIVATE SUITE]", is_ground=False, size=9, fill="#9A3412")}
 
-  <!-- Dimensions -->
-  <g id="plinth_dims">
-    {line_svg(0, -1.0, PLINTH_W, -1.0, is_ground=False, stroke="#475569", sw=1.5)}
-    {text_svg(PLINTH_W / 2.0, -1.35, "37'-0\" [11.28m] OVERALL PLINTH WIDTH", is_ground=False, size=12, weight="600", fill="#1E293B")}
-    {line_svg(-1.0, 0, -1.0, PLINTH_D, is_ground=False, stroke="#475569", sw=1.5)}
-    {text_svg(-1.35, PLINTH_D / 2.0, "40'-0\" [12.19m] PLINTH DEPTH", is_ground=False, size=12, weight="600", fill="#1E293B", rot=-90)}
-  </g>
+    {text_svg(1.1, 5.4, "SPACIOUS ATT. BATH\\n6'0\" x 8'6\" [PRIVATE]", is_ground=False, size=10, weight="600", fill="#0F172A")}
+    {text_svg(2.9, 5.4, "SPACIOUS COM. BATH\\n6'0\" x 8'6\" [EAST DOOR]", is_ground=False, size=10, weight="600", fill="#047857")}
 
-  <!-- Title Block -->
-  {title_block_svg("First Floor - Brother's 2BHK Residence", is_ground=False)}
-</svg>'''
-    
-    p = OUTPUT_DIR / "first_floor_brother_blueprint.svg"
-    p.write_text(svg, encoding="utf-8")
-    print(f"✅ Generated Level 1 Vector SVG: {p}")
+    {text_svg(9.2, 2.0, "MODULAR KITCHEN", is_ground=False, size=13, weight="700", fill="#0F172A")}
+    {text_svg(9.2, 1.65, "12'-3\" x 11'-8\" [SE AGNEYA]", is_ground=False, size=10, weight="600", fill="#C2410C")}
 
-# =============================================================================
-# EXPORT 3: SECOND FLOOR — OWNER'S 2BHK + OFFICE + DUAL POOJA
-# =============================================================================
-def export_second_floor_svg():
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1850" width="2400" height="1850">
-  <defs>
-    <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
-      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#F1F5F9" stroke-width="0.8"/>
-    </pattern>
-  </defs>
+    {text_svg(6.3, 8.8, "GRAND LIVING HALL", is_ground=False, size=15, weight="800", fill="#0F172A")}
+    {text_svg(6.3, 8.4, "18'-0\" x 14'-0\" [BRAHMASTHANA - OPEN ILLUMINATED CORE]", is_ground=False, size=11, weight="600", fill="#047857")}
 
-  <rect width="100%" height="100%" fill="#FFFFFF"/>
-  <rect x="25" y="25" width="2350" height="1800" fill="none" stroke="#CBD5E1" stroke-width="2"/>
-  <rect x="35" y="35" width="2330" height="1780" fill="url(#gridPattern)" stroke="#0F172A" stroke-width="1"/>
+    {text_svg(9.8, 6.2, "MALLANNA TEMPLE ROOM", is_ground=False, size=11, weight="700", fill="#D97706")}
+    {text_svg(9.8, 5.85, "8'-4\" x 8'-0\" [WEST DOOR | FACES NORTH]", is_ground=False, size=9, weight="600", fill="#B45309")}
 
-  <!-- Plinth Base -->
-  {rect_svg(0, 0, PLINTH_W, PLINTH_D, is_ground=False, fill="#F8FAFC", stroke="#0F172A", sw=2.0)}
-
-  <!-- Balconies & External Utility -->
-  {rect_svg(3.81, PLINTH_D, 3.50, 1.30, is_ground=False, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")}
-  {text_svg(5.5, PLINTH_D + 0.65, "NORTH BALCONY (11'-6\" x 4'-3\")", is_ground=False, size=11, weight="600", fill="#1D4ED8")}
-
-  {rect_svg(7.31, 8.5, PLINTH_W - 7.31, PLINTH_D - 8.5, is_ground=False, fill="#EFF6FF", stroke="#0284C7", sw=1.8)}
-  {text_svg(9.2, 11.2, "OPEN ISHANYA (NE) SITOUT", is_ground=False, size=14, weight="800", fill="#0369A1")}
-  {text_svg(9.2, 10.7, "13'-0\" x 12'-0\" [OPEN TO SKY]", is_ground=False, size=12, weight="600", fill="#0284C7")}
-  {text_svg(9.2, 10.2, "(Dual Light Corridor to Simhadwaram)", is_ground=False, size=10, fill="#075985")}
-
-  {rect_svg(0, -1.2, 3.81, 1.2, is_ground=False, fill="#EFF6FF", stroke="#2563EB", sw=1.5, dash="4,4")}
-  {text_svg(1.9, -0.6, "SOUTH SHADED BALCONY (12'-6\" x 4'-0\")", is_ground=False, size=11, weight="600", fill="#1D4ED8")}
-
-  {rect_svg(PLINTH_W, 0, 1.4, 3.5, is_ground=False, fill="#F1F5F9", stroke="#475569", sw=1.5)}
-  {text_svg(PLINTH_W + 0.7, 1.75, "OUT-OF-HOUSE UTILITY\\n(WASH & GAS BALCONY)", is_ground=False, size=11, weight="600", fill="#334155", rot=-90)}
-
-  <!-- Exterior Walls -->
-  <g id="exterior_walls">
-    {rect_svg(0, 0, 1.2, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {door_symbol("Door_MB_S_Balcony", 1.2, 0.23, 0.90, is_ground=False, side='S')}
-    {rect_svg(2.1, 0, 3.81 - 2.1, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {rect_svg(3.81, 0, PLINTH_W - 3.81, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-
-    {rect_svg(PLINTH_W - 0.23, 0, 0.23, 1.2, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {door_symbol("Door_Kit_Utility", PLINTH_W - 0.23, 1.2, 0.85, is_ground=False, side='E')}
-    {rect_svg(PLINTH_W - 0.23, 2.05, 0.23, 0.15, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(PLINTH_W - 0.23, 2.2, 0.23, 1.2, is_ground=False, is_horiz=False)}
-    {rect_svg(PLINTH_W - 0.23, 3.4, 0.23, 1.6, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(PLINTH_W - 0.23, 5.0, 0.23, 2.2, is_ground=False, is_horiz=False)}
-    {rect_svg(PLINTH_W - 0.23, 7.2, 0.23, 1.3, is_ground=False, fill="#334155", stroke="#0F172A")}
-
-    {rect_svg(0, PLINTH_D - 0.23, 1.5, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {door_symbol("Simhadwaram_D1", 1.5, PLINTH_D - 0.23, 1.05, is_ground=False, side='S')}
-    {rect_svg(2.55, PLINTH_D - 0.23, 3.81 - 2.55, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {rect_svg(3.81, PLINTH_D - 0.23, 0.49, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(4.3, PLINTH_D - 0.23, 1.9, 0.23, is_ground=False, is_horiz=True)}
-    {rect_svg(6.2, PLINTH_D - 0.23, 1.11, 0.23, is_ground=False, fill="#334155", stroke="#0F172A")}
-
-    {rect_svg(0, 0.23, 0.23, 1.27, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(0, 1.5, 0.23, 1.5, is_ground=False, is_horiz=False)}
-    {rect_svg(0, 3.0, 0.23, 2.0, is_ground=False, fill="#334155", stroke="#0F172A")}
-    {window_symbol(0, 5.0, 0.23, 0.8, is_ground=False, is_horiz=False)}
-    {rect_svg(0, 5.8, 0.23, PLINTH_D - 0.23 - 5.8, is_ground=False, fill="#334155", stroke="#0F172A")}
-  </g>
-
-  <!-- Interior Partitions -->
-  <g id="interior_partitions">
-    {rect_svg(3.81 - 0.0575, 0.23, 0.115, 3.83, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(0.23, 4.06 - 0.0575, 0.27, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_AttBath", 0.5, 4.06, 0.75, is_ground=False, side='N')}
-    {rect_svg(1.25, 4.06 - 0.0575, 1.45, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_MB", 2.7, 4.06, 0.90, is_ground=False, side='S')}
-    {rect_svg(3.6, 4.06 - 0.0575, 0.21, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-
-    {rect_svg(1.83 - 0.0575, 4.06, 0.115, 2.60, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(0.23, 6.66 - 0.0575, 3.58, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(3.81 - 0.0575, 4.06, 0.115, 1.14, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_CommonBath", 3.81, 5.2, 0.75, is_ground=False, side='W')}
-    {rect_svg(3.81 - 0.0575, 5.95, 0.115, 0.71, is_ground=False, fill="#475569", stroke="#0F172A")}
-
-    {rect_svg(7.31 - 0.0575, 0.23, 0.115, 1.97, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Kit", 7.31, 2.2, 0.90, is_ground=False, side='W')}
-    {rect_svg(7.31 - 0.0575, 3.1, 0.115, 0.40, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(7.31, 3.5 - 0.0575, PLINTH_W - 0.23 - 7.31, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-
-    <!-- Home Office -->
-    {rect_svg(3.81 - 0.0575, 8.8, 0.115, PLINTH_D - 0.23 - 8.8, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(7.31 - 0.0575, 8.8, 0.115, PLINTH_D - 0.23 - 8.8, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(3.81, 8.8 - 0.0575, 0.99, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Office", 4.8, 8.8, 0.90, is_ground=False, side='N')}
-    {rect_svg(5.7, 8.8 - 0.0575, 1.61, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-
-    <!-- Dual Pooja Suite (Detached from Kitchen) -->
-    {rect_svg(7.31, 8.5 - 0.0575, 0.89, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Ishanya_Light", 8.2, 8.5, 1.20, is_ground=False, side='E')}
-    {rect_svg(9.4, 8.5 - 0.0575, 0.60, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Mallanna_Pooja", 10.0, 8.5, 0.90, is_ground=False, side='N')}
-    {rect_svg(10.9, 8.5 - 0.0575, PLINTH_W - 0.23 - 10.9, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-
-    {rect_svg(8.8 - 0.0575, 5.5, 0.115, 3.0, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(8.8, 5.5 - 0.0575, 0.80, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {door_symbol("Door_Mallanna_Entry", 9.6, 5.5, 0.90, is_ground=False, side='N')}
-    {rect_svg(10.5, 5.5 - 0.0575, PLINTH_W - 0.23 - 10.5, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-
-    {rect_svg(9.4 - 0.0575, 8.5, 0.115, 2.0, is_ground=False, fill="#475569", stroke="#0F172A")}
-    {rect_svg(9.4, 10.5 - 0.0575, PLINTH_W - 0.23 - 9.4, 0.115, is_ground=False, fill="#475569", stroke="#0F172A")}
-  </g>
-
-  <!-- Millwork -->
-  <g id="millwork">
-    {rect_svg(0.23, 0.35, 0.60, 3.45, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
-    {text_svg(0.53, 2.0, "FULL WARDROBE CUPBOARD", is_ground=False, size=10, weight="600", fill="#B45309", rot=-90)}
-    {rect_svg(1.4, 0.4, 2.0, 2.0, is_ground=False, fill="#DBEAFE", stroke="#3B82F6", rx=4)}
-    {text_svg(2.4, 1.4, "KING BED\\n6'0\" x 6'6\"", is_ground=False, size=11, fill="#1D4ED8")}
-    {rect_svg(3.81 - 0.40, 1.5, 0.35, 1.7, is_ground=False, fill="#E2E8F0", stroke="#475569", sw=1.0)}
-    {text_svg(3.81 - 0.22, 2.35, "TV UNIT", is_ground=False, size=9, fill="#334155", rot=-90)}
-
-    {rect_svg(4.6, 10.0, 1.8, 0.8, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=4)}
-    {text_svg(5.5, 10.4, "EXECUTIVE DESK\\n(NORTH GARDEN VIEW)", is_ground=False, size=10, weight="700", fill="#B45309")}
-    {rect_svg(3.81 + 0.06, 9.2, 0.55, 2.6, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
-    {text_svg(4.1, 10.5, "BOOKCASE CUPBOARD", is_ground=False, size=10, fill="#B45309", rot=-90)}
-
-    {rect_svg(9.0, 7.5, PLINTH_W - 0.23 - 9.1, 0.9, is_ground=False, fill="#FDE68A", stroke="#D97706", rx=2)}
-    {text_svg(10.0, 7.95, "SACRED ALTAR PLATFORM", is_ground=False, size=10, weight="700", fill="#92400E")}
-    {rect_svg(9.0, 5.8, PLINTH_W - 0.23 - 9.2, 1.6, is_ground=False, fill="#FEF08A", stroke="#CA8A04", dash="2,2")}
-    {text_svg(10.0, 6.6, "4-PERSON PRAYER CARPET\\n(4.65 m² CLEAR)", is_ground=False, size=10, fill="#854D0E")}
-
-    {rect_svg(4.2, 5.0, 2.8, 0.9, is_ground=False, fill="#EDE9FE", stroke="#7C3AED", rx=4)}
-    {rect_svg(4.2, 5.9, 0.9, 1.6, is_ground=False, fill="#EDE9FE", stroke="#7C3AED", rx=4)}
-    {rect_svg(5.5, 6.2, 1.2, 1.0, is_ground=False, fill="#F3F4F6", stroke="#4B5563", rx=2)}
-    {text_svg(6.1, 6.7, "COFFEE TABLE", is_ground=False, size=9, fill="#374151")}
-    {rect_svg(3.81 + 0.06, 4.5, 0.40, 2.0, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.2)}
-    {text_svg(4.0, 5.5, "LIVING TV WALL UNIT", is_ground=False, size=10, weight="600", fill="#B45309", rot=-90)}
-    {rect_svg(5.0, 2.2, 1.6, 1.4, is_ground=False, fill="#FEF3C7", stroke="#D97706", rx=4)}
-    {text_svg(5.8, 2.9, "DINING TABLE\\n(6-SEATER)", is_ground=False, size=11, fill="#B45309")}
-
-    {rect_svg(PLINTH_W - 0.23 - 0.65, 0.23, 0.65, 3.2, is_ground=False, fill="#1E293B", stroke="#000000", sw=1.2)}
-    {rect_svg(7.4, 0.23, PLINTH_W - 0.23 - 7.4 - 0.65, 0.65, is_ground=False, fill="#1E293B", stroke="#000000", sw=1.2)}
-    {rect_svg(7.4, 2.5, 0.50, 0.9, is_ground=False, fill="#FEF3C7", stroke="#D97706", sw=1.0)}
-    {text_svg(7.65, 2.95, "PANTRY", is_ground=False, size=9, fill="#B45309", rot=-90)}
-    {rect_svg(PLINTH_W - 0.23 - 0.60, 2.1, 0.50, 0.8, is_ground=False, fill="#F59E0B", stroke="#B45309", rx=2)}
-    {text_svg(PLINTH_W - 0.23 - 0.35, 2.5, "EAST HOB", is_ground=False, size=9, fill="#FFFFFF")}
-    {rect_svg(PLINTH_W + 0.2, 0.4, 0.7, 0.7, is_ground=False, fill="#E2E8F0", stroke="#334155")}
-    {text_svg(PLINTH_W + 0.55, 0.75, "WM", is_ground=False, size=10, fill="#334155")}
-    {rect_svg(PLINTH_W + 0.2, 1.6, 0.6, 0.8, is_ground=False, fill="#E2E8F0", stroke="#334155")}
-    {text_svg(PLINTH_W + 0.5, 2.0, "SINK", is_ground=False, size=10, fill="#334155")}
-  </g>
-
-  <!-- External NW Core -->
-  <g id="external_core">
-    {rect_svg(-2.4, 6.0, 2.4, 6.2, is_ground=False, fill="#F1F5F9", stroke="#475569", sw=1.5)}
-    {rect_svg(-2.35, 6.2, 2.1, 3.3, is_ground=False, fill="#E2E8F0", stroke="#64748B", sw=1.2)}
-    {text_svg(-1.3, 7.8, "EXTERNAL STAIRS\\n7'3\"x11'0\" [NW VAYU]", is_ground=False, size=11, weight="600", fill="#0F172A", rot=-90)}
-    {rect_svg(-2.3, 9.8, 1.9, 2.1, is_ground=False, fill="#E2E8F0", stroke="#334155", sw=2.0)}
-    {rect_svg(-1.95, 10.15, 1.2, 1.4, is_ground=False, fill="#FFFFFF", stroke="#0284C7", sw=1.5)}
-    {text_svg(-1.3, 10.8, "6-PAX LIFT\\n1.6m x 1.6m", is_ground=False, size=11, weight="700", fill="#0369A1", rot=-90)}
-  </g>
-
-  <!-- 16 RCC Columns -->
-  <g id="rcc_columns">
+    {text_svg(9.8, 8.7, "DAILY POOJA MANDIR", is_ground=False, size=11, weight="700", fill="#D97706")}
+    {text_svg(9.8, 8.35, "8'-4\" x 8'-0\" [WEST DOOR | FACES EAST]", is_ground=False, size=9, weight="600", fill="#B45309")}
 '''
-    for cx in GRID_X:
-        for cy in GRID_Y:
-            svg += rect_svg(cx - 0.115, cy - 0.225, 0.230, 0.450, is_ground=False, fill="#0F172A", stroke="#000000", sw=1.0)
-            
+
+    if is_owner_level:
+        svg += f'''
+    {text_svg(2.1, 10.8, "HOME OFFICE / EXECUTIVE STUDY", is_ground=False, size=13, weight="800", fill="#0F172A")}
+    {text_svg(2.1, 10.45, "12'-4\" x 13'-11\" [NORTH GARDEN VIEW]", is_ground=False, size=10, weight="600", fill="#1D4ED8")}
+    {text_svg(2.1, 10.15, "(Direct Balcony Door | Executive Library)", is_ground=False, size=9, fill="#64748B")}
+'''
+    else:
+        svg += f'''
+    {text_svg(2.1, 10.8, "BEDROOM 2 (VAYU / NW)", is_ground=False, size=13, weight="800", fill="#0F172A")}
+    {text_svg(2.1, 10.45, "12'-4\" x 13'-11\" [NORTH GARDEN VIEW]", is_ground=False, size=10, weight="600", fill="#1D4ED8")}
+    {text_svg(2.1, 10.15, "(Direct Door to North Balcony)", is_ground=False, size=9, fill="#64748B")}
+'''
+
     svg += f'''  </g>
 
-  <!-- Labels -->
-  <g id="room_labels">
-    {text_svg(2.0, 3.1, "MASTER BEDROOM", is_ground=False, size=14, weight="700", fill="#0F172A")}
-    {text_svg(2.0, 2.7, "12'-6\" x 13'-4\" [3.81m x 4.06m]", is_ground=False, size=11, weight="600", fill="#334155")}
-    {text_svg(2.0, 2.35, "[NIRUTHI / SW - HEAVY | FULL WARDROBE]", is_ground=False, size=10, fill="#9A3412")}
-    {text_svg(1.0, 5.4, "SPACIOUS ATT. BATH\\n6'0\" x 8'6\" [WET/DRY]", is_ground=False, size=11, weight="600", fill="#0F172A")}
-    {text_svg(2.8, 5.4, "SPACIOUS COM. BATH\\n6'0\" x 8'6\" [VARUNA]", is_ground=False, size=11, weight="600", fill="#0F172A")}
-    {text_svg(9.2, 2.1, "MODULAR KITCHEN", is_ground=False, size=14, weight="700", fill="#0F172A")}
-    {text_svg(9.2, 1.75, "12'-6\" x 11'-6\" [SE AGNEYA]", is_ground=False, size=11, weight="600", fill="#C2410C")}
-    {text_svg(5.5, 11.4, "HOME OFFICE / EXECUTIVE STUDY", is_ground=False, size=14, weight="800", fill="#0F172A")}
-    {text_svg(5.5, 11.0, "11'-6\" x 11'-0\" [NORTH FRONT GARDEN VIEW]", is_ground=False, size=11, weight="600", fill="#1D4ED8")}
-    {text_svg(5.5, 10.65, "(Unobstructed by Lift/Core | Executive Millwork)", is_ground=False, size=10, fill="#64748B")}
-    {text_svg(6.0, 4.4, "GRAND LIVING HALL", is_ground=False, size=15, weight="800", fill="#0F172A")}
-    {text_svg(6.0, 4.0, "18'-0\" x 14'-0\" [OPEN BRAHMASTHANA]", is_ground=False, size=11, weight="600", fill="#047857")}
-    {text_svg(9.9, 7.1, "MALLANNA TEMPLE SHRINE", is_ground=False, size=12, weight="700", fill="#D97706")}
-    {text_svg(9.9, 6.75, "8'-6\" x 10'-0\" [DETACHED FROM KITCHEN]", is_ground=False, size=10, weight="600", fill="#B45309")}
-    {text_svg(10.2, 9.5, "DAILY POOJA\\n5'6\" x 6'6\"", is_ground=False, size=11, weight="700", fill="#D97706")}
-    {text_svg(2.0, PLINTH_D - 0.7, "SIMHADWARAM (D1)\\nNORTH-FACING", is_ground=False, size=11, weight="700", fill="#059669")}
-  </g>
-
   <!-- Dimensions -->
   <g id="plinth_dims">
     {line_svg(0, -1.0, PLINTH_W, -1.0, is_ground=False, stroke="#475569", sw=1.5)}
@@ -689,16 +547,16 @@ def export_second_floor_svg():
   </g>
 
   <!-- Title Block -->
-  {title_block_svg("Second Floor - Owner's Residence & Office", is_ground=False)}
+  {title_block_svg(sheet_title, is_ground=False)}
 </svg>'''
     
-    p = OUTPUT_DIR / "second_floor_owner_blueprint.svg"
+    p = OUTPUT_DIR / filename
     p.write_text(svg, encoding="utf-8")
-    print(f"✅ Generated Level 2 Vector SVG: {p}")
+    print(f"✅ Generated Vector SVG: {p}")
 
 if __name__ == "__main__":
     print("Starting High-Precision Vector SVG Blueprints Export (Full Plot & Setbacks)...")
     export_ground_stilt_svg()
-    export_first_floor_svg()
-    export_second_floor_svg()
+    export_upper_floor_svg("first_floor_brother_blueprint.svg", "First Floor - Brother's 2BHK Residence", is_owner_level=False)
+    export_upper_floor_svg("second_floor_owner_blueprint.svg", "Second Floor - Owner's Residence & Office", is_owner_level=True)
     print("All Vector SVGs Exported Successfully.")
