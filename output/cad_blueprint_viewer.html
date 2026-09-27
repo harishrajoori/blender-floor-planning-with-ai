@@ -422,8 +422,8 @@
     
     <div class="controls">
       <div class="floor-tabs">
-        <button class="tab-btn active" id="tab-l2" onclick="switchFloor('l2')">Level 2: Owner Suite &amp; Office</button>
-        <button class="tab-btn" id="tab-l1" onclick="switchFloor('l1')">Level 1: Brother 2BHK</button>
+        <button class="tab-btn active" id="tab-l2" onclick="switchFloor('l2')">Level 2: Owner 2BHK &amp; Office</button>
+        <button class="tab-btn" id="tab-l1" onclick="switchFloor('l1')">Level 1: Brother 3BHK</button>
         <button class="tab-btn" id="tab-l0" onclick="switchFloor('l0')">Level 0: Stilt &amp; Plot</button>
       </div>
       
@@ -438,7 +438,7 @@
     <div id="viewer-container">
       <div class="drawing-viewport" id="viewport">
         <div class="drawing-sheet" id="sheet">
-          <img id="cad-display" class="cad-image" src="first_floor_brother_blueprint.svg" alt="Architectural Plan">
+          <img id="cad-display" class="cad-image" src="second_floor_owner_blueprint.svg" alt="Architectural Plan">
         </div>
       </div>
 
@@ -456,7 +456,7 @@
         <h3>CAD Drawing Loading Notice</h3>
         <p id="fallback-msg">If your browser security settings restrict local files under file://, click below to open the raw files directly:</p>
         <div style="display:flex; gap:10px; justify-content:center;">
-          <a id="raw-link" href="first_floor_brother_blueprint.svg" target="_blank" class="btn-action btn-primary">Open Drawing Direct</a>
+          <a id="raw-link" href="second_floor_owner_blueprint.svg" target="_blank" class="btn-action btn-primary">Open Drawing Direct</a>
           <button onclick="switchMode(currentMode === 'vector' ? 'blender' : 'vector')" class="btn-action">Switch Mode</button>
         </div>
       </div>
@@ -476,15 +476,15 @@
           </div>
           <div class="spec-card">
             <div class="lbl">RCC Columns</div>
-            <div class="val">16 (9" x 18") 3-Bay</div>
+            <div class="val">16 (9" x 18") 100% In Walls</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">Upper Slab</div>
+            <div class="val">360° Walk-Around Gallery</div>
           </div>
           <div class="spec-card">
             <div class="lbl">North Setback</div>
-            <div class="val">17'-0" (Garden)</div>
-          </div>
-          <div class="spec-card">
-            <div class="lbl">East Setback</div>
-            <div class="val">9'-0" (Morning Light)</div>
+            <div class="val">17'-0" (Front Lawn)</div>
           </div>
           <div class="spec-card">
             <div class="lbl">South &amp; West Roads</div>
@@ -498,26 +498,26 @@
       </div>
 
       <div class="panel-section">
-        <h3>Vaastu Shastra Compliance</h3>
+        <h3>Civil &amp; Vaastu Checklist (Verified)</h3>
         <div class="vaastu-checklist">
-          <div><span class="chk">✓</span> <b>Simhadwaram (Entrance):</b> North-North-East (NNE) pada directly into Grand Living Hall</div>
-          <div><span class="chk">✓</span> <b>North Entry Promenade:</b> Sheltered 4'-3" verandah connects NW core to Simhadwaram</div>
-          <div><span class="chk">✓</span> <b>Office Balcony Door:</b> Direct private door onto North garden balcony</div>
-          <div><span class="chk">✓</span> <b>West-Door Pooja Rooms:</b> Both Mallanna &amp; Daily Pooja entered from WEST wall</div>
-          <div><span class="chk">✓</span> <b>Pooja Alignments:</b> Mallanna faces North | Daily Pooja faces East (~8' dimensions)</div>
-          <div><span class="chk">✓</span> <b>Detached Shrine:</b> Pooja complex completely detached from kitchen by dining passage</div>
+          <div><span class="chk">✓</span> <b>Zero Exposed Columns:</b> All 16 RCC columns (including C11 at 7.31m) 100% embedded inside walls</div>
+          <div><span class="chk">✓</span> <b>Continuous 360° Slab:</b> Cantilever walk-around gallery on all 4 sides of upper floors</div>
+          <div><span class="chk">✓</span> <b>Independent Utility:</b> Entered from Dining/Circulation lobby (NEVER through kitchen)</div>
+          <div><span class="chk">✓</span> <b>Compact Daily Pooja:</b> 4'-0" max width x 7'-6" depth, faces East, door on West</div>
+          <div><span class="chk">✓</span> <b>L2 Owner: 2BHK + Office:</b> Master Bed SW, Bed 2 North, and dedicated North Home Office</div>
+          <div><span class="chk">✓</span> <b>L1 Brother: True 3BHK:</b> Master Bed SW, Bed 2 NW, Bed 3 North, and Family Lounge</div>
+          <div><span class="chk">✓</span> <b>Direct Balcony Doors:</b> Both North rooms have direct exterior doors to North verandah</div>
+          <div><span class="chk">✓</span> <b>Simhadwaram (Entrance):</b> North-North-East (NNE) grand double entrance</div>
+          <div><span class="chk">✓</span> <b>Mallanna Temple Shrine:</b> On L2 only, 8'-4" x 8'-0", faces North, door on West</div>
           <div><span class="chk">✓</span> <b>Unblocked Common Bath:</b> East door into central lobby with clear circulation</div>
-          <div><span class="chk">✓</span> <b>Private Master Suite:</b> SW Niruthi master bed with private attached wet/dry bath</div>
-          <div><span class="chk">✓</span> <b>Open Ishanya (NE):</b> 13'x8' open terrace with glazed light door aligned with entrance</div>
-          <div><span class="chk">✓</span> <b>Agneya (SE) Kitchen:</b> East-facing cooking hob + out-of-house utility balcony</div>
-          <div><span class="chk">✓</span> <b>Ground Stilt:</b> 750 sq ft pavilion + covered car &amp; 4 bike parking bays</div>
+          <div><span class="chk">✓</span> <b>Open Ishanya (NE):</b> 12'-6" x 8'-0" open terrace with morning light French doors</div>
         </div>
       </div>
 
       <div class="footer-actions">
         <div class="btn-row">
-          <a class="btn-action" id="view-raw-svg" href="first_floor_brother_blueprint.svg" target="_blank">View Raw SVG</a>
-          <a class="btn-action" id="view-raw-png" href="first_floor_brother_2d.png" target="_blank">View Raw PNG</a>
+          <a class="btn-action" id="view-raw-svg" href="second_floor_owner_blueprint.svg" target="_blank">View Raw SVG</a>
+          <a class="btn-action" id="view-raw-png" href="second_floor_owner_2d.png" target="_blank">View Raw PNG</a>
         </div>
         <div class="btn-row">
           <a class="btn-action btn-primary" href="property2_engineering_cad.blend" download>Open in Blender (.blend)</a>
@@ -542,46 +542,49 @@
         ]
       },
       'l1': {
-        title: "First Floor: Brother's 2BHK Residence (+3.00m)",
+        title: "First Floor: Brother's Full 3 BHK Residence (+3.00m)",
         svg: "first_floor_brother_blueprint.svg",
         png: "first_floor_brother_2d.png",
         rooms: [
-          { name: "Simhadwaram (Entrance)", vaastu: "North-North-East", dim: "3'-6\" x 7'-0\" (Into Living)" },
-          { name: "Covered North Verandah", vaastu: "North Facade", dim: "4'-3\" Wide Walkway from Core" },
-          { name: "Master Bedroom", vaastu: "Niruthi (SW)", dim: "12'-6\" x 13'-4\" (Full Wardrobes)" },
-          { name: "Attached Master Bath", vaastu: "West (Varuna)", dim: "6'-0\" x 8'-6\" (Private Suite)" },
-          { name: "Common Bathroom", vaastu: "West (Varuna)", dim: "6'-0\" x 8'-6\" (East Door Unblocked)" },
-          { name: "Bedroom 2 (Balcony Door)", vaastu: "Vayu (North-West)", dim: "12'-4\" x 13'-11\" (Garden View)" },
-          { name: "Grand Living Hall", vaastu: "Brahmasthana", dim: "18'-0\" x 14'-0\" (Open Space)" },
-          { name: "Dining Area", vaastu: "South-Central", dim: "10'-6\" x 11'-8\" (South Balcony)" },
-          { name: "Modular Kitchen", vaastu: "Agneya (SE)", dim: "12'-3\" x 11'-8\" (East Hob)" },
-          { name: "Out-of-House Utility", vaastu: "External East", dim: "Wash & Gas Balcony" },
-          { name: "Daily Pooja Mandir", vaastu: "East-NE", dim: "8'-4\" x 8'-0\" (West Door | Faces East)", cls: "pooja" },
-          { name: "Open Ishanya NE Sitout", vaastu: "Sacred Ishanya", dim: "13'-0\" x 8'-0\" (Open to Sky)", cls: "pooja" },
-          { name: "South Shaded Balcony", vaastu: "South Facade", dim: "24'-0\" x 4'-0\" (Master & Dining)" },
-          { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "Outside House Envelope" }
+          { name: "Simhadwaram (Main Entrance)", vaastu: "North-North-East (NNE)", dim: "3'-6\" x 7'-0\" (Covered Promenade)" },
+          { name: "360° Walk-Around Gallery", vaastu: "Full Perimeter", dim: "3'-6\" to 4'-3\" Cantilever Slab" },
+          { name: "Master Bedroom (Bed 1)", vaastu: "Niruthi (SW)", dim: "13'-3\" x 13'-3\" (Full Wardrobes)" },
+          { name: "Attached Master Bath", vaastu: "West (Varuna)", dim: "6'-3\" x 6'-8\" (Private Suite)" },
+          { name: "Common Bathroom", vaastu: "West (Varuna)", dim: "6'-3\" x 6'-8\" (Shielded in Lobby)" },
+          { name: "Private Residential Lobby", vaastu: "West Circulation", dim: "5'-7\" x 13'-4\" (Direct Access)" },
+          { name: "Bedroom 2 (Balcony Door)", vaastu: "Vayu (North-West)", dim: "12'-6\" x 12'-7\" (North View)" },
+          { name: "Bedroom 3 (Balcony Door)", vaastu: "North Facade", dim: "11'-6\" x 12'-7\" (North View)" },
+          { name: "Grand Living Hall", vaastu: "Brahmasthana", dim: "18'-0\" x 14'-0\" (Zero Exposed Columns)" },
+          { name: "Dining Area", vaastu: "South-Central", dim: "11'-6\" x 13'-3\" (South Balcony)" },
+          { name: "Modular Kitchen", vaastu: "Agneya (SE)", dim: "12'-4\" x 13'-3\" (East Hob)" },
+          { name: "Out-of-House Utility", vaastu: "External East", dim: "Via Dining Lobby (NEVER Kitchen)" },
+          { name: "Family Lounge / Study", vaastu: "East-Central", dim: "12'-4\" x 12'-8\" (Morning Sunrise View)" },
+          { name: "Daily Pooja Mandir", vaastu: "East-NE", dim: "4'-0\" x 7'-6\" (West Door | Faces East)", cls: "pooja" },
+          { name: "Open Ishanya NE Sitout", vaastu: "Sacred Ishanya", dim: "12'-6\" x 8'-0\" (Open to Sky)", cls: "pooja" },
+          { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "10 Treads + 6-PAX Lift" }
         ]
       },
       'l2': {
-        title: "Second Floor: Owner's Residence & Office (+6.00m)",
+        title: "Second Floor: Owner's 2 BHK & North Home Office (+6.00m)",
         svg: "second_floor_owner_blueprint.svg",
         png: "second_floor_owner_2d.png",
         rooms: [
-          { name: "Simhadwaram (Entrance)", vaastu: "North-North-East", dim: "3'-6\" x 7'-0\" (Into Living)" },
-          { name: "Covered North Verandah", vaastu: "North Facade", dim: "4'-3\" Wide Walkway from Core" },
-          { name: "Home Office (Balcony Door)", vaastu: "North Facade", dim: "12'-4\" x 13'-11\" (Garden View)", cls: "office" },
-          { name: "Master Bedroom", vaastu: "Niruthi (SW)", dim: "12'-6\" x 13'-4\" (Full Wardrobes)" },
-          { name: "Attached Master Bath", vaastu: "West (Varuna)", dim: "6'-0\" x 8'-6\" (Private Suite)" },
-          { name: "Common Bathroom", vaastu: "West (Varuna)", dim: "6'-0\" x 8'-6\" (East Door Unblocked)" },
-          { name: "Grand Living Hall", vaastu: "Brahmasthana", dim: "18'-0\" x 14'-0\" (TV Unit + Sofas)" },
-          { name: "Dining Area", vaastu: "South-Central", dim: "10'-6\" x 11'-8\" (South Balcony)" },
-          { name: "Modular Kitchen", vaastu: "Agneya (SE)", dim: "12'-3\" x 11'-8\" (East Hob)" },
-          { name: "Out-of-House Utility", vaastu: "External East", dim: "Wash & Gas Balcony" },
+          { name: "Simhadwaram (Main Entrance)", vaastu: "North-North-East (NNE)", dim: "3'-6\" x 7'-0\" (Covered Promenade)" },
+          { name: "360° Walk-Around Gallery", vaastu: "Full Perimeter", dim: "3'-6\" to 4'-3\" Cantilever Slab" },
+          { name: "Home Office (Balcony Door)", vaastu: "North Facade", dim: "12'-6\" x 12'-7\" (North Garden View)", cls: "office" },
+          { name: "Master Bedroom (Bed 1)", vaastu: "Niruthi (SW)", dim: "13'-3\" x 13'-3\" (Full Wardrobes)" },
+          { name: "Attached Master Bath", vaastu: "West (Varuna)", dim: "6'-3\" x 6'-8\" (Private Suite)" },
+          { name: "Common Bathroom", vaastu: "West (Varuna)", dim: "6'-3\" x 6'-8\" (Shielded in Lobby)" },
+          { name: "Private Residential Lobby", vaastu: "West Circulation", dim: "5'-7\" x 13'-4\" (Direct Access)" },
+          { name: "Bedroom 2 (Balcony Door)", vaastu: "North Facade", dim: "11'-6\" x 12'-7\" (North View)" },
+          { name: "Grand Living Hall", vaastu: "Brahmasthana", dim: "18'-0\" x 14'-0\" (Zero Exposed Columns)" },
+          { name: "Dining Area", vaastu: "South-Central", dim: "11'-6\" x 13'-3\" (South Balcony)" },
+          { name: "Modular Kitchen", vaastu: "Agneya (SE)", dim: "12'-4\" x 13'-3\" (East Hob)" },
+          { name: "Out-of-House Utility", vaastu: "External East", dim: "Via Dining Lobby (NEVER Kitchen)" },
           { name: "Mallanna Temple Room", vaastu: "East-Central", dim: "8'-4\" x 8'-0\" (West Door | Faces North)", cls: "pooja" },
-          { name: "Daily Pooja Room", vaastu: "East-NE", dim: "8'-4\" x 8'-0\" (West Door | Faces East)", cls: "pooja" },
-          { name: "Open Ishanya NE Sitout", vaastu: "Sacred Ishanya", dim: "13'-0\" x 8'-0\" (Open to Sky)", cls: "pooja" },
-          { name: "South Shaded Balcony", vaastu: "South Facade", dim: "24'-0\" x 4'-0\" (Master & Dining)" },
-          { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "Outside House Envelope" }
+          { name: "Daily Pooja Room", vaastu: "East-NE", dim: "4'-0\" x 7'-6\" (West Door | Faces East)", cls: "pooja" },
+          { name: "Open Ishanya NE Sitout", vaastu: "Sacred Ishanya", dim: "12'-6\" x 8'-0\" (Open to Sky)", cls: "pooja" },
+          { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "10 Treads + 6-PAX Lift" }
         ]
       }
     };
