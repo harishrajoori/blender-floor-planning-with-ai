@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sri Harish Rajoori Residence — Property 2 Architectural CAD Plans</title>
+  <title>Sri Harish Rajoori Residence — Property 2 Architectural Blueprints</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0F172A;
+      --bg-dark: #090D16;
+      --bg-surface: #0F172A;
       --bg-panel: #1E293B;
       --border: #334155;
+      --border-light: rgba(255, 255, 255, 0.1);
       --accent: #0D9488;
+      --accent-hover: #0F766E;
       --accent-light: #14B8A6;
       --gold: #F59E0B;
       --blue: #3B82F6;
+      --green: #10B981;
       --text-main: #F8FAFC;
       --text-muted: #94A3B8;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg-dark);
       color: var(--text-main);
       display: flex;
@@ -30,15 +34,15 @@
       overflow: hidden;
     }
     header {
-      background: var(--bg-panel);
+      background: var(--bg-surface);
       border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      z-index: 10;
+      z-index: 20;
     }
     .brand {
       display: flex;
@@ -62,56 +66,69 @@
       border: 1px solid var(--gold);
     }
     .title h1 {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.3px;
     }
     .title p {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
     }
     .controls {
       display: flex;
       gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
+    }
+    .floor-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      gap: 3px;
     }
     .tab-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border);
+      background: transparent;
+      border: none;
       color: var(--text-muted);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
     }
     .tab-btn:hover {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
       color: #FFF;
     }
     .tab-btn.active {
       background: var(--accent);
-      border-color: var(--accent-light);
       color: #FFF;
       box-shadow: 0 0 12px rgba(13, 148, 136, 0.4);
     }
     .view-mode-toggle {
-      background: #090D16;
+      background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border);
       border-radius: 8px;
       display: flex;
       padding: 3px;
+      gap: 3px;
     }
     .mode-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      padding: 6px 12px;
+      padding: 7px 12px;
       font-size: 12px;
       font-weight: 600;
       border-radius: 6px;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mode-btn:hover {
+      color: #FFF;
     }
     .mode-btn.active {
       background: var(--border);
@@ -125,47 +142,154 @@
     }
     #viewer-container {
       flex: 1;
-      background: #0A0F1D;
+      background: #060911;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: auto;
-      padding: 24px;
-      position: relative;
-    }
-    .drawing-wrapper {
-      background: #FFFFFF;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-      border-radius: 8px;
       overflow: hidden;
-      max-width: 95%;
-      max-height: 90vh;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+    }
+    #viewer-container:active {
+      cursor: grabbing;
+    }
+    .drawing-viewport {
+      width: 100%;
+      height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center center;
+      transition: transform 0.05s ease-out;
     }
-    .drawing-wrapper img, .drawing-wrapper object, .drawing-wrapper svg {
-      width: 100%;
-      height: auto;
-      max-height: 88vh;
+    .drawing-sheet {
+      background: #FFFFFF;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.05);
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 95%;
+      max-height: 92vh;
+      overflow: hidden;
+      background-color: #FFF;
+    }
+    .cad-image {
       display: block;
+      max-width: 100%;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
+      pointer-events: none;
     }
+    /* Floating Toolbars */
+    .zoom-toolbar {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+      z-index: 10;
+    }
+    .zoom-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #FFF;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .zoom-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .zoom-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-light);
+      min-width: 48px;
+      text-align: center;
+    }
+    .btn-chip {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-chip:hover {
+      color: #FFF;
+      border-color: var(--accent-light);
+    }
+    /* Fallback Card */
+    .fallback-card {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 480px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+      z-index: 15;
+    }
+    .fallback-card h3 {
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .fallback-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .fallback-card a {
+      color: var(--accent-light);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+    /* Sidebar */
     aside {
       width: 380px;
-      background: var(--bg-panel);
+      background: var(--bg-surface);
       border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      z-index: 10;
     }
     .panel-section {
-      padding: 20px;
+      padding: 18px 20px;
       border-bottom: 1px solid var(--border);
     }
     .panel-section h3 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--accent-light);
       margin-bottom: 12px;
@@ -178,47 +302,48 @@
     .spec-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
     .spec-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 10px 12px;
-      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      border-radius: 6px;
     }
     .spec-card .lbl {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
       text-transform: uppercase;
     }
     .spec-card .val {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #FFF;
-      margin-top: 3px;
+      margin-top: 2px;
       font-family: 'JetBrains Mono', monospace;
     }
     .room-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
     .room-item {
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255,255,255,0.06);
       border-left: 3px solid var(--accent);
-      padding: 8px 12px;
+      padding: 8px 10px;
       border-radius: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 12px;
     }
     .room-item.pooja { border-left-color: var(--gold); }
     .room-item.office { border-left-color: var(--blue); }
     .room-name {
-      font-size: 12px;
       font-weight: 600;
+      color: #FFF;
     }
     .room-vaastu {
       font-size: 10px;
@@ -226,40 +351,61 @@
     }
     .room-dim {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       color: var(--accent-light);
       font-weight: 600;
+      text-align: right;
+    }
+    .vaastu-checklist {
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .vaastu-checklist span.chk {
+      color: var(--green);
+      font-weight: 700;
+      margin-right: 4px;
     }
     .footer-actions {
       padding: 16px 20px;
       margin-top: auto;
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.95);
       border-top: 1px solid var(--border);
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 8px;
     }
     .btn-action {
       flex: 1;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 11px;
       font-weight: 600;
       text-align: center;
       text-decoration: none;
       border: 1px solid var(--border);
       color: #FFF;
       background: rgba(255,255,255,0.05);
-      transition: background 0.2s;
+      transition: all 0.2s;
+      display: inline-block;
     }
     .btn-action:hover {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.12);
+      border-color: var(--text-muted);
     }
     .btn-primary {
       background: var(--accent);
       border-color: var(--accent-light);
     }
     .btn-primary:hover {
-      background: #0f766e;
+      background: var(--accent-hover);
     }
   </style>
 </head>
@@ -270,89 +416,129 @@
       <div class="badge badge-vaastu">Telugu Vaastu</div>
       <div class="title">
         <h1>Sri Harish Rajoori Residence</h1>
-        <p>Property 2 (54' x 66' Plot, SW Corner) | 3-Bay Structural Engineering CAD</p>
+        <p>Property 2 (54' x 66' Plot, SW Corner) | Karimnagar, Telangana</p>
       </div>
     </div>
     
     <div class="controls">
-      <button class="tab-btn active" onclick="switchFloor('l1')">Level 1: Brother 2BHK</button>
-      <button class="tab-btn" onclick="switchFloor('l2')">Level 2: Owner Suite</button>
-      <button class="tab-btn" onclick="switchFloor('l0')">Level 0: Stilt &amp; Parking</button>
+      <div class="floor-tabs">
+        <button class="tab-btn" id="tab-l0" onclick="switchFloor('l0')">Level 0: Stilt &amp; Plot</button>
+        <button class="tab-btn active" id="tab-l1" onclick="switchFloor('l1')">Level 1: Brother 2BHK</button>
+        <button class="tab-btn" id="tab-l2" onclick="switchFloor('l2')">Level 2: Owner Suite</button>
+      </div>
       
       <div class="view-mode-toggle">
-        <button class="mode-btn active" id="btn-vector" onclick="switchMode('vector')">Vector CAD</button>
-        <button class="mode-btn" id="btn-blender" onclick="switchMode('blender')">Blender Render</button>
+        <button class="mode-btn active" id="btn-vector" onclick="switchMode('vector')">Vector CAD (.svg)</button>
+        <button class="mode-btn" id="btn-blender" onclick="switchMode('blender')">Blender 2D (.png)</button>
       </div>
     </div>
   </header>
 
   <main>
     <div id="viewer-container">
-      <div class="drawing-wrapper" id="drawing-box">
-        <object id="cad-object" type="image/svg+xml" data="first_floor_brother_blueprint.svg"></object>
-        <img id="cad-img" src="first_floor_brother_2d.png" style="display:none;" alt="Floor Plan CAD">
+      <div class="drawing-viewport" id="viewport">
+        <div class="drawing-sheet" id="sheet">
+          <img id="cad-display" class="cad-image" src="first_floor_brother_blueprint.svg" alt="Architectural Plan">
+        </div>
+      </div>
+
+      <!-- Zoom and Navigation Controls -->
+      <div class="zoom-toolbar">
+        <button class="zoom-btn" onclick="adjustZoom(-0.2)" title="Zoom Out">-</button>
+        <span class="zoom-label" id="zoom-text">100%</span>
+        <button class="zoom-btn" onclick="adjustZoom(0.2)" title="Zoom In">+</button>
+        <button class="btn-chip" onclick="resetZoom()" title="Reset to Fit">Fit Screen</button>
+        <button class="btn-chip" onclick="toggleFullscreen()" title="Fullscreen">⛶ Fullscreen</button>
+      </div>
+
+      <!-- Fallback Error Card if image load is blocked -->
+      <div class="fallback-card" id="fallback-card">
+        <h3>CAD Drawing Loading Notice</h3>
+        <p id="fallback-msg">If your browser security settings restrict local files under file://, click below to open the raw files directly:</p>
+        <div style="display:flex; gap:10px; justify-content:center;">
+          <a id="raw-link" href="first_floor_brother_blueprint.svg" target="_blank" class="btn-action btn-primary">Open Drawing Direct</a>
+          <button onclick="switchMode(currentMode === 'vector' ? 'blender' : 'vector')" class="btn-action">Switch Mode</button>
+        </div>
       </div>
     </div>
 
     <aside>
       <div class="panel-section">
-        <h3>Structural &amp; Plot Specs</h3>
+        <h3>Structural &amp; Plot Geometry</h3>
         <div class="spec-grid">
           <div class="spec-card">
             <div class="lbl">Total Plot</div>
-            <div class="val">54' x 66'</div>
+            <div class="val">54' x 66' (3,564 sf)</div>
           </div>
           <div class="spec-card">
             <div class="lbl">Plinth Footprint</div>
-            <div class="val">37' x 40'</div>
-          </div>
-          <div class="spec-card">
-            <div class="lbl">Floor Area</div>
-            <div class="val">1,480 sq.ft</div>
+            <div class="val">37' x 40' (1,480 sf)</div>
           </div>
           <div class="spec-card">
             <div class="lbl">RCC Columns</div>
-            <div class="val">16 (9" x 18")</div>
+            <div class="val">16 (9" x 18") 3-Bay</div>
           </div>
           <div class="spec-card">
-            <div class="lbl">West Road</div>
-            <div class="val">30' (Primary)</div>
+            <div class="lbl">North Setback</div>
+            <div class="val">17'-0" (Garden)</div>
           </div>
           <div class="spec-card">
-            <div class="lbl">South Road</div>
-            <div class="val">30' (Corner)</div>
+            <div class="lbl">East Setback</div>
+            <div class="val">9'-0" (Morning Light)</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">South &amp; West Roads</div>
+            <div class="val">30' + 30' Wide</div>
           </div>
         </div>
       </div>
 
       <div class="panel-section" id="floor-breakdown">
-        <!-- Injected via JS -->
+        <!-- Dynamically injected via JS -->
       </div>
 
       <div class="panel-section">
-        <h3>Civil &amp; Vaastu Checklist</h3>
-        <div style="font-size:12px; line-height:1.7; color:var(--text-muted);">
-          <div>✅ <b>Open Ishanya (NE):</b> Left open as sitout terrace for morning light</div>
-          <div>✅ <b>Dual Light Doors:</b> NNE Simhadwaram & East/NE glazed door align</div>
-          <div>✅ <b>External NW Core:</b> Dog-legged stairs & 6-PAX lift outside home</div>
-          <div>✅ <b>North Home Office:</b> Direct view to North garden (unblocked)</div>
-          <div>✅ <b>Niruthi (SW):</b> Master Bedroom with south bed & full cupboards</div>
-          <div>✅ <b>Agneya (SE):</b> Kitchen with out-of-house wash/gas utility balcony</div>
-          <div>✅ <b>Baths:</b> Spacious 6'0" x 8'6" wet/dry stacks in West Varuna</div>
-          <div>✅ <b>Three Balconies:</b> North, East (Ishanya), and South sitouts</div>
-          <div>✅ <b>Ground Stilt:</b> 750 sq ft Pavilion + Covered Car & 4 Bike Bays</div>
+        <h3>Vaastu Shastra Compliance</h3>
+        <div class="vaastu-checklist">
+          <div><span class="chk">✓</span> <b>Open Ishanya (NE):</b> 13'x12' sacred open sitout terrace</div>
+          <div><span class="chk">✓</span> <b>Dual Light Doors:</b> NNE Simhadwaram &amp; East/NE door align</div>
+          <div><span class="chk">✓</span> <b>External NW Core:</b> Stairs &amp; 6-PAX lift outside home</div>
+          <div><span class="chk">✓</span> <b>North Home Office:</b> Unblocked North front garden view</div>
+          <div><span class="chk">✓</span> <b>Niruthi (SW) Master:</b> Solid master suite with wardrobes</div>
+          <div><span class="chk">✓</span> <b>Agneya (SE) Kitchen:</b> East-facing hob + out-of-house utility</div>
+          <div><span class="chk">✓</span> <b>Spacious Bathrooms:</b> 6'0" x 8'6" wet/dry stacks (Varuna)</div>
+          <div><span class="chk">✓</span> <b>3 Balconies:</b> North garden, East Ishanya, and South</div>
+          <div><span class="chk">✓</span> <b>Ground Stilt:</b> 750 sq ft pavilion + car &amp; 4 bike parking</div>
         </div>
       </div>
 
       <div class="footer-actions">
-        <a class="btn-action" href="property2_engineering_cad.blend" download>Open in Blender (.blend)</a>
-        <a class="btn-action btn-primary" id="download-current" href="first_floor_brother_blueprint.svg" download>Download Vector</a>
+        <div class="btn-row">
+          <a class="btn-action" id="view-raw-svg" href="first_floor_brother_blueprint.svg" target="_blank">View Raw SVG</a>
+          <a class="btn-action" id="view-raw-png" href="first_floor_brother_2d.png" target="_blank">View Raw PNG</a>
+        </div>
+        <div class="btn-row">
+          <a class="btn-action btn-primary" href="property2_engineering_cad.blend" download>Open in Blender (.blend)</a>
+        </div>
       </div>
     </aside>
   </main>
 
   <script>
     const floors = {
+      'l0': {
+        title: "Ground Floor: Stilt Parking, Pavilion & Gardens (+0.00m)",
+        svg: "ground_stilt_blueprint.svg",
+        png: "ground_stilt_2d.png",
+        rooms: [
+          { name: "Sheltered Function Pavilion", vaastu: "South & East Open", dim: "37'-0\" x 20'-4\" (750 sq ft)" },
+          { name: "Covered Car Parking", vaastu: "North Driveway", dim: "9'-0\" x 18'-0\" (Sedan/SUV)" },
+          { name: "2-Wheeler Parking (4 Bikes)", vaastu: "East Driveway", dim: "2 Dedicated Bays" },
+          { name: "North Front Garden & Lawn", vaastu: "North Setback", dim: "17'-0\" Clear Lawn" },
+          { name: "East Morning Garden", vaastu: "East Setback", dim: "9'-0\" Plantation Lawn" },
+          { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "Outside Plinth Core" }
+        ]
+      },
       'l1': {
         title: "First Floor: Brother's 2BHK Residence (+3.00m)",
         svg: "first_floor_brother_blueprint.svg",
@@ -393,28 +579,83 @@
           { name: "South Shaded Balcony", vaastu: "South Facade", dim: "12'-6\" x 4'-0\" (Master Sitout)" },
           { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "Outside House Envelope" }
         ]
-      },
-      'l0': {
-        title: "Ground Floor: Stilt Parking, Pavilion & Gardens (+0.00m)",
-        svg: "ground_stilt_blueprint.svg",
-        png: "ground_stilt_2d.png",
-        rooms: [
-          { name: "Sheltered Function Pavilion", vaastu: "South & East Open", dim: "37'-0\" x 20'-4\" (750 sq ft)" },
-          { name: "Covered Car Parking", vaastu: "North Driveway", dim: "9'-0\" x 18'-0\" (Sedan/SUV)" },
-          { name: "Two-Wheeler Parking (4 Bikes)", vaastu: "East Driveway", dim: "2 Dedicated Bays" },
-          { name: "North Front Garden & Lawn", vaastu: "North Setback", dim: "15'-0\" Clear Setback Lawn" },
-          { name: "East Morning Garden", vaastu: "East Setback", dim: "Plantation & Open Lawn" },
-          { name: "External Stairs & Lift", vaastu: "Vayu (NW)", dim: "Independent Ground Arrival" }
-        ]
       }
     };
 
     let currentFloor = 'l1';
     let currentMode = 'vector';
+    let zoomLevel = 1.0;
+    let panX = 0;
+    let panY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    const imgDisplay = document.getElementById('cad-display');
+    const viewport = document.getElementById('viewport');
+    const zoomText = document.getElementById('zoom-text');
+    const fallbackCard = document.getElementById('fallback-card');
+    const container = document.getElementById('viewer-container');
+
+    function updateTransform() {
+      viewport.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
+      zoomText.innerText = Math.round(zoomLevel * 100) + '%';
+    }
+
+    function adjustZoom(delta) {
+      zoomLevel = Math.max(0.4, Math.min(3.5, zoomLevel + delta));
+      updateTransform();
+    }
+
+    function resetZoom() {
+      zoomLevel = 1.0;
+      panX = 0;
+      panY = 0;
+      updateTransform();
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Pan interactions (mouse drag)
+    container.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Left click only
+      isPanning = true;
+      startX = e.clientX - panX;
+      startY = e.clientY - panY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      panX = e.clientX - startX;
+      panY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+      isPanning = false;
+    });
+
+    // Mouse wheel zoom
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY < 0 ? 0.15 : -0.15;
+      adjustZoom(delta);
+    }, { passive: false });
+
+    // Double click to reset
+    container.addEventListener('dblclick', () => {
+      resetZoom();
+    });
 
     function renderSidebar() {
       const f = floors[currentFloor];
-      const container = document.getElementById('floor-breakdown');
+      const containerElem = document.getElementById('floor-breakdown');
       let html = `<h3>${f.title}</h3><ul class="room-list">`;
       f.rooms.forEach(r => {
         html += `
@@ -428,16 +669,20 @@
         `;
       });
       html += '</ul>';
-      container.innerHTML = html;
-      document.getElementById('download-current').href = currentMode === 'vector' ? f.svg : f.png;
+      containerElem.innerHTML = html;
+
+      // Update direct links
+      document.getElementById('view-raw-svg').href = f.svg;
+      document.getElementById('view-raw-png').href = f.png;
+      document.getElementById('raw-link').href = currentMode === 'vector' ? f.svg : f.png;
     }
 
     function switchFloor(fl) {
       currentFloor = fl;
-      document.querySelectorAll('.tab-btn').forEach((b, i) => {
-        const keys = ['l1', 'l2', 'l0'];
-        b.classList.toggle('active', keys[i] === fl);
-      });
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      const activeTab = document.getElementById(`tab-${fl}`);
+      if (activeTab) activeTab.classList.add('active');
+      
       updateDrawing();
       renderSidebar();
     }
@@ -446,27 +691,38 @@
       currentMode = mode;
       document.getElementById('btn-vector').classList.toggle('active', mode === 'vector');
       document.getElementById('btn-blender').classList.toggle('active', mode === 'blender');
+      
       updateDrawing();
       renderSidebar();
     }
 
     function updateDrawing() {
       const f = floors[currentFloor];
-      const obj = document.getElementById('cad-object');
-      const img = document.getElementById('cad-img');
-      if (currentMode === 'vector') {
-        obj.style.display = 'block';
-        img.style.display = 'none';
-        obj.data = f.svg;
-      } else {
-        obj.style.display = 'none';
-        img.style.display = 'block';
-        img.src = f.png;
-      }
+      const fileToLoad = currentMode === 'vector' ? f.svg : f.png;
+      
+      // Update image source directly
+      imgDisplay.src = fileToLoad;
+      fallbackCard.style.display = 'none';
+
+      // Fallback handler if image fails to load
+      imgDisplay.onerror = function() {
+        console.warn('Failed to load drawing:', fileToLoad);
+        fallbackCard.style.display = 'block';
+        document.getElementById('raw-link').href = fileToLoad;
+      };
+      
+      imgDisplay.onload = function() {
+        fallbackCard.style.display = 'none';
+      };
     }
 
-    // Init
-    renderSidebar();
+    // Initialize on document ready
+    document.addEventListener('DOMContentLoaded', () => {
+      switchFloor('l1');
+    });
+    
+    // Immediate fallback execution
+    switchFloor('l1');
   </script>
 </body>
 </html>
