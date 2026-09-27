@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Harish Rajoori Residence — Property 2 Architectural CAD Plans</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0F172A;
+      --bg-panel: #1E293B;
+      --border: #334155;
+      --accent: #0D9488;
+      --accent-light: #14B8A6;
+      --gold: #F59E0B;
+      --blue: #3B82F6;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header {
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge {
+      background: rgba(13, 148, 136, 0.2);
+      color: var(--accent-light);
+      border: 1px solid var(--accent);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-vaastu {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--gold);
+      border: 1px solid var(--gold);
+    }
+    .title h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .title p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .tab-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      background: rgba(255,255,255,0.1);
+      color: #FFF;
+    }
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent-light);
+      color: #FFF;
+      box-shadow: 0 0 12px rgba(13, 148, 136, 0.4);
+    }
+    .view-mode-toggle {
+      background: #090D16;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      padding: 3px;
+    }
+    .mode-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .mode-btn.active {
+      background: var(--border);
+      color: #FFF;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+    #viewer-container {
+      flex: 1;
+      background: #0A0F1D;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      padding: 24px;
+      position: relative;
+    }
+    .drawing-wrapper {
+      background: #FFFFFF;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 95%;
+      max-height: 90vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawing-wrapper img, .drawing-wrapper object, .drawing-wrapper svg {
+      width: 100%;
+      height: auto;
+      max-height: 88vh;
+      display: block;
+      object-fit: contain;
+    }
+    aside {
+      width: 380px;
+      background: var(--bg-panel);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .panel-section {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .spec-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 10px 12px;
+      border-radius: 8px;
+    }
+    .spec-card .lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .spec-card .val {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFF;
+      margin-top: 3px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .room-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .room-item {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-left: 3px solid var(--accent);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .room-item.pooja { border-left-color: var(--gold); }
+    .room-item.office { border-left-color: var(--blue); }
+    .room-name {
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .room-vaastu {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .room-dim {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+    .footer-actions {
+      padding: 16px 20px;
+      margin-top: auto;
+      background: rgba(15, 23, 42, 0.9);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+    }
+    .btn-action {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: #FFF;
+      background: rgba(255,255,255,0.05);
+      transition: background 0.2s;
+    }
+    .btn-action:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent-light);
+    }
+    .btn-primary:hover {
+      background: #0f766e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="badge">Blender 2D CAD</div>
+      <div class="badge badge-vaastu">Telugu Vaastu</div>
+      <div class="title">
+        <h1>Sri Harish Rajoori Residence</h1>
+        <p>Property 2 (54' x 66' Plot, SW Corner) | 3-Bay Structural Engineering CAD</p>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button class="tab-btn active" onclick="switchFloor('l1')">Level 1: Brother 2BHK</button>
+      <button class="tab-btn" onclick="switchFloor('l2')">Level 2: Owner Suite</button>
+      <button class="tab-btn" onclick="switchFloor('l0')">Level 0: Stilt &amp; Parking</button>
+      
+      <div class="view-mode-toggle">
+        <button class="mode-btn active" id="btn-vector" onclick="switchMode('vector')">Vector CAD</button>
+        <button class="mode-btn" id="btn-blender" onclick="switchMode('blender')">Blender Render</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="viewer-container">
+      <div class="drawing-wrapper" id="drawing-box">
+        <object id="cad-object" type="image/svg+xml" data="first_floor_brother_blueprint.svg"></object>
+        <img id="cad-img" src="first_floor_brother_2d.png" style="display:none;" alt="Floor Plan CAD">
+      </div>
+    </div>
+
+    <aside>
+      <div class="panel-section">
+        <h3>Structural &amp; Plot Specs</h3>
+        <div class="spec-grid">
+          <div class="spec-card">
+            <div class="lbl">Total Plot</div>
+            <div class="val">54' x 66'</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">Plinth Footprint</div>
+            <div class="val">37' x 40'</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">Floor Area</div>
+            <div class="val">1,480 sq.ft</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">RCC Columns</div>
+            <div class="val">16 (9" x 18")</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">West Road</div>
+            <div class="val">30' (Primary)</div>
+          </div>
+          <div class="spec-card">
+            <div class="lbl">South Road</div>
+            <div class="val">30' (Corner)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section" id="floor-breakdown">
+        <!-- Injected via JS -->
+      </div>
+
+      <div class="panel-section">
+        <h3>Civil &amp; Vaastu Checklist</h3>
+        <div style="font-size:12px; line-height:1.7; color:var(--text-muted);">
+          <div>✅ <b>Niruthi (SW):</b> Master Bedroom in heaviest corner</div>
+          <div>✅ <b>Agneya (SE):</b> Modular Kitchen (East-facing cooktop)</div>
+          <div>✅ <b>Ishanya (NE):</b> Sacred Pooja &amp; Open Light Balcony</div>
+          <div>✅ <b>Varuna (West):</b> Stacked attached &amp; common bathrooms</div>
+          <div>✅ <b>Vayu (NW):</b> Dog-legged stairs + 6-PAX lift core</div>
+          <div>✅ <b>Brahmasthana:</b> Central living unobstructed by shear walls</div>
+          <div>✅ <b>Setbacks:</b> S:9'0", W:8'0", N:6'0", E:5'0"</div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <a class="btn-action" href="property2_engineering_cad.blend" download>Open in Blender (.blend)</a>
+        <a class="btn-action btn-primary" id="download-current" href="first_floor_brother_blueprint.svg" download>Download Vector</a>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const floors = {
+      'l1': {
+        title: "First Floor: Brother's 2BHK Residence (+3.00m)",
+        svg: "first_floor_brother_blueprint.svg",
+        png: "first_floor_brother_2d.png",
+        rooms: [
+          { name: "Master Bedroom", vaastu: "Niruthi (SW)", dim: "12'-6\" x 13'-4\" (167 sq ft)" },
+          { name: "Attached Toilet", vaastu: "West (Varuna)", dim: "5'-0\" x 6'-6\" (33 sq ft)" },
+          { name: "Common Toilet", vaastu: "West (Varuna)", dim: "5'-0\" x 6'-6\" (33 sq ft)" },
+          { name: "Modular Kitchen", vaastu: "Agneya (SE)", dim: "12'-6\" x 11'-0\" (138 sq ft)" },
+          { name: "Formal Living", vaastu: "Brahmasthana (Center)", dim: "14'-0\" x 13'-6\" (189 sq ft)" },
+          { name: "Dining Hall", vaastu: "South-Central", dim: "10'-0\" x 11'-6\" (115 sq ft)" },
+          { name: "Bedroom 2", vaastu: "Vayu (North)", dim: "9'-6\" x 12'-6\" (119 sq ft)" },
+          { name: "Pooja Mandir", vaastu: "Ishanya (NE)", dim: "6'-0\" x 7'-9\" (46 sq ft)", cls: "pooja" },
+          { name: "East Sitout Balcony", vaastu: "East Setback", dim: "7'-0\" x 12'-6\" (88 sq ft)" },
+          { name: "Stairs & Lift Core", vaastu: "Vayu (NW)", dim: "7'-3\" x 14'-6\" + Lift" }
+        ]
+      },
+      'l2': {
+        title: "Second Floor: Owner's 2BHK + Office + Dual Pooja (+6.00m)",
+        svg: "second_floor_owner_blueprint.svg",
+        png: "second_floor_owner_2d.png",
+        rooms: [
+          { name: "Master Bedroom", vaastu: "Niruthi (SW)", dim: "12'-6\" x 13'-4\" (167 sq ft)" },
+          { name: "Attached Toilet", vaastu: "West (Varuna)", dim: "5'-0\" x 6'-6\" (33 sq ft)" },
+          { name: "Common Toilet", vaastu: "West (Varuna)", dim: "5'-0\" x 6'-6\" (33 sq ft)" },
+          { name: "Home Office / Study", vaastu: "Mid Bay (Focus)", dim: "11'-6\" x 8'-0\" (92 sq ft)", cls: "office" },
+          { name: "Modular Kitchen", vaastu: "Agneya (SE)", dim: "12'-6\" x 11'-0\" (138 sq ft)" },
+          { name: "Family Living", vaastu: "Brahmasthana (Center)", dim: "14'-0\" x 13'-6\" (189 sq ft)" },
+          { name: "Bedroom 2", vaastu: "Vayu (North)", dim: "9'-6\" x 12'-6\" (119 sq ft)" },
+          { name: "Daily Pooja Room", vaastu: "Ishanya (NE)", dim: "4'-0\" x 4'-0\" (16 sq ft)", cls: "pooja" },
+          { name: "Mallanna Temple Shrine", vaastu: "Sacred Ishanya (NE)", dim: "9'-0\" x 9'-0\" (81 sq ft)", cls: "pooja" },
+          { name: "Stairs & Lift Core", vaastu: "Vayu (NW)", dim: "7'-3\" x 14'-6\" + Lift" }
+        ]
+      },
+      'l0': {
+        title: "Ground Floor: Stilt Parking & Open Function Pavilion (+0.00m)",
+        svg: "ground_stilt_blueprint.svg",
+        png: "ground_stilt_2d.png",
+        rooms: [
+          { name: "Sheltered Function Pavilion", vaastu: "South & East Open", dim: "37'-0\" x 20'-0\" (740 sq ft)" },
+          { name: "Covered Car Stall", vaastu: "NE Driveway", dim: "8'-6\" x 17'-0\" (145 sq ft)" },
+          { name: "Two-Wheeler Parking (4 Bikes)", vaastu: "North Setback", dim: "2 Bays (80 sq ft)" },
+          { name: "Dog-Legged Staircase", vaastu: "Vayu (NW)", dim: "7'-3\" x 14'-6\"" },
+          { name: "6-PAX Passenger Lift", vaastu: "NW Core", dim: "1.6m x 1.6m Clear Shaft" },
+          { name: "Plinth Verandah", vaastu: "Perimeter", dim: "All-Around Setbacks" }
+        ]
+      }
+    };
+
+    let currentFloor = 'l1';
+    let currentMode = 'vector';
+
+    function renderSidebar() {
+      const f = floors[currentFloor];
+      const container = document.getElementById('floor-breakdown');
+      let html = `<h3>${f.title}</h3><ul class="room-list">`;
+      f.rooms.forEach(r => {
+        html += `
+          <li class="room-item ${r.cls || ''}">
+            <div>
+              <div class="room-name">${r.name}</div>
+              <div class="room-vaastu">${r.vaastu}</div>
+            </div>
+            <div class="room-dim">${r.dim}</div>
+          </li>
+        `;
+      });
+      html += '</ul>';
+      container.innerHTML = html;
+      document.getElementById('download-current').href = currentMode === 'vector' ? f.svg : f.png;
+    }
+
+    function switchFloor(fl) {
+      currentFloor = fl;
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        const keys = ['l1', 'l2', 'l0'];
+        b.classList.toggle('active', keys[i] === fl);
+      });
+      updateDrawing();
+      renderSidebar();
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById('btn-vector').classList.toggle('active', mode === 'vector');
+      document.getElementById('btn-blender').classList.toggle('active', mode === 'blender');
+      updateDrawing();
+      renderSidebar();
+    }
+
+    function updateDrawing() {
+      const f = floors[currentFloor];
+      const obj = document.getElementById('cad-object');
+      const img = document.getElementById('cad-img');
+      if (currentMode === 'vector') {
+        obj.style.display = 'block';
+        img.style.display = 'none';
+        obj.data = f.svg;
+      } else {
+        obj.style.display = 'none';
+        img.style.display = 'block';
+        img.src = f.png;
+      }
+    }
+
+    // Init
+    renderSidebar();
+  </script>
+</body>
+</html>
