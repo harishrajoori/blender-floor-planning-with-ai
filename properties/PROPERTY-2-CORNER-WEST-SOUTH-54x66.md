@@ -1,12 +1,14 @@
 # Property 2 - Southwest corner, 54 x 66 ft
 
+Latest owner-floor detail: [room placements agreed in conversation](designs/PROPERTY-2-PLACEMENT-DECISIONS.md). NE is indoor living; Mallanna and daily pooja share a wall with west doors; deity facings north/west; kitchen open toward dining.
+
 **Current design focus. Owner confirmed 27 September 2026.**
 
 - East-west dimension: 54 ft.
 - North-south dimension: 66 ft.
 - Rectangular arithmetic area: 3,564 sq ft / 396 sq yd.
 - West road: 30 ft; south road: 30 ft.
-- Location: Karimnagar area; precise locality and survey remain unspecified.
+- Location: Lakshmipur near Chintakunta, Karimnagar area, Telangana (owner-confirmed). Survey/layout reference and parcel-level authority remain unverified; see the [civil feasibility study](designs/PROPERTY-2-STAIR-LIFT-STUDY.md).
 - Both residential main doors should face north, independently reached from a shared west-side stair/lift approach.
 - Prefer greater usable garden/open space east and north. Actual offsets are design variables, not established statutory minima.
 - Ground level: open parking, garden and flexible family-function space; no household residence.
@@ -16,3 +18,7 @@
 This record supersedes the older 50 x 39 ft Property 2 dimensions for the current task. Do not scale or relabel the older geometry as if it were a surveyed plan for this site.
 
 No surveyed boundary/bearing, road level, permitted envelope, structural design, lift supplier or exact entrance-pada method has been confirmed.
+
+## Current design extension
+
+Use [Property 2 extended design](designs/PROPERTY-2-DESIGN.md). The latest owner clarification fixes the brother's first floor at 3BHK and keeps NE open, connected to living/hall, with separate pooja rooms permitted inward/central. Existing drawings do not implement this revised contract.

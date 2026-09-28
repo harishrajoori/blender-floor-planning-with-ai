@@ -1,9 +1,9 @@
 {
   "schema": "karimnagar-family-home/requirements",
-  "version": 5,
+  "version": 23,
   "updated": "2026-09-27",
-  "status": "owner brief for concept design; not construction approval",
-  "location": "Karimnagar, Telangana",
+  "status": "Current owner requirements plus labelled concept proposals; no approved geometry",
+  "location": "Lakshmipur near Chintakunta, Karimnagar area, Telangana",
   "selectedProperty": "properties/PROPERTY-2-CORNER-WEST-SOUTH-54x66.md",
   "households": {
     "structure": "Open ground + two residential floors",
@@ -29,8 +29,23 @@
     "fixedEventCapacity": null
   },
   "firstFloor": {
-    "programStatus": "flexible; design using best architectural judgement",
-    "defaultConcept": "Independent 2BHK with living/dining, kitchen, common bathroom, master attached bathroom, pooja/quiet room and useful terrace",
+    "programStatus": "3BHK fixed by owner clarification during 2026-09-27 specification review",
+    "bedrooms": 3,
+    "office": 0,
+    "spaces": [
+      "Independent north-facing entry",
+      "Open living and dining in one room",
+      "Separate SE kitchen",
+      "Compact utility",
+      "Common bathroom",
+      "Master attached bathroom"
+    ],
+    "proposedSpaces": [
+      "Daily pooja room"
+    ],
+    "optionalSpaces": [
+      "Family lounge only if it fits without compromising required spaces"
+    ],
     "mustCoordinate": [
       "Independent stair/lift arrival",
       "Structural wall and column alignment",
@@ -43,7 +58,26 @@
     "externalStair": "Shared independent access from site, without crossing either household",
     "noBedroomAsPassage": true,
     "property2MainDoors": "North-facing, separately lockable doors to first- and second-floor homes",
-    "sharedVerticalCore": "West-side stair and lift grouping is the agreed direction; exact fit and equipment are proposals"
+    "sharedVerticalCore": "West-side stair and lift grouping is the agreed direction; exact fit and equipment are proposals",
+    "coreSelectionStatus": "Owner selects NW as first concept to test; exact footprint, north approach and construction geometry remain unapproved",
+    "coreCandidate": "NW",
+    "coreCandidateStatus": "Owner-selected trial, subject to dimensioned feasibility",
+    "lift": {
+      "capacityPersons": 4,
+      "capacityStatus": "Owner-confirmed",
+      "candidateLocation": "NW shared core",
+      "requiredStops": [
+        "Ground",
+        "First floor — brother",
+        "Second floor — owner"
+      ],
+      "roofStop": false,
+      "supplierModel": null,
+      "ratedLoadKg": null,
+      "shaftDimensionsMm": null,
+      "wheelchairAccessibilityVerified": false,
+      "dimensionStatus": "Supplier general arrangement and coordinated landing fit required"
+    }
   },
   "parking": {
     "cars": 1,
@@ -68,23 +102,24 @@
     "waterTanks": true,
     "solarPanels": true,
     "indicateBorePoint": false,
-    "indicateWaterDrainSystem": false
+    "indicateWaterDrainSystem": false,
+    "access": "Shared staircase only; no terrace lift stop"
   },
   "vaastuPreferences": {
     "northReference": "Surveyed true north",
     "masterBedroom": "SW",
     "kitchen": "SE",
-    "dailyPooja": "NE",
-    "mallannaPooja": "NE",
+    "dailyPooja": "East-side enclosed room south of Mallanna; west door, deity faces west; exact footprint review unresolved",
+    "mallannaPooja": "East-side enclosed room after NE living area; west door, deity faces north; exact footprint review unresolved",
     "bedroom2": [
-      "W",
-      "NW"
+      "NW for Property 2 owner floor, owner-requested swap",
+      "W/NW generic preference for other scopes"
     ],
     "office": [
-      "N",
-      "NW"
+      "N for Property 2 owner floor, owner-requested swap",
+      "N/NW generic preference"
     ],
-    "centre": "Comparatively open/light",
+    "centre": "Keep family movement/light clear around proposed inward pooja; selected centre-zone interpretation requires review",
     "stairCandidate": [
       "W",
       "NW"
@@ -96,7 +131,10 @@
     "poojaBathroomSharedWall": false,
     "exactEntrancePada": "Consultant confirmation required",
     "exactToiletSubzones": "Consultant confirmation required",
-    "stairCandidateNote": "West-side grouping; NW may be tested while preserving SW master. Exact fit/sub-zone is not approved."
+    "stairCandidateNote": "West-side grouping; NW may be tested while preserving SW master. Exact fit/sub-zone is not approved.",
+    "northEast": "Open and directly connected to living/hall; no enclosed pooja/core/bath/store",
+    "poojaBathroomVerticalOverlap": false,
+    "poojaZoneStatus": "Owner arrangement recorded; consultant acceptance HOLD, not final Vaasthu PASS"
   },
   "mallannaPooja": {
     "separateFromDailyPooja": true,
@@ -109,19 +147,32 @@
     "prasadamSpace": "In front of deity",
     "patnamInside": false,
     "needsFamilyOrPujariConfirmation": [
-      "Deity/image dimensions and facing",
+      "Deity/image dimensions; facing already owner-confirmed north",
       "Platform height and footprint",
       "Pillar spacing and canopy",
       "Whether four people includes pujari"
-    ]
+    ],
+    "doorWall": "W",
+    "deityFacing": "N",
+    "altarSide": "S",
+    "oppositeWorshipperFacing": "S",
+    "ownerWidthFt": 7,
+    "ownerMinimumLengthFt": 9,
+    "dimensionAxes": {
+      "width": "E-W",
+      "length": "N-S"
+    },
+    "dimensionBasis": "Owner-confirmed clear internal dimensions between finished wall faces; wall and finish thickness additional",
+    "sharesWallWith": "daily_pooja",
+    "sharedWallSide": "S",
+    "wallThicknessIncludedInDimensions": false
   },
   "planningPriorities": [
-    "Legal and safety constraints",
-    "Usable circulation and furniture movement",
-    "Daylight and cross-ventilation",
-    "Household privacy and independent access",
-    "Vaastu preferences",
-    "Follow generic rules on room designs and interior designs India",
+    "Legal and safety constraints; report conflicts with fixed owner requirements",
+    "Preserve explicit owner requirements",
+    "Usable circulation, furniture, privacy and independent access",
+    "Daylight, ventilation and climate",
+    "Selected Vaasthu preferences with explicit conflicts/holds",
     "Visual style"
   ],
   "adaptationPolicy": {
@@ -132,7 +183,11 @@
       "Change entrance facing",
       "Relocate kitchen or master zones",
       "Change parking count",
-      "Create shared household access"
+      "Create shared household access",
+      "Partition living and dining",
+      "Enclose the required NE open space",
+      "Relocate inward pooja rooms back to NE",
+      "Reduce brother first floor below three bedrooms"
     ],
     "roomDimensions": "Targets may adjust for a better plan; report all changes",
     "onConflict": "Show alternatives and trade-offs; do not fabricate compliance"
@@ -140,7 +195,7 @@
   "professionalHoldPoints": [
     "Surveyed boundary and true north",
     "Title/layout status and authority jurisdiction",
-    "KMC/TG-bPASS setbacks, coverage, floors, height, parking and road widening",
+    "Applicable current local-authority rules and portal/jurisdiction; setbacks, coverage, floors, height, parking and road widening",
     "Structural grid/foundation/seismic design",
     "Stair safety and headroom",
     "Plumbing, drainage, electrical and waterproofing",
@@ -155,184 +210,260 @@
       "south": 30
     },
     "confirmedByOwner": "2026-09-27",
-    "surveyVerified": false
+    "surveyVerified": false,
+    "localityConfirmedByOwner": "Lakshmipur near Chintakunta",
+    "authorityResearch": {
+      "likelyPlanningContext": "Satavahana Development Authority; official village list includes Lakshmipur, code 572320",
+      "source": "https://pmay-urban.gov.in/list-uda.pdf",
+      "currentParcelJurisdictionVerified": false,
+      "surveyNumber": null,
+      "approvedLayoutReference": null,
+      "layoutApprovalStatus": "Owner unsure whether approved layout or LRS approval exists; unverified"
+    }
   },
   "secondFloor": {
     "bedrooms": 2,
     "office": 1,
     "spaces": [
-      "North-facing entrance foyer",
-      "Open living and dining",
-      "Separate kitchen and compact utility",
-      "Daily pooja room",
-      "Mallanna pooja room",
+      "North-facing entrance opening to living/hall",
+      "Open living and dining in one room",
+      "SE kitchen open toward dining, and covered ventilated east utility balcony with washing machine and sink",
+      "Enclosed daily pooja south of Mallanna, shared wall, west door, west-facing deity",
+      "Enclosed Mallanna pooja along east side after NE living area, west door, north-facing deity",
+      "Indoor NE living area / extension, no separating wall",
       "Common bathroom",
-      "Master attached bathroom (no specific dressing room, use cupboards)",
+      "Master attached bathroom; cupboards, no mandatory dressing room",
       "Short common/private circulation"
     ]
   },
   "workflow": {
-    "priority": "Generate workable dimensioned 2D alternatives from explicit civil-planning and agreed Vaastu constraints, with independent geometry checks",
-    "masterTool": "archit-app 0.7.0 prototype model; final-model consistency requires repair",
-    "proposedSolver": "OR-Tools CP-SAT 9.15.6755 installed; requirements integration incomplete",
-    "candidateModelLibrary": "archit-app 0.7.0 trialled; exporter/model discrepancies under review",
-    "recommendedReview": "reviews/2026-09-27-LOCAL-DESIGN-WORKFLOW.md",
+    "priority": "Documentation and requirements first; dimensioned coordinated candidates before presentation renders",
+    "implementationStatus": "Two independent fixed-coordinate Python exporters; known defects; no validator or solver found in checkout",
+    "masterTool": null,
+    "requiredArchitecture": "One shared geometry model consumed by SVG/Blender/schedules, with independent checks",
+    "genericSpecification": "specifications/GENERIC-PLOT-SPECIFICATION.md",
+    "implementationContract": "specifications/IMPLEMENTATION-AND-ACCEPTANCE.md",
+    "propertyDesign": "properties/designs/PROPERTY-2-DESIGN.md",
+    "latestReview": "reviews/2026-09-27-DESIGN-REVIEW.md",
+    "vaastuProfile": "knowledge/VAASTU-RULE-PROFILE.md",
     "geometryApprovalRequiredBeforeFinalRendering": true,
     "automatedVastuCertification": false,
-    "roadmap": "ROADMAP.md",
-    "handoff": "HANDOFF.md",
-    "progress": "project-status.json",
-    "implementationStatus": "M1 foundation trial passed; independent review finds M2-M5 need rework",
-    "latestReview": "reviews/2026-09-27-INDEPENDENT-CODE-REVIEW.md"
+    "placementDecisions": "properties/designs/PROPERTY-2-PLACEMENT-DECISIONS.md",
+    "coreFeasibilityStudy": "properties/designs/PROPERTY-2-STAIR-LIFT-STUDY.md"
   },
   "planning": {
-    "status": "provisional design assumptions; not owner-approved dimensions or statutory limits",
-    "source": "requirements/COMMON-DESIGN-RULES.md sections 9-16; explicit prototype profile",
+    "status": "Concept targets only; property geometry not selected",
+    "source": "requirements/COMMON-DESIGN-RULES.md; properties/designs/PROPERTY-2-DESIGN.md",
     "offsetsFt": {
-      "west": 3,
-      "east": 6,
-      "south": 3,
-      "north": 6
+      "west": null,
+      "east": null,
+      "south": null,
+      "north": null
     },
-    "wallMm": 150,
-    "exteriorWallMm": 230,
+    "wallMm": null,
+    "exteriorWallMm": null,
     "circulationMm": 1200,
+    "shortStraightCirculationDeviationTargetMm": 1050,
     "mainDoorMm": 1100,
     "roomDoorMm": 900,
+    "poojaDoorMm": 900,
     "bathDoorMm": 800,
-    "storeyHeightMm": 3000,
+    "storeyHeightMm": null,
     "northAngleDeg": 0,
     "northVerified": false,
-    "zoneMethod": "centroid in 3x3 dwelling-envelope grid; provisional convention, not consultant certification",
-    "solverSeconds": 10,
-    "solverSeed": 17,
-    "roomBoundsMm": {
-      "master_bed": {
-        "width": [
-          3800,
-          4200
-        ],
-        "depth": [
-          4300,
-          4600
-        ]
-      },
-      "master_bath": {
-        "width": [
-          1600,
-          1800
-        ],
-        "depth": [
-          2200,
-          2400
-        ]
-      },
-      "bed_2": {
-        "width": [
-          3400,
-          3700
-        ],
-        "depth": [
-          3600,
-          4000
-        ]
-      },
-      "common_bath": {
-        "width": [
-          1750,
-          1850
-        ],
-        "depth": [
-          2400,
-          2500
-        ]
-      },
-      "kitchen": {
-        "width": [
-          3200,
-          3500
-        ],
-        "depth": [
-          3400,
-          3700
-        ]
-      },
-      "utility": {
-        "width": [
-          1600,
-          1700
-        ],
-        "depth": [
-          2000,
-          2200
-        ]
-      },
-      "dining": {
-        "width": [
-          3000,
-          3400
-        ],
-        "depth": [
-          3100,
-          3400
-        ]
-      },
-      "living": {
-        "width": [
-          3800,
-          4200
-        ],
-        "depth": [
-          3600,
-          4000
-        ]
-      },
-      "office": {
-        "width": [
-          2800,
-          3100
-        ],
-        "depth": [
-          3050,
-          3300
-        ]
-      },
-      "daily_pooja": {
-        "width": [
-          1600,
-          1750
-        ],
-        "depth": [
-          1700,
-          1850
-        ]
-      },
-      "mallanna_pooja": {
-        "width": [
-          2800,
-          3100
-        ],
-        "depth": [
-          3350,
-          3600
-        ]
-      }
-    },
+    "northStatus": "Assumed concept north, not surveyed",
+    "zoneMethod": "Reference outline and measured footprint/activity overlap required; selected consultant acceptance method unresolved",
+    "roomTargetSchedule": "requirements/COMMON-DESIGN-RULES.md",
+    "propertyAreaBudget": "properties/designs/PROPERTY-2-DESIGN.md",
     "ritual": {
-      "status": "provisional fit reservation; family/pujari confirmation required",
-      "platformMm": [
-        1800,
-        900
-      ],
-      "offeringMm": [
-        1200,
-        450
-      ],
-      "personMm": [
-        650,
-        700
-      ],
-      "pillarMm": 100
+      "status": "Family/pujari measurements unresolved; demonstrate four worshippers beyond shrine/offerings/entry",
+      "platformMm": null,
+      "offeringMm": null,
+      "personMm": null,
+      "pillarMm": null
     }
+  },
+  "specificationRevision": "SPEC-2026-09-27-R18",
+  "openPlan": {
+    "floors": [
+      "firstFloor",
+      "secondFloor"
+    ],
+    "parentSpace": "living_dining",
+    "activityZones": [
+      "living",
+      "dining"
+    ],
+    "interfaceType": "OPEN_CONTINUOUS",
+    "wallAllowed": false,
+    "doorAllowed": false,
+    "fixedDividerAllowed": false,
+    "tvPartitionAllowed": false,
+    "directInternalConnectionRequired": true,
+    "ruleIds": [
+      "G-OPEN-01",
+      "G-OPEN-02",
+      "G-OPEN-03",
+      "F-OPEN-01",
+      "F-OPEN-05"
+    ]
+  },
+  "northEastOpenSpace": {
+    "required": true,
+    "directConnectionTo": "same living/hall interior",
+    "enclosedRoomsAllowed": false,
+    "openToSkyRequired": false,
+    "coverageStatus": "Indoor room, not a terrace",
+    "ruleIds": [
+      "F-OPEN-02",
+      "F-OPEN-03",
+      "F-OPEN-04"
+    ],
+    "scope": "Property 2 owner second floor clarification; other floors retain their recorded requirements",
+    "spaceType": "Indoor living area / extension"
+  },
+  "serviceConnection": {
+    "status": "Owner-confirmed route and 4 ft clear width; exact door and counter geometry unresolved",
+    "route": [
+      "dining",
+      "4 ft clear passage immediately south of daily pooja, running east",
+      "utility door",
+      "utility"
+    ],
+    "throughCookingAisleAllowed": false,
+    "sealedCavitySubstituteAllowed": false,
+    "poojaKitchenSharedWallInThisCandidate": false,
+    "ruleIds": [
+      "F-SERVICE-01",
+      "F-SERVICE-02"
+    ],
+    "scope": "Property 2 owner second floor",
+    "clearWidthFt": 4,
+    "clearWidthMm": 1219.2,
+    "widthAxis": "N-S",
+    "travelDirection": "E",
+    "northNeighbour": "daily_pooja",
+    "southNeighbour": "open_SE_kitchen",
+    "widthStrength": "FIXED",
+    "dimensionBasis": "Clear usable width after wall finishes and fixtures"
+  },
+  "propertyStudies": [
+    {
+      "id": "P1",
+      "design": "properties/designs/PROPERTY-1-DESIGN.md",
+      "status": "inactive comparison; current family floor programme proposed only"
+    },
+    {
+      "id": "P2",
+      "design": "properties/designs/PROPERTY-2-DESIGN.md",
+      "status": "active specification; geometry unapproved"
+    },
+    {
+      "id": "P3",
+      "design": "properties/designs/PROPERTY-3-DESIGN.md",
+      "status": "inactive comparison; current family floor programme proposed only"
+    }
+  ],
+  "dailyPooja": {
+    "scope": "Property 2 owner second floor",
+    "enclosed": true,
+    "doorWall": "W",
+    "deityFacing": "W",
+    "altarSide": "E",
+    "oppositeWorshipperFacing": "E",
+    "dimensionAxes": {
+      "width": "E-W",
+      "length": "N-S"
+    },
+    "dimensionBasis": "Owner-confirmed clear internal dimensions between finished wall faces; wall and finish thickness additional",
+    "sharesWallWith": "mallanna_pooja",
+    "ownerWidthFt": 7,
+    "ownerLengthFt": 4,
+    "sameEastWestSpanAs": "mallanna_pooja",
+    "sharedWallSide": "N",
+    "wallThicknessIncludedInDimensions": false
+  },
+  "ownerEastSideSequenceNorthToSouth": [
+    "indoor_NE_living_extension",
+    "mallanna_pooja",
+    "daily_pooja",
+    "utility_passage",
+    "open_SE_kitchen"
+  ],
+  "ownerKitchen": {
+    "scope": "Property 2 owner second floor",
+    "zone": "SE",
+    "openTo": "dining",
+    "enclosedKitchenRequired": false,
+    "counterLayout": "Cooking counter on east wall; sink, refrigerator, counter returns and exact dimensions unresolved",
+    "cookingCounterWall": "E",
+    "cookFacing": "E",
+    "cookStandingSideOfHob": "W",
+    "openSideTowardDining": "W",
+    "cookingOrientationStatus": "Owner-confirmed"
+  },
+  "ownerUtility": {
+    "scope": "Property 2 owner second floor",
+    "status": "Owner-confirmed type and access; dimensions unresolved",
+    "type": "Covered ventilated exterior service balcony",
+    "side": "E",
+    "outsideDwellingEnvelope": true,
+    "accessFrom": "East end of 4 ft utility passage",
+    "equipment": [
+      "washing machine",
+      "sink"
+    ],
+    "dimensionsMm": null,
+    "coverageAndProjectionApproval": "Unverified; account for full development envelope"
+  },
+  "ownerOffice": {
+    "scope": "Property 2 owner second floor",
+    "primaryUser": "owner only",
+    "clientVisitorUseRequired": false,
+    "access": "Door from short common internal lobby; no route through a bedroom",
+    "dedicatedClientEntranceRequired": false,
+    "locationStatus": "Owner-requested swap: north office replaces prior NW office; exact footprint and dimensions to be fitted",
+    "zone": "N",
+    "windowFacing": "N",
+    "relativePlacement": "Immediately east of NW Bedroom 2; NE living extension farther east"
+  },
+  "ownerBedroom2": {
+    "scope": "Property 2 owner second floor",
+    "status": "Owner-requested swap: NW Bedroom 2 replaces prior north-central Bedroom 2; exact footprint and dimensions to be fitted",
+    "zone": "NW",
+    "relativePlacement": "Immediately west of north office",
+    "windowFacing": "N",
+    "access": "Separate door from common indoor circulation; no through-bedroom route"
+  },
+  "ownerNorthSideSequenceWestToEast": [
+    "bedroom_2",
+    "office",
+    "NE_living_extension"
+  ],
+  "ownerMasterSuite": {
+    "scope": "Property 2 owner second floor",
+    "status": "Owner-confirmed placement and access; exact geometry to be fitted",
+    "sleepingZone": "SW",
+    "attachedBathroomRelativePlacement": "Immediately north of master bedroom",
+    "attachedBathroomAccessFrom": [
+      "master_bedroom"
+    ],
+    "attachedBathroomCommonAccessAllowed": false,
+    "southWestCornerUse": "Sleeping",
+    "separateDressingRoomRequired": false
+  },
+  "ownerCommonBathroom": {
+    "scope": "Property 2 owner second floor",
+    "status": "Owner-confirmed placement and access; exact geometry and sightlines to be fitted",
+    "side": "W",
+    "relativePlacement": "North of master attached bathroom",
+    "accessFrom": "Short shared internal lobby near Bedroom 2 and office",
+    "bedroomAccessRequired": false,
+    "doorwayScreenedFrom": [
+      "living",
+      "dining"
+    ],
+    "screeningMethod": null,
+    "dimensionsMm": null
   }
 }

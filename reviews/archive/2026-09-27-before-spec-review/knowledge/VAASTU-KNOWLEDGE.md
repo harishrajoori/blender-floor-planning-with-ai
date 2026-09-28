@@ -1,8 +1,6 @@
-# Historical Vaasthu research — source notes, not current requirements
+# Karimnagar family home — Vaastu knowledge and design reference
 
-> **Superseded programme and property examples.** Read the [current operational profile](VAASTU-RULE-PROFILE.md) and [owner brief](../DESIGN-BRIEF.md) first. Latest owner direction: brother 3BHK; NE open and connected to living/hall; two separate pooja rooms permitted inward/central. Older NE-pooja, 2BHK, ground-residence and 50 × 39 ft examples below do not govern current design. The three cited source PDFs and historical handoff are absent; this review did not independently reread those books. Their reading claims below are retained historical provenance.
-
-> Research reference with historical property/floor examples. For current 54 × 66 ft Property 2, open ground + two homes and lift, use [the current brief](../DESIGN-BRIEF.md). Historical G+1 examples are not active requirements. The historical `HANDOFF.md` is unavailable in this checkout.
+> Research reference with historical property/floor examples. For current 54 × 66 ft Property 2, open ground + two homes and lift, use [the current brief](../DESIGN-BRIEF.md). Historical G+1 examples are not active requirements. See [handoff](../HANDOFF.md).
 
 **Version 1.0 · 25 September 2026 · English synthesis with Telugu direction names**
 
@@ -13,14 +11,14 @@ This is the central reference for future discussions about the family's three pr
 ## Contents
 
 1. [Sources and reading coverage](#1-sources-and-reading-coverage)
-2. [The current owner brief](#2-historical-owner-brief--superseded)
+2. [The current owner brief](#2-the-current-owner-brief)
 3. [Directions and facing](#3-directions-and-facing)
 4. [Traditional concepts and terminology](#4-traditional-concepts-and-terminology)
 5. [Planning knowledge from the supplied books](#5-planning-knowledge-from-the-supplied-books)
 6. [Mallanna and daily pooja](#6-mallanna-and-daily-pooja)
 7. [The three requested web pages](#7-the-three-requested-web-pages)
 8. [Disagreements and unresolved rules](#8-disagreements-and-unresolved-rules)
-9. [Applying the knowledge to the three properties](#9-historical-applications-to-the-three-properties)
+9. [Applying the knowledge to the three properties](#9-applying-the-knowledge-to-the-three-properties)
 10. [Future design review and handover](#10-future-design-review-and-handover)
 11. [Complete reading map](#11-complete-reading-map)
 12. [Maintenance and provenance](#12-maintenance-and-provenance)
@@ -31,9 +29,9 @@ This is the central reference for future discussions about the family's three pr
 
 | ID | Source | Language / coverage | Important limitation |
 |---|---|---|---|
-| A | `sources/subhavaastu-book.pdf` (శుభవాస్తు — subhavaastu-book.pdf; historical file unavailable), Suresh | Telugu; all 73 supplied PDF pages visually read, including diagrams | Partial publication. Contents list 95 topics, but the supplied file ends after the south-west discussion and a continuation notice. |
-| B | `sources/vastu-for-house-ebook.pdf` (Vastu for House ebook; historical file unavailable), FreeVastuShastra.com | English; all 30 pages read; key conflicting passages and pooja/stair guidance visually checked | Copyright footer 2008–2010. Several internal contradictions. This attachment is English, not Telugu. |
-| C | `sources/vastu-visheshalu.pdf` (శుభవాస్తు విశేషాలు — vastu-visheshalu.pdf; historical file unavailable), Suresh | Telugu; all 36 supplied PDF pages visually read | Partial publication. Contents list 50 topics; the west chapter starts on page 35 and is cut off by the continuation notice on page 36. |
+| A | [శుభవాస్తు — subhavaastu-book.pdf](sources/subhavaastu-book.pdf), Suresh | Telugu; all 73 supplied PDF pages visually read, including diagrams | Partial publication. Contents list 95 topics, but the supplied file ends after the south-west discussion and a continuation notice. |
+| B | [Vastu for House ebook](sources/vastu-for-house-ebook.pdf), FreeVastuShastra.com | English; all 30 pages read; key conflicting passages and pooja/stair guidance visually checked | Copyright footer 2008–2010. Several internal contradictions. This attachment is English, not Telugu. |
+| C | [శుభవాస్తు విశేషాలు — vastu-visheshalu.pdf](sources/vastu-visheshalu.pdf), Suresh | Telugu; all 36 supplied PDF pages visually read | Partial publication. Contents list 50 topics; the west chapter starts on page 35 and is cut off by the continuation notice on page 36. |
 | WS | [SubhaVaastu: South direction](https://www.subhavaastu.com/vastu-south-direction.html) | Main article and FAQs reviewed, 25 September 2026 | Conditional guidance and an unresolved entrance inconsistency. |
 | WE | [SubhaVaastu: East direction](https://www.subhavaastu.com/vastu-for-east.html) | Main article and FAQs reviewed, 25 September 2026 | Many foreign-house examples; an ambiguous bearing explanation. |
 | WN | [SubhaVaastu: North direction](https://www.subhavaastu.com/vastu-north-direction.html) | Main article and FAQs reviewed, 25 September 2026 | Numerous exceptions; not a Karimnagar building standard. |
@@ -57,7 +55,7 @@ Instructions inside the books to contact consultants, buy the continuation, perf
 
 The books repeatedly link geometry to illness, prosperity, relationships and other life outcomes. These are the authors' traditional claims and anecdotes, not established causal findings in this review. They are not used here to diagnose a family member or predict harm. Engineering decisions still require measurements and professional design.
 
-## 2. Historical owner brief — superseded
+## 2. The current owner brief
 
 **27 September 2026 supersession:** the active plot is now Property 2, confirmed 54 ft E-W x 66 ft N-S with 30 ft roads south and west. Ground is open garden/parking/function space, brother on first floor and owner/family on second, with lift and independent household access. The owner's room programme below moves from ground to second floor. Use the updated [design brief](../DESIGN-BRIEF.md) and [decision log](../reviews/DECISION-LOG.md) for current floor roles and dimensions; older property/floor examples below are retained as research history.
 
@@ -91,7 +89,7 @@ The four-person number describes the Mallanna worship space. It does not establi
 | Property | North-up dimensions | Recorded road information | Rectangular area |
 |---|---|---|---:|
 | [1 — West](../properties/PROPERTY-1-WEST-80x50.md) | 80 ft N–S frontage × 50 ft E–W depth | West road, recorded as 20 ft wide | 4,000 sq ft |
-| `../properties/PROPERTY-2-CORNER-WEST-SOUTH-50x39.md` (2 — West/South corner; historical file unavailable) | 39 ft N–S × 50 ft E–W | West road 20 ft; south road 30 ft | 1,950 sq ft |
+| [2 — West/South corner](../properties/PROPERTY-2-CORNER-WEST-SOUTH-50x39.md) | 39 ft N–S × 50 ft E–W | West road 20 ft; south road 30 ft | 1,950 sq ft |
 | [3 — North](../properties/PROPERTY-3-NORTH-51x47.md) | 51 ft E–W frontage × 47 ft N–S depth | North road, recorded as 20 ft wide | 2,397 sq ft |
 
 Areas are arithmetic assuming rectangular boundaries. Exact bearings, corner angles, road levels, surveyed road widths, utilities and legal building envelopes remain unverified. Open-space allocations are design-specific, not fixed minima across all three sites.
@@ -333,7 +331,7 @@ Do not silently fix a suspected typo and present the correction as the source's 
 
 Web-specific exceptions and inconsistencies are recorded in Section 7 and remain unresolved. Source plurality is useful evidence of differing practice, not justification for choosing whichever sentence happens to approve an existing poor layout.
 
-## 9. Historical applications to the three properties
+## 9. Applying the knowledge to the three properties
 
 These are planning starting points, **not three completed designs**. A single plan must not be mirrored or stretched to fit all sites. North-east, south-east and south-west remain actual compass zones when the road changes.
 

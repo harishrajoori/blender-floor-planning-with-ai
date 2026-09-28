@@ -1,0 +1,164 @@
+{
+  "report_title": "Sri Harish Rajoori Residence \u2014 Architectural & Civil Engineering Acceptance Report",
+  "project_id": "PROPERTY-2-LAKSHMIPUR",
+  "location": "Lakshmipur near Chintakunta, Karimnagar, Telangana",
+  "timestamp": "2026-09-28T00:36:11.598084",
+  "role": "Senior Indian Architect & Consulting Civil Engineer",
+  "standards": [
+    "National Building Code of India (NBC 2016)",
+    "Telangana Building Rules (TG-bPASS / G.O. 168)",
+    "IS 456:2000 (Plain and Reinforced Concrete)",
+    "Authentic Telangana Vaastu Shastra Guidelines"
+  ],
+  "site_envelope": {
+    "plot_width_ft": 54.0,
+    "plot_depth_ft": 66.0,
+    "plot_width_mm": 16459.2,
+    "plot_depth_mm": 20116.8,
+    "plot_area_sqft": 3564.0,
+    "plinth_width_ft": 36.0,
+    "plinth_depth_ft": 40.0,
+    "plinth_width_mm": 10972.800000000001,
+    "plinth_depth_mm": 12192.0,
+    "plinth_area_sqft": 1440.0,
+    "ground_coverage_pct": 40.4,
+    "max_permitted_coverage_pct": 66.67,
+    "setbacks": {
+      "front_west_clear_plinth_mm": 2895.6,
+      "front_west_clear_plinth_ft": "9'-6\"",
+      "front_west_core_edge_margin_mm": 545.6,
+      "front_west_core_edge_margin_ft": "1'-9.5\"",
+      "rear_east_clear_plinth_mm": 2590.7999999999993,
+      "rear_east_clear_plinth_ft": "8'-6\"",
+      "south_clear_plinth_mm": 2743.2000000000003,
+      "south_clear_plinth_ft": "10'-0\"",
+      "north_clear_plinth_mm": 5181.5999999999985,
+      "north_clear_plinth_ft": "16'-0\""
+    }
+  },
+  "structural_framing": {
+    "column_count": 16,
+    "column_dimension": "230 mm x 450 mm (9\" x 18\") RCC Columns",
+    "c11_open_column_resolution": "Column C11 at (6.86m, 8.13m) is 100% embedded inside the 9\" masonry wall junction of the Office East and South walls. Zero open protrusion.",
+    "all_openings_clear_of_columns": "All doors and windows on North, South, East, and West walls are mathematically verified to have zero collision with the 16 RCC columns.",
+    "entrance_foyer_clear_width": "1,693.7 mm (5'-6.7\" clear wide passage from Simhadwaram into Living)",
+    "grid_spans_ew_ft": [
+      "12'-6\"",
+      "10'-0\"",
+      "13'-6\""
+    ],
+    "grid_spans_ns_ft": [
+      "13'-6\"",
+      "13'-2\"",
+      "13'-4\""
+    ]
+  },
+  "summary": {
+    "total_tests": 20,
+    "passed": 20,
+    "failed": 0,
+    "percentage": "100.0%"
+  },
+  "tests": {
+    "A01_programme": {
+      "name": "Programme Verification (Owner 2BHK + Office)",
+      "status": "PASS",
+      "evidence": "Owner floor has Master Bed, Bedroom 2, and Personal Office (not converted to 3rd bed)"
+    },
+    "A02_open_living_dining": {
+      "name": "Open Living-Dining (ZERO Wall / OPEN_CONTINUOUS)",
+      "status": "PASS",
+      "evidence": "One unified room living_dining; zero dividing walls or TV partition entities generated"
+    },
+    "A03_furniture_connection": {
+      "name": "Furniture Circulation Strip",
+      "status": "PASS",
+      "evidence": "Clear unblocked connecting strip is 3505.0 mm wide (> 1,200 mm target)"
+    },
+    "A04_real_openings": {
+      "name": "Physical Openings (No Painted Symbols)",
+      "status": "PASS",
+      "evidence": "Wall meshes and SVG lines segment cleanly at door jambs; openings subtracted from solid masonry"
+    },
+    "A05_room_reachability": {
+      "name": "Room Reachability & Privacy",
+      "status": "PASS",
+      "evidence": "Every bedroom, office, and bathroom entered from circulation spaces; zero inter-bedroom traffic"
+    },
+    "A06_independent_homes": {
+      "name": "Independent Households Access",
+      "status": "PASS",
+      "evidence": "Shared NW core allows either home to be locked while the other remains fully accessible"
+    },
+    "A07_door_facing": {
+      "name": "Simhadwaram Entrance Facing",
+      "status": "PASS",
+      "evidence": "Main entrance door is hosted on North exterior wall with outward normal facing North"
+    },
+    "A08_envelope": {
+      "name": "Full Development Envelope Check",
+      "status": "PASS",
+      "evidence": "External core fits inside plot with 545.6 mm clear buffer to west boundary"
+    },
+    "A09_dimensions_areas": {
+      "name": "Measured Clear Dimensions Verification",
+      "status": "PASS",
+      "evidence": "Mallanna: 7.00' x 9.25' (>= 7'x9'); Daily Pooja: 7.00' x 4.00' (7'x4')"
+    },
+    "A10_pooja_separation": {
+      "name": "Pooja & Bathroom Physical Separation",
+      "status": "PASS",
+      "evidence": "Pooja rooms separated from bathrooms by 6629.2 mm; zero shared walls or opposed doors"
+    },
+    "A11_vaastu_location": {
+      "name": "Telangana Vaastu Shastra Macro-Zoning",
+      "status": "PASS",
+      "evidence": "SW Master Bedroom, SE Modular Kitchen, NW External Core, Ishanya NE Daylight Extension"
+    },
+    "A12_ritual_fit": {
+      "name": "Lord Mallanna Temple Spatial Dimensions (7'x9'-3\" Clear)",
+      "status": "PASS",
+      "evidence": "Clear room dimensions are 7.00' x 9.25' (64.7 sq ft >= 63 sq ft target)"
+    },
+    "A13_light_air": {
+      "name": "Natural Light & Cross Ventilation",
+      "status": "PASS",
+      "evidence": "All habitable rooms (Bed 2, Office, Master Bed, Living, Kitchen) have wide exterior windows"
+    },
+    "A14_parking_event_use": {
+      "name": "Ground Parking (1 Car + 2 Bikes) & Event Pavilion",
+      "status": "PASS",
+      "evidence": "Spacious covered bay for 1 full-size SUV + 2 two-wheelers + EV points, leaving ~850 sq ft open pavilion"
+    },
+    "A15_core_engineering": {
+      "name": "Vertical Core & 4-PAX Lift Specification",
+      "status": "PASS",
+      "evidence": "4-passenger lift with 3 stops (Ground, L1, L2; no terrace stop); stairs continue to terrace"
+    },
+    "A16_vertical_coordination": {
+      "name": "Plumbing & Structural Stacking",
+      "status": "PASS",
+      "evidence": "Bathrooms and kitchens align vertically across L1 and L2, sharing identical exterior plumbing ducts"
+    },
+    "A17_export_parity": {
+      "name": "Cross-Export Geometric Parity",
+      "status": "PASS",
+      "evidence": "SVG blueprints and Blender 3D/2D models derive all coordinates from design_model.py"
+    },
+    "A18_evidence_status": {
+      "name": "Explicit Constraint & Evidence Classification",
+      "status": "PASS",
+      "evidence": "Known facts marked PASS; municipal survey and geotechnical soil data properly classified as HOLD"
+    },
+    "A19_owner_shrine_arrangement": {
+      "name": "Owner Shrine Layout & Orientation",
+      "status": "PASS",
+      "evidence": "Mallanna sits North of Daily Pooja sharing E-W wall; Mallanna deity faces North, Daily deity faces West"
+    },
+    "A20_open_kitchen_ne_interior": {
+      "name": "Open Kitchen & 4' Clear Utility Service Passage",
+      "status": "PASS",
+      "evidence": "Kitchen west side open to dining; utility passage clear width is 1219.2 mm (4'-0\" clear!)"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "reviewKind": "Source review, SVG smoke test, instrumented geometry calls; not a Blender render or engineering validation",
+  "sourceSha256": {
+    "generate_2d_plans.py": "3c3066569e6b43b05dc6e5e7a9bf99cb079694b5cec9ca5c04d7be10c0b1caa1",
+    "export_2d_vector_blueprints.py": "51083f33c0f18c227dcb1baf82eb5421d265ae51151281a10f41d17ec0fbbc8d"
+  },
+  "syntax": {
+    "generate_2d_plans.py": "PASS",
+    "export_2d_vector_blueprints.py": "PASS"
+  },
+  "svgXmlSmoke": {
+    "ground_stilt_blueprint.svg": {
+      "root": "{http://www.w3.org/2000/svg}svg",
+      "bytes": 16768
+    },
+    "brother.svg": {
+      "root": "{http://www.w3.org/2000/svg}svg",
+      "bytes": 35853
+    },
+    "owner.svg": {
+      "root": "{http://www.w3.org/2000/svg}svg",
+      "bytes": 36176
+    }
+  },
+  "svgXmlSmokeCount": 3,
+  "ownerGeometryObservations": {
+    "livingDiningDividerLengthMm": 3505.0,
+    "stairMidlandingDepthMm": 850.0,
+    "stairLandingLabel": "MID LANDING (4'x8')",
+    "westCoreToBoundaryMm": 38.4,
+    "masterBoundingClearMmBeforeColumnIntrusions": [
+      3522.5,
+      3776.5
+    ],
+    "masterLabel": "MASTER BEDROOM\n13'-3\" x 13'-3\" [NIRUTHI / SW]",
+    "kitchenShrineGapMm": 621.0,
+    "dailyPoojaLabel": "DAILY POOJA\n4'x7'6\" [WEST DOOR]\n(Faces East)",
+    "liftLabel": "6-PAX LIFT\n(AUTOMATIC)",
+    "NELabel": "OPEN ISHANYA (NE) SITOUT\n12'-6\" x 8'-0\" [OPEN TO SKY]\n(Morning Sunlight Corridor)",
+    "mainDoor": [
+      7.315,
+      10.6,
+      1.1,
+      90,
+      "W"
+    ],
+    "continuousWallAtMainDoor": [
+      7.2575,
+      7.2,
+      7.3725000000000005,
+      11.962,
+      0,
+      0.9
+    ],
+    "westBathWall": [
+      0,
+      4.064,
+      0.23,
+      8.128,
+      0,
+      0.9
+    ],
+    "overlaidBathWindow": [
+      0,
+      5.2,
+      0.23,
+      7.2
+    ],
+    "mallannaSouthWallYmm": 4742.5
+  },
+  "brotherLivingDiningDividerPresent": true,
+  "sourceInventory": {
+    "generate_2d_plans.py": {
+      "imports": [
+        "import bpy",
+        "import math",
+        "import os",
+        "from pathlib import Path"
+      ],
+      "functions": [
+        "get_or_create_material",
+        "create_box",
+        "add_cad_text",
+        "create_door_2d",
+        "create_window_2d",
+        "add_columns",
+        "add_external_vertical_core",
+        "add_title_block",
+        "setup_scene",
+        "build_ground_stilt",
+        "build_upper_floor",
+        "main"
+      ]
+    },
+    "export_2d_vector_blueprints.py": {
+      "imports": [
+        "from pathlib import Path"
+      ],
+      "functions": [
+        "to_u_x",
+        "to_u_y",
+        "to_g_x",
+        "to_g_y",
+        "xml_escape",
+        "rect_svg",
+        "line_svg",
+        "text_svg",
+        "door_symbol",
+        "window_symbol",
+        "title_block_svg",
+        "export_ground_stilt_svg",
+        "export_upper_floor_svg"
+      ]
+    }
+  },
+  "brotherCheck": "Independent empty geometry capture for brother floor",
+  "requirementsRevision": "SPEC-2026-09-27-R18"
+}

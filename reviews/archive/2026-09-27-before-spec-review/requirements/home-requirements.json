@@ -1,0 +1,338 @@
+{
+  "schema": "karimnagar-family-home/requirements",
+  "version": 5,
+  "updated": "2026-09-27",
+  "status": "owner brief for concept design; not construction approval",
+  "location": "Karimnagar, Telangana",
+  "selectedProperty": "properties/PROPERTY-2-CORNER-WEST-SOUTH-54x66.md",
+  "households": {
+    "structure": "Open ground + two residential floors",
+    "groundFloor": "Open garden, parking and flexible family functions; no residence",
+    "firstFloor": "Brother and family",
+    "independentEntrances": true,
+    "sharedInternalAccess": false,
+    "secondFloor": "Owner and family",
+    "liftRequired": true,
+    "eachHomeReachableWhileOtherLocked": true
+  },
+  "groundFloor": {
+    "residentialRooms": 0,
+    "uses": [
+      "Garden",
+      "One car and two bikes",
+      "Flexible family functions",
+      "Shared stair and lift access"
+    ],
+    "optionalProposal": [
+      "Guest toilet"
+    ],
+    "fixedEventCapacity": null
+  },
+  "firstFloor": {
+    "programStatus": "flexible; design using best architectural judgement",
+    "defaultConcept": "Independent 2BHK with living/dining, kitchen, common bathroom, master attached bathroom, pooja/quiet room and useful terrace",
+    "mustCoordinate": [
+      "Independent stair/lift arrival",
+      "Structural wall and column alignment",
+      "Kitchen and wet-area stacking with second floor",
+      "No bathroom/pooja adjacency or conflicting vertical stacks",
+      "Privacy between households"
+    ]
+  },
+  "access": {
+    "externalStair": "Shared independent access from site, without crossing either household",
+    "noBedroomAsPassage": true,
+    "property2MainDoors": "North-facing, separately lockable doors to first- and second-floor homes",
+    "sharedVerticalCore": "West-side stair and lift grouping is the agreed direction; exact fit and equipment are proposals"
+  },
+  "parking": {
+    "cars": 1,
+    "twoWheelers": 2,
+    "mustNotBlock": [
+      "Pedestrian approach",
+      "Independent stair gate",
+      "House entrances"
+    ]
+  },
+  "outdoor": {
+    "required": [
+      "Garden",
+      "Children's play/open space"
+    ],
+    "dedicatedPatnamArea": false,
+    "patnamNote": "No permanent reserved area; any family ritual use is temporary and coordinated separately",
+    "openSpacePreference": "More usable openness east and north; main garden east/NE"
+  },
+  "roof": {
+    "planRequired": true,
+    "waterTanks": true,
+    "solarPanels": true,
+    "indicateBorePoint": false,
+    "indicateWaterDrainSystem": false
+  },
+  "vaastuPreferences": {
+    "northReference": "Surveyed true north",
+    "masterBedroom": "SW",
+    "kitchen": "SE",
+    "dailyPooja": "NE",
+    "mallannaPooja": "NE",
+    "bedroom2": [
+      "W",
+      "NW"
+    ],
+    "office": [
+      "N",
+      "NW"
+    ],
+    "centre": "Comparatively open/light",
+    "stairCandidate": [
+      "W",
+      "NW"
+    ],
+    "avoidToilet": [
+      "NE",
+      "Centre"
+    ],
+    "poojaBathroomSharedWall": false,
+    "exactEntrancePada": "Consultant confirmation required",
+    "exactToiletSubzones": "Consultant confirmation required",
+    "stairCandidateNote": "West-side grouping; NW may be tested while preserving SW master. Exact fit/sub-zone is not approved."
+  },
+  "mallannaPooja": {
+    "separateFromDailyPooja": true,
+    "capacityPeople": 4,
+    "peopleSpaceExcludesShrineAndOfferings": true,
+    "raisedPlatform": true,
+    "tableLikeSurface": true,
+    "pandalPillars": 4,
+    "pandalPillarsAreStructural": false,
+    "prasadamSpace": "In front of deity",
+    "patnamInside": false,
+    "needsFamilyOrPujariConfirmation": [
+      "Deity/image dimensions and facing",
+      "Platform height and footprint",
+      "Pillar spacing and canopy",
+      "Whether four people includes pujari"
+    ]
+  },
+  "planningPriorities": [
+    "Legal and safety constraints",
+    "Usable circulation and furniture movement",
+    "Daylight and cross-ventilation",
+    "Household privacy and independent access",
+    "Vaastu preferences",
+    "Follow generic rules on room designs and interior designs India",
+    "Visual style"
+  ],
+  "adaptationPolicy": {
+    "preserveOwnerDecisions": true,
+    "doNotSilently": [
+      "Add or remove rooms",
+      "Merge pooja rooms",
+      "Change entrance facing",
+      "Relocate kitchen or master zones",
+      "Change parking count",
+      "Create shared household access"
+    ],
+    "roomDimensions": "Targets may adjust for a better plan; report all changes",
+    "onConflict": "Show alternatives and trade-offs; do not fabricate compliance"
+  },
+  "professionalHoldPoints": [
+    "Surveyed boundary and true north",
+    "Title/layout status and authority jurisdiction",
+    "KMC/TG-bPASS setbacks, coverage, floors, height, parking and road widening",
+    "Structural grid/foundation/seismic design",
+    "Stair safety and headroom",
+    "Plumbing, drainage, electrical and waterproofing",
+    "Family-selected Vaastu consultant",
+    "Mallanna/Oggu pujari ritual details"
+  ],
+  "site": {
+    "eastWestFt": 54,
+    "northSouthFt": 66,
+    "roadsFt": {
+      "west": 30,
+      "south": 30
+    },
+    "confirmedByOwner": "2026-09-27",
+    "surveyVerified": false
+  },
+  "secondFloor": {
+    "bedrooms": 2,
+    "office": 1,
+    "spaces": [
+      "North-facing entrance foyer",
+      "Open living and dining",
+      "Separate kitchen and compact utility",
+      "Daily pooja room",
+      "Mallanna pooja room",
+      "Common bathroom",
+      "Master attached bathroom (no specific dressing room, use cupboards)",
+      "Short common/private circulation"
+    ]
+  },
+  "workflow": {
+    "priority": "Generate workable dimensioned 2D alternatives from explicit civil-planning and agreed Vaastu constraints, with independent geometry checks",
+    "masterTool": "archit-app 0.7.0 prototype model; final-model consistency requires repair",
+    "proposedSolver": "OR-Tools CP-SAT 9.15.6755 installed; requirements integration incomplete",
+    "candidateModelLibrary": "archit-app 0.7.0 trialled; exporter/model discrepancies under review",
+    "recommendedReview": "reviews/2026-09-27-LOCAL-DESIGN-WORKFLOW.md",
+    "geometryApprovalRequiredBeforeFinalRendering": true,
+    "automatedVastuCertification": false,
+    "roadmap": "ROADMAP.md",
+    "handoff": "HANDOFF.md",
+    "progress": "project-status.json",
+    "implementationStatus": "M1 foundation trial passed; independent review finds M2-M5 need rework",
+    "latestReview": "reviews/2026-09-27-INDEPENDENT-CODE-REVIEW.md"
+  },
+  "planning": {
+    "status": "provisional design assumptions; not owner-approved dimensions or statutory limits",
+    "source": "requirements/COMMON-DESIGN-RULES.md sections 9-16; explicit prototype profile",
+    "offsetsFt": {
+      "west": 3,
+      "east": 6,
+      "south": 3,
+      "north": 6
+    },
+    "wallMm": 150,
+    "exteriorWallMm": 230,
+    "circulationMm": 1200,
+    "mainDoorMm": 1100,
+    "roomDoorMm": 900,
+    "bathDoorMm": 800,
+    "storeyHeightMm": 3000,
+    "northAngleDeg": 0,
+    "northVerified": false,
+    "zoneMethod": "centroid in 3x3 dwelling-envelope grid; provisional convention, not consultant certification",
+    "solverSeconds": 10,
+    "solverSeed": 17,
+    "roomBoundsMm": {
+      "master_bed": {
+        "width": [
+          3800,
+          4200
+        ],
+        "depth": [
+          4300,
+          4600
+        ]
+      },
+      "master_bath": {
+        "width": [
+          1600,
+          1800
+        ],
+        "depth": [
+          2200,
+          2400
+        ]
+      },
+      "bed_2": {
+        "width": [
+          3400,
+          3700
+        ],
+        "depth": [
+          3600,
+          4000
+        ]
+      },
+      "common_bath": {
+        "width": [
+          1750,
+          1850
+        ],
+        "depth": [
+          2400,
+          2500
+        ]
+      },
+      "kitchen": {
+        "width": [
+          3200,
+          3500
+        ],
+        "depth": [
+          3400,
+          3700
+        ]
+      },
+      "utility": {
+        "width": [
+          1600,
+          1700
+        ],
+        "depth": [
+          2000,
+          2200
+        ]
+      },
+      "dining": {
+        "width": [
+          3000,
+          3400
+        ],
+        "depth": [
+          3100,
+          3400
+        ]
+      },
+      "living": {
+        "width": [
+          3800,
+          4200
+        ],
+        "depth": [
+          3600,
+          4000
+        ]
+      },
+      "office": {
+        "width": [
+          2800,
+          3100
+        ],
+        "depth": [
+          3050,
+          3300
+        ]
+      },
+      "daily_pooja": {
+        "width": [
+          1600,
+          1750
+        ],
+        "depth": [
+          1700,
+          1850
+        ]
+      },
+      "mallanna_pooja": {
+        "width": [
+          2800,
+          3100
+        ],
+        "depth": [
+          3350,
+          3600
+        ]
+      }
+    },
+    "ritual": {
+      "status": "provisional fit reservation; family/pujari confirmation required",
+      "platformMm": [
+        1800,
+        900
+      ],
+      "offeringMm": [
+        1200,
+        450
+      ],
+      "personMm": [
+        650,
+        700
+      ],
+      "pillarMm": 100
+    }
+  }
+}
